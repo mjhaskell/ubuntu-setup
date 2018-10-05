@@ -127,3 +127,5 @@ if ! shopt -oq posix; then
 fi
 
 source /opt/ros/kinetic/setup.bash
+source ~/.rosrc
+source ~/.rosalias
