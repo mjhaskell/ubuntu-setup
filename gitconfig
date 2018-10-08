@@ -1,6 +1,8 @@
 [user]
-    name = NAME
-    email = EMAIL
+    	name = Mat Haskell
+    	email = mhaskell9@gmail.com
+[core]
+	editor = vim
 [push]
 	default = simple
 [alias]
