@@ -12,3 +12,6 @@ curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs \
 
 # Need to create this folder to put init.vim into
 mkdir ~/.config/nvim
+
+# Need xclip for nvim to copy to clipboard
+sudo apt install xclip
