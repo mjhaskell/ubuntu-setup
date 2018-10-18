@@ -1,0 +1,4 @@
+sudo install python-dev python-pip python3-dev python3-pip
+
+# this will install ipython and jupyter notebook
+pip3 install jupyter
