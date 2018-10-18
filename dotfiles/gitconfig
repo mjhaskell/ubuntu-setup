@@ -8,5 +8,5 @@
 [alias]
 	co = checkout
 	st = status
-	ct = commit
+	cm = commit
 	subup = submodule update --init --recursive
