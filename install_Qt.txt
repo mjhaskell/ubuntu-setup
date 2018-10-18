@@ -12,7 +12,7 @@ chmod +x <the_downloaded_file> (ex: qt-unified-linux-x64-3.0.5-online.run)
 A window will pop up
 click next or skip until it asks for Qt versions to install (you don't need a Qt account - just skip it)
 Boxes to Check (what I currently use)
- - Qt Creator 4.7.0-rc1
+ - Qt Creator 4.7.0-rc1 (you only need this or Tools/Qt Installer Framework 3.0 - but both doensn't hurt)
  - Qt 5.10.1
  - Tools/Qt Installer Framework 3.0
 
