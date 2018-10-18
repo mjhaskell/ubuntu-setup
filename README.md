@@ -1,6 +1,3 @@
-# scripts
-Set up Ubuntu the way I like it
-
 # How to Use
 ## Clone Repo Into Home (~)
 git clone https://github.com/mhask94/scripts
