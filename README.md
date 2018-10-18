@@ -11,4 +11,6 @@ chmod +x scripts/install_all
 ## Run install_all
 ./scripts/install_all
 
-## Items Requiring Manual Setup
+# Items Requiring Manual Setup
+## Qt
+Follow the instructions in install_Qt.txt
