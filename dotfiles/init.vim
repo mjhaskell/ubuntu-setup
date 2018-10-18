@@ -38,3 +38,7 @@ let g:clipboard = {
   \   },
   \   'cache_enabled': 1,
   \ }
+
+" Relative line numbering with absolute line number on current line
+set relativenumber
+set number
