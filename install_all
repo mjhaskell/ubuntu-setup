@@ -1,0 +1,6 @@
+bash install_ros_kinetic
+bash install_OSG
+
+cp bash_aliases ~/.bash_aliases
+cp bashrc ~/.bashrc
+cp gitconfig ~/.gitconfig
