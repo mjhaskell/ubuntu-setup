@@ -4,6 +4,4 @@ bash install_python
 bash install_nvim
 bash install_OSG
 
-cp dotfiles/bash_aliases ~/.bash_aliases
-cp dotfiles/bashrc ~/.bashrc
-cp dotfiles/gitconfig ~/.gitconfig
+bash setup_dotfiles
