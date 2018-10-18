@@ -2,8 +2,9 @@
 ## Clone Repo Into Home (~)
 git clone https://github.com/mhask94/scripts
 
-## Run install_all
-./scripts/install_all
+## Run setup_all
+cd scripts/\
+./setup_all
 
 # Items Requiring Manual Setup
 ## Qt
