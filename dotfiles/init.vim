@@ -52,6 +52,10 @@ let g:clipboard = {
   \   },
   \   'cache_enabled': 1,
   \ }
+  
+" Colorscheme
+"set termguicolors
+set background=dark
 
 " Relative line numbering with absolute line number on current line
 set relativenumber
@@ -108,6 +112,24 @@ nnoremap <leader>sv :source $MYVIMRC<cr>
 inoremap {<CR> {<CR>}<Esc>ko
 
 """"""""""" Plugins """"""""""""""""""
+""""""""" ALE
+" Use LSP linters
+" Install cquery https://github.com/cquery-project/cquery
+" Install pyls https://github.com/palantir/python-language-server
+let b:ale_linters = {'cpp': ['cquery'], 'python':['pyls']}
+let g:ale_completion_enabled = 1
+let g:ale_sign_column_always = 1
+
+" Show errors in airline status bar
+let g:airline#extensions#ale#enabled = 1
+
+"" Scroll through autocomplete options with Tab
+inoremap <expr><TAB> pumvisible() ? "\<C-n>" : "\<TAB>"
+
+" Use Ale to jumpy to definition, etc.
+nnoremap <silent> gh :ALEHover<CR>
+nnoremap <silent> gd :ALEGoToDefinition<CR>
+nnoremap <silent> gr :ALEFindReferences<CR>
 
 """""""""" Deoplete
 let g:deoplete#enable_at_startup = 1
@@ -123,6 +145,10 @@ let g:UltiSnipsJumpBackwardTrigger="<c-k>"
 
 " Allow :UltiSnipsEdit command to split your window.
 let g:UltiSnipsEditSplit="vertical"
+
+"""""""""" NerdCommenter
+" Align line-wise comment delimiters flush left instead of following code indentation
+let g:NERDDefaultAlign = 'left'
 
 """""""""" NerdTree """"""""""""""""""
 " Start nerdtree if start vim with no file specified
