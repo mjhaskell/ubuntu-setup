@@ -15,6 +15,9 @@ if [ ! -d "~/.config/nvim" ]; then
   mkdir '~/.config/nvim'
 fi
 
+# Copy UltiSnips folder for nvim to load custom snippets
+cp -r ./UltiSnips/ ~/.config/nvim/UltiSnips
+
 # Need xclip for nvim to copy to clipboard
 sudo apt install xclip
 
