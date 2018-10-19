@@ -14,6 +14,10 @@ Plug 'honza/vim-snippets'
 Plug 'scrooloose/nerdcommenter'
 Plug 'Raimondi/delimitMate'
 
+""""""""" Multi-entry selection UI. FZF
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+Plug 'junegunn/fzf.vim'
+
 """"""""" Utils
 Plug 'scrooloose/nerdtree'
 Plug 'mhask94/vim-nerdtree-syntax-highlight'
