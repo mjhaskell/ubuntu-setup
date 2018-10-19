@@ -173,4 +173,20 @@ call NERDTreeHighlightFile('h', 'yellow', 'none', 'yellow', '#151515')
 call NERDTreeHighlightFile('ui', 'blue', 'none', 'blue', '#151515')
 call NERDTreeHighlightFile('yaml', 'blue', 'none', 'blue', '#151515')
 call NERDTreeHighlightFile('sh', 'Magenta', 'none', '#ff00ff', '#151515')
+
+""""""""" VimAirline
+" Note: If symbols don't appear install them with
+" `sudo apt install fonts-powerline` Ubuntu
+let g:airline_powerline_fonts = 1
+let g:airline_theme = "dark"
+
+""""""""" Tmuxline
+" Note: this plugin is used to generate pretty formats for tmux that are saved
+" and then loaded by tmux on startup. That way your tmux always looks nice, not
+" just after you start vim.
+let g:airline#extensions#tmuxline#enabled = 0
 """""""""""""""""""""""""""""""""""""
+
+" Load all plugins now, generate help tags, errors and messages ignored
+packloadall
+silent! helptags ALL
