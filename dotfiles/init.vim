@@ -115,6 +115,16 @@ let g:deoplete#enable_at_startup = 1
 " Scroll through autocomplete options with Tab
 inoremap <expr><TAB> pumvisible() ? "\<C-n>" : "\<TAB>"
 
+"""""""""" UltiSnips
+" Trigger configuration. Do not use <tab> if you use https://github.com/Valloric/YouCompleteMe.
+" tab to expand snippets and Ctrl+j/Ctrl+k to move forward/backward"
+let g:UltiSnipsExpandTrigger="<tab>"
+let g:UltiSnipsJumpForwardTrigger="<c-j>"
+let g:UltiSnipsJumpBackwardTrigger="<c-k>"
+
+" Allow :UltiSnipsEdit command to split your window.
+let g:UltiSnipsEditSplit="vertical"
+
 """""""""" NerdTree """"""""""""""""""
 " Start nerdtree if start vim with no file specified
 autocmd StdinReadPre * let s:std_in=1
