@@ -51,9 +51,59 @@ let g:clipboard = {
   \   'cache_enabled': 1,
   \ }
 
-  " Relative line numbering with absolute line number on current line
-  set relativenumber
-  set number
+" Relative line numbering with absolute line number on current line
+set relativenumber
+set number
+  
+" Always display status bar
+set laststatus=2
+
+" swp files are the worst, disable them
+set nobackup
+set noswapfile
+
+" tabs are four spaces, smart tabbing
+set tabstop=4
+set shiftwidth=4
+set expandtab
+set smarttab
+
+augroup cpp
+  autocmd!
+  set tabstop=2
+  set shiftwidth=2
+  set nosmartindent
+augroup END
+
+augroup py
+  autocmd!
+  set tabstop=4
+  set shiftwidth=4
+  set nosmartindent
+augroup END
+
+"""""""" Custom Keys """"""""""""""
+" Set space for the leader
+let mapleader = "\\"
+nmap <space> <leader>
+vmap <space> <leader>
+
+" Escape Mappings for insert and visual modes
+inoremap jk <esc>
+vnoremap jk <esc>
+
+" Mappings to move up and down faster
+nnoremap J 10j
+nnoremap K 10k
+vnoremap J 10j
+vnoremap K 10k
+
+" Mappings to edit .vimrc/init.vim and source/save .vimrc
+nnoremap <leader>ev :vsplit $MYVIMRC<cr>
+nnoremap <leader>sv :source $MYVIMRC<cr>
+
+" Cpp stuff: nice curly braces
+inoremap {<CR> {<CR>}<Esc>ko
 
 """"""""""" Plugins """"""""""""""""""
 
