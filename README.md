@@ -12,3 +12,6 @@ cd scripts/\
 # Items Requiring Manual Setup
 ## Qt
 Follow the instructions in install_Qt.txt
+## Neovim
+After installing neovim, run :PlugInstall\
+Also need to change terminal profile to use Hack font (downloaded with install_nvim)
