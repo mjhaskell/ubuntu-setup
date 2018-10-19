@@ -3,27 +3,26 @@
 " contact: mhaskell9@gmail.com
 " date: Oct 17 2018
 
-" The Tutor told me to puth the next 3 lines in this file (idk if needed)
-" set runtimepath^=~/.vim runtimepath+=~/.vim/after
-" let &packpath = &runtimepath
-" source ~/.vimrc
-
 """""""" vim-plug plugin manager"""""""
 call plug#begin('~/.config/nvim/plugged')
 
 """"""""" Typing
+Plug 'w0rp/ale'
 Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
 Plug 'scrooloose/nerdcommenter'
+Plug 'Raimondi/delimitMate'
 
 """"""""" Utils
 Plug 'scrooloose/nerdtree'
 Plug 'mhask94/vim-nerdtree-syntax-highlight'
 " Must manually change terminal profile to use a NERD FONT for icons to work
 Plug 'ryanoasis/vim-devicons'
+Plug 'airblade/vim-gitgutter'
 
 """"""""" Style
+Plug 'vim-airline/vim-airline'
 Plug 'edkolev/tmuxline.vim'
 
 call plug#end()
