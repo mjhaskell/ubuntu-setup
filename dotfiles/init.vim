@@ -13,6 +13,9 @@ call plug#begin('~/.config/nvim/plugged')
 
 """"""""" Typing
 Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+Plug 'SirVer/ultisnips'
+Plug 'honza/vim-snippets'
+Plug 'scrooloose/nerdcommenter'
 
 """"""""" Utils
 Plug 'scrooloose/nerdtree'
