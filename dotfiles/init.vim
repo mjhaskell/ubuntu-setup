@@ -23,6 +23,7 @@ Plug 'scrooloose/nerdtree'
 Plug 'mhask94/vim-nerdtree-syntax-highlight'
 " Must manually change terminal profile to use a NERD FONT for icons to work
 Plug 'ryanoasis/vim-devicons'
+Plug 'vim-scripts/a.vim'
 Plug 'airblade/vim-gitgutter'
 
 """"""""" Style
@@ -130,7 +131,7 @@ let g:airline#extensions#ale#enabled = 1
 "" Scroll through autocomplete options with Tab
 inoremap <expr><TAB> pumvisible() ? "\<C-n>" : "\<TAB>"
 
-" Use Ale to jumpy to definition, etc.
+" Use Ale to jump to definition, etc.
 nnoremap <silent> gh :ALEHover<CR>
 nnoremap <silent> gd :ALEGoToDefinition<CR>
 nnoremap <silent> gr :ALEFindReferences<CR>
