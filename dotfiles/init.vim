@@ -73,6 +73,21 @@ set laststatus=2
 set nobackup
 set noswapfile
 
+" Don't redraw while executing macros
+set lazyredraw 
+
+" allows pattern matching with special characters
+set magic 
+
+" show the cursor position all the time
+set ruler   
+
+" 80 character per line
+set textwidth=80
+
+" Highlight one column after limit
+set colorcolumn=+1
+
 " tabs are four spaces, smart tabbing
 set tabstop=4
 set shiftwidth=4
@@ -115,6 +130,10 @@ nnoremap <leader>sv :source $MYVIMRC<cr>
 
 " Cpp stuff: nice curly braces
 inoremap {<CR> {<CR>}<Esc>ko
+
+" Clang-format
+map <C-K> :pyf /usr/share/clang/clang-format-3.8/clang-format.py<cr>
+imap <C-K> <c-o>:pyf /usr/share/clang/clang-format-3.8/clang-format.py<cr>
 
 """"""""""" Plugins """"""""""""""""""
 """"""""" ALE
