@@ -20,4 +20,4 @@ sudo apt install xclip
 
 # Need a Nerd Font to use some plugins
 # Also need to manually change terminal profile to use the Hack font
-sugo apt install fonts-hack-ttf fonts-hack-otf
+sudo apt install fonts-hack-ttf fonts-hack-otf
