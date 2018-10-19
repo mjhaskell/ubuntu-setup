@@ -14,7 +14,7 @@ call plug#begin('~/.config/nvim/plugged')
 """"""""" Typing
 Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 Plug 'SirVer/ultisnips'
-Plug 'mhask94/vim-snippets'
+Plug 'honza/vim-snippets'
 Plug 'scrooloose/nerdcommenter'
 
 """"""""" Utils
