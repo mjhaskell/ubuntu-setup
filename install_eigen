@@ -7,3 +7,5 @@ cmake ..
 sudo make install
 
 cd ~/scripts
+
+echo_green "eigen installed"

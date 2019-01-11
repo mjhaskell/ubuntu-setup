@@ -1,4 +1,0 @@
-cp dotfiles/bash_aliases ~/.bash_aliases
-cp dotfiles/bashrc ~/.bashrc
-cp dotfiles/gitconfig ~/.gitconfig
-cp dotfiles/init.vim ~/.config/nvim/init.vim

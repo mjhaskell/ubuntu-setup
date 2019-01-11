@@ -1,0 +1,6 @@
+bash install_pips
+bash install_ros_melodic
+
+chsh -s /bin/zsh
+zsh
+#sudo apt autoremove

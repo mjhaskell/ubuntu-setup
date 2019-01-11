@@ -17,8 +17,7 @@ shopt -s histappend
 
 # for setting history length see HISTSIZE and HISTFILESIZE in bash(1)
 HISTSIZE=1000
-HISTFILESIZE=2000sudo mount -t cifs //fs-caedm.et.byu.edu/mhask94 ~/J -o  username=mhask94,rw,uid=1002
-
+HISTFILESIZE=2000
 
 # check the window size after each command and, if necessary,
 # update the values of LINES and COLUMNS.
@@ -126,6 +125,6 @@ if ! shopt -oq posix; then
   fi
 fi
 
-source /opt/ros/kinetic/setup.bash
-source ~/.rosrc
-source ~/.rosalias
+source /opt/ros/melodic/setup.bash
+#source ~/.rosrc
+#source ~/.rosalias

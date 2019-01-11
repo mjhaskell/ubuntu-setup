@@ -1,6 +1,3 @@
-# make sure you can use apt-add-repository
-sudo apt install software-properties-common
-
 # install neovim
 sudo apt-add-repository ppa:neovim-ppa/stable
 sudo apt update
@@ -21,9 +18,6 @@ fi
 # Copy UltiSnips folder for nvim to load custom snippets
 cp -r ./UltiSnips/ ~/.config/nvim/UltiSnips
 
-# Need xclip for nvim to copy to clipboard
-sudo apt install xclip
-
 # Need a Nerd Font to use some plugins
 # Also need to manually change terminal profile to use the Hack font
 sudo apt install fonts-hack-ttf fonts-hack-otf fonts-powerline
@@ -41,3 +35,5 @@ cd ../../
 # https://stackoverflow.com/questions/28210269/importerror-cannot-import-name-main-when-running-pip-version-command-in-windo
 pip install testresources --user
 pip install python-language-server --user
+
+echo_green "neovim installed"

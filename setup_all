@@ -1,7 +1,0 @@
-bash install_git
-bash install_ros_kinetic
-bash install_python
-bash install_nvim
-bash install_OSG
-
-bash setup_dotfiles
