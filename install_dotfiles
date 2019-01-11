@@ -4,12 +4,6 @@ rm ~/.bash_aliases
 ln -s dotfiles/bash_aliases ~/.bash_aliases
 source ~/.bashrc
 
-ln -s dotfiles/zsh_aliases ~/.zsh_aliases
-rm ~/.zshrc
-ln -s dotfiles/zshrc ~/.zshrc
-ln -s dotfiles/mat.zsh-theme ~/.oh-my-zsh/themes/mat.zsh-theme
-source ~/.zshrc
-
 rm ~/.gitconfig
 ln -s dotfiles/gitconfig ~/.gitconfig
 

@@ -1,6 +1,5 @@
 bash install_color_fns
 bash install_common
-bash install_zsh
 bash install_nvim
 bash install_dotfiles
 bash install_eigen
