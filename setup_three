@@ -1,4 +1,5 @@
 bash install_pips
+bash install_opencv
 bash install_ros_melodic
 bash install_zsh
 
