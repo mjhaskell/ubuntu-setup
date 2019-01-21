@@ -1,5 +1,9 @@
+#!/bin/bash
+
 sudo apt update
 sudo apt upgrade
+
+echo_blue "installing common"
 
 sudo apt install zsh git curl
 sudo apt install vim exfat-utils exfat-fuse htop ssh vlc mesa-utils

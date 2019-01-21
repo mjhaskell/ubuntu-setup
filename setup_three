@@ -1,6 +1,14 @@
+#!/bin/bash
+
 bash install_pips
 bash install_opencv
 bash install_ros_melodic
 bash install_zsh
 
-#sudo apt autoremove
+echo_blue "autoremove old linux kernals"
+
+sudo apt autoremove
+
+echo_red "computer will now power off"
+
+sudo poweroff

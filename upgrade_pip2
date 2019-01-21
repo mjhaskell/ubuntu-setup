@@ -1,2 +1,10 @@
+#!/bin/bash
+
+echo_blue "upgrading pip2"
+
 pip2 install --upgrade pip setuptools wheel --user
-sudo shutdown -P now
+
+echo_green "pip2 upgraded"
+echo_red "computer will now power off"
+
+sudo poweroff

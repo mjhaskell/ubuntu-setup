@@ -1,3 +1,5 @@
+#!/bin/bash
+
 bash install_color_fns
 bash install_common
 bash install_nvim

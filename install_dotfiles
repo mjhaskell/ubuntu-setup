@@ -1,3 +1,5 @@
+#!/bin/bash
+
 rm ~/.bashrc
 ln -s dotfiles/bashrc ~/.bashrc
 rm ~/.bash_aliases

@@ -1,1 +1,3 @@
+#!/bin/bash
+
 bash upgrade_pip2
