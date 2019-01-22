@@ -28,7 +28,7 @@ sudo apt install fonts-hack-ttf fonts-hack-otf fonts-powerline
 
 git clone https://github.com/cquery-project/cquery --recursive
 cd cquery
-git subup
+git submodule update --init --recursive
 mkdir build && cd build
 cmake .. -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=~/.local/bin/ -DCMAKE_EXPORT_COMPILE_COMMANDS=YES
 cmake --build .
