@@ -1,3 +1,8 @@
 #!/bin/bash
 
-bash upgrade_pip2
+bash install_pips
+bash install_opencv
+bash install_ros_melodic
+
+echo_red "computer will now power off"
+sudo poweroff

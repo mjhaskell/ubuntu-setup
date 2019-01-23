@@ -1,10 +1,11 @@
 #!/bin/bash
 
-bash install_pips
-bash install_opencv
-bash install_ros_melodic
-bash install_zsh
+bash install_debs
 
 echo_blue "autoremove old linux kernals"
 sudo apt autoremove
 echo_green "autoremove complete"
+
+echo_red "switching to zsh"
+bash install_zsh
+
