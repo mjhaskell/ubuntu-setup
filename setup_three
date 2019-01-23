@@ -6,9 +6,5 @@ bash install_ros_melodic
 bash install_zsh
 
 echo_blue "autoremove old linux kernals"
-
 sudo apt autoremove
-
-echo_red "computer will now power off"
-
-sudo poweroff
+echo_green "autoremove complete"
