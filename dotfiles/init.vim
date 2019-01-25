@@ -20,9 +20,9 @@ Plug 'junegunn/fzf.vim'
 
 """"""""" Utils
 Plug 'scrooloose/nerdtree'
+Plug 'ryanoasis/vim-devicons'
 Plug 'mhask94/vim-nerdtree-syntax-highlight'
 " Must manually change terminal profile to use a NERD FONT for icons to work
-Plug 'ryanoasis/vim-devicons'
 Plug 'vim-scripts/a.vim'
 Plug 'airblade/vim-gitgutter'
 
@@ -42,6 +42,9 @@ filetype indent on
 
 " Always copy and paste to clipboard
 set clipboard+=unnamedplus
+
+"set encoding=UTF-8
+"set guifont=Hack\ Regular\ 12
 
 " Use xclip for clipboard
 " sudo apt install xclip

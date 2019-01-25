@@ -3,3 +3,8 @@ python-language-server/
 opencv/
 mendeleydesktop-latest
 google-chrome-stable_current_amd64.deb
+*.deb
+*.zip
+ttf/
+nerd-fonts/
+devicons-master/
