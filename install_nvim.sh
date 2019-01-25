@@ -23,8 +23,14 @@ fi
 cp -r ./UltiSnips/ ~/.config/nvim/UltiSnips
 
 # Need a Nerd Font to use some plugins
-# Also need to manually change terminal profile to use the Hack font
-sudo apt install fonts-hack-ttf fonts-hack-otf fonts-powerline
+# Also need to manually change terminal profile to use a nerd-font
+git clone --depth 1 https://github.com/ryanoasis/nerd-fonts.git
+cd nerd-fonts
+./install.sh CodeNewRoman
+sudo fc-cache -f -v
+cd ~/scripts
+#rm -rf nerd-fonts
+## might need to install 
 
 git clone https://github.com/cquery-project/cquery --recursive
 cd cquery
