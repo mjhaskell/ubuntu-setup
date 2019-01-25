@@ -19,5 +19,5 @@ If an error occured with a pip install saying it couldn't find main, then see [t
 After fixing the pip file, you will need to run these 2 lines again (if they didn't work)\
 pip install testresources --user\
 pip install python-language-server --user
-## Setting terminal font to a NerdFont
+### Setting terminal font to a NerdFont
 For the symbols to show up correctly in Neovim's NerdTree plugin, the terminal needs to be set to use a NerdFont. I have had troubles getting the downloaded NerdFont to show up in the list of available fonts for terminal profiles. See [here](https://superuser.com/questions/1335155/patched-fonts-not-showing-up-on-gnome-terminal) and [here](https://askubuntu.com/questions/1046871/nerd-font-not-fond-in-terminal-profile/) for references on how to get around this issue. I have tried installing dconf-editor and manually setting the font, and that seemed to work.
