@@ -99,8 +99,19 @@ source $ZSH/oh-my-zsh.sh
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
 
-#
-source ~/.zsh_aliases
-#
-source /opt/ros/melodic/setup.zsh
+# souce custom files
+if [ -f ~/.zsh_aliases ]; then
+    source ~/.zsh_aliases
+fi
 
+if [ -f ~/.sh_aliases ]; then
+    source ~/.sh_aliases
+fi
+
+if [ -f ~/.rosrc ]; then
+    source ~/.rosrc
+fi
+
+if [ -f ~/.ros_aliases ]; then
+    source ~/.ros_aliases
+fi

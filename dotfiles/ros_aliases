@@ -1,0 +1,6 @@
+alias vrosrc='nvim ~/.rosrc'
+alias srosrc='source ~/.rosrc'
+alias vrosalias='nvim ~/.ros_aliases'
+alias srosalias='source ~/.ros_aliases'
+
+alias copter='source ~/copter_ws/devel/setup.bash --extend'

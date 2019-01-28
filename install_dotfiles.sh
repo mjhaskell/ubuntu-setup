@@ -1,9 +1,30 @@
 #!/bin/bash
 
-rm ~/.bashrc
+if [ -f ~/.bashrc ]; then
+    rm ~/.bashrc
+fi
 ln -s ~/scripts/dotfiles/bashrc ~/.bashrc
-rm ~/.bash_aliases
+
+if [ -f ~/.bash_aliases ]; then
+    rm ~/.bash_aliases
+fi
 ln -s ~/scripts/dotfiles/bash_aliases ~/.bash_aliases
+
+if [ -f ~/.sh_aliases ]; then
+    rm ~/.sh_aliases
+fi
+ln -s ~/scripts/dotfiles/sh_aliases ~/.sh_aliases
+
+if [ -f ~/.rosrc ]; then
+    rm ~/.rosrc
+fi
+ln -s ~/scripts/dotfiles/rosrc ~/.rosrc
+
+if [ -f ~/.ros_aliases ]; then
+    rm ~/.ros_aliases
+fi
+ln -s ~/scripts/dotfiles/ros_aliases ~/.ros_aliases
+
 source ~/.bashrc
 
 rm ~/.gitconfig
