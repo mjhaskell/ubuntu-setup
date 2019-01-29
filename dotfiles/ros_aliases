@@ -1,3 +1,5 @@
+#!/bin/bash 
+
 alias vrosrc='nvim ~/.rosrc'
 alias srosrc='source ~/.rosrc'
 alias vrosalias='nvim ~/.ros_aliases'
