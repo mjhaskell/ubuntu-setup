@@ -21,4 +21,4 @@ source ~/.zshrc
 echo_green "zsh installed"
 
 chsh -s /bin/zsh
-zsh
+#zsh
