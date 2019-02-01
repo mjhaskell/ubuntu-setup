@@ -14,3 +14,5 @@ alias vshalias='nvim ~/.sh_aliases'
 alias scanip="nmap -sP 192.168.0.*"
 alias untar='tar -xvzf'
 alias keybind='gsettings set org.gnome.desktop.wm.keybindings'
+alias qt='~/Qt/Tools/QtCreator/bin/qtcreator'
+alias qtsh='~/Qt/Tools/QtCreator/bin/qtcreator.sh'
