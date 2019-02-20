@@ -14,6 +14,6 @@ sudo apt install ocl-icd-libopencl1 opencl-headers clinfo libffi6 libffi-dev gcc
 sudo apt install cmake pybind11-dev gdb libtool make libcanberra-gtk-module 
 sudo apt install gedit software-properties-common xclip tmux
 sudo apt install python-dev python-pip python3-dev python3-pip python3-tk
-sudo apt install simplescreenrecorder slack
+sudo apt install simplescreenrecorder 
 
 echo_green "common installed"
