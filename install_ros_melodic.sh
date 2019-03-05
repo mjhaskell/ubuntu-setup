@@ -22,5 +22,6 @@ rosdep update
 
 sudo apt install python-rosinstall python-rosinstall-generator python-wstool
 sudo apt install ros-melodic-eigen-stl-containers
+sudo apt install python3-catkin-pkg-modules python3-rospkg-modules
 
 echo_green "ROS Melodic installed"
