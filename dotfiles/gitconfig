@@ -10,4 +10,3 @@
 	st = status
 	cm = commit
 	subup = submodule update --init --recursive
-	gtest = submodule add https://github.com/google/googletest.git

@@ -8,4 +8,5 @@ bash install_dotfiles.sh
 bash install_eigen.sh
 bash install_OSG.sh
 bash install_gimp.sh
+bash install_lyx.sh
 bash upgrade_pips.sh
