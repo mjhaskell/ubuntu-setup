@@ -7,6 +7,8 @@ if [ -d ~/.ssh/ ]; then
         echo_blue "Found an ssh key"
     else
         echo_red ".ssh dir exists with no key"
+        echo_blue "Generating an ssh key"
+        ssh-keygen -t rsa -b 4096 -C "mhaskell9@gmail.com"
     fi
 else
     echo_red "No ssh keys exist"
