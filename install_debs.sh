@@ -1,6 +1,7 @@
 #!/bin/bash
 
 echo_blue "installing .deb applications"
+echo_red "Check if debs are up-to-date"
 
 #sudo apt install gdebi
 
@@ -12,7 +13,8 @@ wget -O mendeley.deb https://www.mendeley.com/repositories/ubuntu/stable/amd64/m
 sudo dpkg -i mendeley.deb
 echo_green "mendeley installed"
 
-wget -O slack.deb "https://downloads.slack-edge.com/linux_releases/slack-desktop-3.1.0-amd64.deb"
+wget -O slack.deb
+"https://downloads.slack-edge.com/linux_releases/slack-desktop-3.3.8-amd64.deb"
 sudo dpkg -i slack.deb
 echo_green "slack installed"
 
