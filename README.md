@@ -10,7 +10,7 @@ Any of the setup files can be ran individually rather than using the setup scrip
 
 # Items Requiring Manual Setup
 ## Qt
-Run install_qt.sh - this creates an executable called qt-installer.run -> run this file and follow GUI instructions. The version of Qt that I typically use is 5.10.1, because that is what I have used for a while and everything works. I might upgrade sometime.
+Run install_qt.sh - this creates an executable called qt-installer.run -> run this file and follow GUI instructions. The version of Qt that I typically use is 5.10.1, because that is what I have used for a while and everything works. I might upgrade sometime. Also, use this install location for aliases to work: ~/software/Qt
 ## Neovim
 After installing neovim, run :PlugInstall\
 Also need to change terminal profile to use the Code New Roman font (downloaded with install_nvim)\
