@@ -2,19 +2,18 @@
 ## Clone Repo Into Home (~)
 git clone https://github.com/mhask94/scripts
 
-## Run setup_all to Install All from Scratch
-cd scripts/\
-./setup_all
+## Run Setup Files
+Some of the install scripts require the computer to poweroff before continuing. The install files have been organized into 3 setup files. Run them in order. The computer will automatically power off after the 1st and 2nd setup scripts. If you want to use zsh rather than bash, then after the 3rd setup script run setup_zsh.sh.
 
-### Can run any install file as needed
-### Can run setup_dotfiles alone
+### Can run any install file individually as needed
+Any of the setup files can be ran individually rather than using the setup scripts. 
 
 # Items Requiring Manual Setup
 ## Qt
-Follow the instructions in install_Qt.txt
+Run install_qt.sh - this creates an executable called qt-installer.run -> run this file and follow GUI instructions. The version of Qt that I typically use is 5.10.1, because that is what I have used for a while and everything works. I might upgrade sometime.
 ## Neovim
 After installing neovim, run :PlugInstall\
-Also need to change terminal profile to use Hack font (downloaded with install_nvim)\
+Also need to change terminal profile to use the Code New Roman font (downloaded with install_nvim)\
 If an error occured with a pip install saying it couldn't find main, then see [this website](https://stackoverflow.com/questions/28210269/importerror-cannot-import-name-main-when-running-pip-version-command-in-windo).
 After fixing the pip file, you will need to run these 2 lines again (if they didn't work)\
 pip install testresources --user\
