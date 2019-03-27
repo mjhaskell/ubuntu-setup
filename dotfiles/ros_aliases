@@ -9,3 +9,7 @@ alias catkin_maker='catkin_make -DCMAKE_BUILD_TYPE=Release'
 alias catkin_maked='catkin_make -DCMAKE_BUILD_TYPE=Debug'
 alias copter='source ~/copter_ws/devel/setup.bash --extend'
 alias sdev='source devel/setup.zsh'
+ros_make() {(cd `echo $ROS_PACKAGE_PATH | awk -Fsrc: '{print $1}'` && catkin_make); }
+ros_maker() {(cd `echo $ROS_PACKAGE_PATH | awk -Fsrc: '{print $1}'` && catkin_maker); }
+ros_maked() {(cd `echo $ROS_PACKAGE_PATH | awk -Fsrc: '{print $1}'` && catkin_maked); }
+
