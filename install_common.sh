@@ -17,3 +17,11 @@ sudo apt install python-dev python-pip python3-dev python3-pip python3-tk
 sudo apt install simplescreenrecorder 
 
 echo_green "common installed"
+
+
+echo_blue "adding user to common groups"
+
+sudo usermod -a -G dialout $USER
+sudo usermod -a -G plugdev $USER
+
+echo_green "user added to common groups"
