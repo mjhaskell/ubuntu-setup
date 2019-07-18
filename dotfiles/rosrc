@@ -7,6 +7,9 @@ else
     echo_red "[ERROR] rosrc not sourced - invalid shell type"
 fi
 
+# set ROS info
+export ROS_IP=$(hostname -I | cut -f1 -d' ')
+
 # print ROS info
 COFF="\033[0m"
 if [ -n "$ROS_MASTER_URI" ]; then
