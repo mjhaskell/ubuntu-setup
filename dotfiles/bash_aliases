@@ -1,6 +1,0 @@
-#!/bin/bash
-
-alias sbashrc='source ~/.bashrc'
-alias vbashrc='nvim ~/.bashrc'
-alias vbashalias='nvim ~/.bash_aliases'
-alias sbashalias='nvim ~/.bash_aliases'

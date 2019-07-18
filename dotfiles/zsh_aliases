@@ -1,7 +1,0 @@
-#!/bin/bash
-
-alias szshrc='source ~/.zshrc'
-alias vzshrc='nvim ~/.zshrc'
-alias vzshalias='nvim ~/.zsh_aliases'
-alias szshalias='source ~/.zsh_aliases'
-

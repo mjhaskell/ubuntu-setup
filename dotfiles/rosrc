@@ -1,7 +1,26 @@
-#!/bin/bash
+# source correct ROS setup script
+if [ -n "$BASH" ]; then
+    source /opt/ros/melodic/setup.bash
+elif [ -n "$ZSH_NAME" ]; then
+    source /opt/ros/melodic/setup.zsh
+else
+    echo_red "[ERROR] rosrc not sourced - invalid shell type"
+fi
 
-source /opt/ros/melodic/setup.sh
-
+# print ROS info
 COFF="\033[0m"
-echo_yellow "ROS_MASTER: $COFF$ROS_MASTER_URI"
-echo_yellow "ROS_IP: $COFF$ROS_IP"
+if [ -n "$ROS_MASTER_URI" ]; then
+    echo_yellow "ROS_MASTER: $COFF$ROS_MASTER_URI"
+    if [ -n "$ROS_IP" ]; then
+        echo_yellow "ROS_IP: $COFF$ROS_IP"
+    fi
+    if [ -n "$ROS_HOSTNAME" ]; then
+        echo_yellow "ROS_HOSTNAME: $COFF$ROS_HOSTNAME"
+    fi
+fi
+
+# source my ros aliases
+if [ -f ~/.ros_aliases ]; then
+    source ~/.ros_aliases
+fi
+
