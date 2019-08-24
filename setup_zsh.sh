@@ -2,6 +2,8 @@
 
 echo_blue "setting up zsh"
 
+./install_ohmyzsh.sh
+
 if [ -f ~/.zsh_aliases ]; then
     rm ~/.zsh_aliases
 fi
@@ -18,7 +20,23 @@ fi
 ln -s ~/scripts/dotfiles/mat.zsh-theme ~/.oh-my-zsh/themes/mat.zsh-theme
 source ~/.zshrc
 
-echo_green "zsh installed"
+cat /etc/shells | grep /bin/zsh > test_shells.txt
+filename='test_shells.txt'
+exists=0
+while read line; do
+    if [ "$line" = "/bin/zsh" ]; then
+        exists=1
+        break
+    fi
+done < $filename
 
-chsh -s /bin/zsh
-#zsh
+if [ $exists = 1 ]; then
+    echo_green "switched to zsh"
+    chsh -s /bin/zsh $USER
+else
+    echo_red "[ERROR] can't switch to zsh\n\t/bin/zsh does not exist"
+fi
+rm test_shells.txt
+
+echo_purple "Log out for change to take place"
+

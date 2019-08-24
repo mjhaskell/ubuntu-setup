@@ -9,4 +9,4 @@ pip3 install --upgrade pip setuptools wheel --user
 echo_green "pip3 upgraded"
 
 echo_red "computer will now power off"
-sudo poweroff
+reboot

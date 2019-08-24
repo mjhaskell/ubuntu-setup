@@ -21,21 +21,21 @@ sudo apt upgrade
 echo_blue "downloading openCV-4.0.1"
 
 ### Uncomment lines below if you want to install the extra modules
-wget -O opencv.zip https://github.com/opencv/opencv/archive/4.0.1.zip
-#wget -O opencv_contrib.zip https://github.com/opencv/opencv_contrib/archive/4.0.1.zip
+mkdir ~/software/opencv
+cd ~/software/opencv
+wget -O opencv_4.0.1.zip https://github.com/opencv/opencv/archive/4.0.1.zip
+#wget -O opencv_contrib_4.0.1.zip https://github.com/opencv/opencv_contrib/archive/4.0.1.zip
 
-unzip opencv.zip
-#unzip opencv_contrib.zip
+unzip opencv_4.0.1.zip
+#unzip opencv_contrib_4.0.1.zip
 
-mv opencv-4.0.1 opencv
-#mv opencv_contrib-4.0.1 opencv_contrib
-
-rm -rf opencv.zip
-#rm -rf opencv_contrib.zip
+rm -rf opencv_4.0.1.zip
+#rm -rf opencv_contrib_4.0.1.zip
 
 echo_blue "installing openCV, this may take a while"
 
-cd opencv
+cd opencv_4.0.1
+#cd opencv_contrib_4.0.1
 mkdir build && cd build
 
 ### choose 1 of the following 2 lines (1-default, 2-extra modules)

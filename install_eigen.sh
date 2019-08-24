@@ -2,7 +2,8 @@
 
 echo_blue "installing eigen"
 
-cd ~
+mkdir ~/software/eigen3
+cd ~/software/eigen3
 git clone https://github.com/eigenteam/eigen-git-mirror.git
 cd eigen-git-mirror
 git checkout tags/3.3.5

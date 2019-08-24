@@ -1,5 +1,7 @@
 #!/bin/bash
 
+#sed -i 's/^ZSH_THEME=".*"$/ZSH_THEME="mat"/' ~/.zshrc
+
 if [ -f ~/.bashrc ]; then
     rm ~/.bashrc
 fi
