@@ -11,36 +11,85 @@ sudo apt install libgtk-3-dev pkg-config libavcodec-dev libavformat-dev
 sudo apt install libswscale-dev libtbb2 libtbb-dev libjpeg-dev libpng-dev
 sudo apt install libtiff-dev libjasper-dev libdc1394-22-dev ffmpeg
 sudo apt install libv41-dev libxvidcore-dev libx264-dev unzip
-sudo apt install libatlas-base-dev gfortran
+sudo apt install libatlas-base-dev gfortran libhdf5-serial-dev
+sudo apt install libeigen-stl-containers-dev libavresample-dev 
+sudo apt install libprotobuf-dev libgtkglext1-dev libceres-dev libcaffe-cuda-dev
+sudo apt install coinor-libclp-dev libogre-1.9-dev ogre-1.9-tools ocl-icd-dev
+sudo apt install hdf5-tools 
+# sudo apt install libvtk7-dev (broken - ROS uses vtk6)
 
 echo_blue "updating/upgrading apt"
 
 sudo apt update
 sudo apt upgrade
 
-echo_blue "downloading openCV-4.0.1"
+echo_blue "downloading most recent openCV tag"
+
+# fix header file sourcing location issues with OpenBLAS
+sudo ln -s /usr/include/x86_64-linux-gnu/cblas.h /usr/include/cblas.h
 
 ### Uncomment lines below if you want to install the extra modules
-mkdir ~/software/opencv
-cd ~/software/opencv
-wget -O opencv_4.0.1.zip https://github.com/opencv/opencv/archive/4.0.1.zip
-#wget -O opencv_contrib_4.0.1.zip https://github.com/opencv/opencv_contrib/archive/4.0.1.zip
+mkdir ~/software/OpenCV
+cd ~/software/OpenCV
+git clone https://github.com/opencv/opencv.git
+git clone https://github.com/opencv/opencv_contrib.git
+git clone https://github.com/opencv/opencv_extra.git
+cd opencv
+git checkout $(curl --silent "https://api.github.com/repos/opencv/opencv/releases/latest" | grep '"tag_name":' | sed -E 's/.*"([^"]+)".*/\1/')
+cd ../opencv_contrib
+git checkout $(curl --silent "https://api.github.com/repos/opencv/opencv/releases/latest" | grep '"tag_name":' | sed -E 's/.*"([^"]+)".*/\1/')
+cd ../opencv_extra
+git checkout $(curl --silent "https://api.github.com/repos/opencv/opencv/releases/latest" | grep '"tag_name":' | sed -E 's/.*"([^"]+)".*/\1/')
+cd ..
 
-unzip opencv_4.0.1.zip
-#unzip opencv_contrib_4.0.1.zip
-
-rm -rf opencv_4.0.1.zip
-#rm -rf opencv_contrib_4.0.1.zip
+## for real sense camera
+# librealsense with apt
+sudo apt-key adv --keyserver keys.gnupg.net --recv-key F6E65AC044F831AC80A06380C8B3A55A6F3EFCDE || sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-key F6E65AC044F831AC80A06380C8B3A55A6F3EFCDE
+sudo add-apt-repository "deb http://realsense-hw-public.s3.amazonaws.com/Debian/apt-repo bionic main" -u
+sudo apt install librealsense2-dkms librealsense2-utils librealsense2-dev librealsense2-dbg
+# OR librealsense from source
+#git clone https://github.com/IntelRealSense/librealsense.git
+#cd librealsense
+#git co $(curl --silent "https://api.github.com/repos/IntelRealSense/librealsense/releases/latest" | grep '"tag_name":' | sed -E 's/.*"([^"]+)".*/\1/')
+# [figure out how to build]
 
 echo_blue "installing openCV, this may take a while"
 
-cd opencv_4.0.1
-#cd opencv_contrib_4.0.1
+cd opencv
 mkdir build && cd build
-
-### choose 1 of the following 2 lines (1-default, 2-extra modules)
-cmake -D CMAKE_BUILD_TYPE=RELEASE -D CMAKE_INSTALL_PREFIX=/usr/local -D INSTALL_PYTHON_EXAMPLES=OFF -D INSTALL_C_EXAMPLES=OFF -D OPENCV_ENABLE_NONFREE=ON -D BUILD_EXAMPLES=OFF ..
-#cmake -D CMAKE_BUILD_TYPE=RELEASE -D CMAKE_INSTALL_PREFIX=/usr/local -D INSTALL_PYTHON_EXAMPLES=OFF -D INSTALL_C_EXAMPLES=OFF -D OPENCV_ENABLE_NONFREE=ON -D BUILD_EXAMPLES=OFF -D OPENCV_EXTRA_MODULES_PATH=~/scripts/opencv_contrib/modules ..
+cmake -D CMAKE_BUILD_TYPE=RELEASE \
+            -D CMAKE_INSTALL_PREFIX=/usr/local/opencv \
+            -D WITH_CUDA=ON \
+            -D ENABLE_FAST_MATH=1 \
+            -D CUDA_FAST_MATH=1 \
+            -D WITH_CUBLAS=1 \
+            -D INSTALL_PYTHON_EXAMPLES=OFF \
+            -D ENABLE_PRECOMPILED_HEADERS=OFF \
+            -D WITH_OPENMP=ON \
+            -D WITH_NVCUVID=ON \
+            -D OPENCV_EXTRA_MODULES_PATH=~/software/OpenCV/opencv_contrib/modules \
+            -D BUILD_opencv_cudacodec=OFF \
+            -D PYTHON_DEFAULT_EXECUTABLE=$(which python3) \
+            -D BUILD_USE_SYMLINKS=ON \
+            -D BUILD_PERF_TESTS=OFF \
+            -D BUILD_TESTS=OFF \
+            -D BUILD_JAVA=OFF \
+            -D BUILD_PROTOBUF=ON \
+            -D BUILD_opencv_java_bindings_gen=OFF \
+            -D BUILD_opencv_cnn_3dobj=ON \
+            -D WITH_GDAL=ON \
+            -D WITH_CLP=ON \
+            -D Tesseract_INCLUDE_DIR=/usr/include/tesseract \
+            -D Tesseract_LIBRARY=/usr/lib/x86_64-linux-gnu/libtesseract.so \
+            -D OpenBLAS_LIB=/usr/lib/x86_64-linux-gnu/openblas/libblas.so \
+            -D WITH_OPENGL=ON \
+            -D WITH_VULKAN=ON \
+            -D PYTHON3_INCLUDE_DIR2=~/.local/include/python3.6m \
+            -D INSTALL_C_EXAMPLES=OFF \
+            -D OPENCV_ENABLE_NONFREE=OFF \
+            -D BUILD_EXAMPLES=OFF \
+            ..
+cmake -DOPENCV_PYTHON3_VERSION=ON .. # needs to be its own line as 2nd cmake cfg
 
 make -j8
 sudo make install
