@@ -1,40 +1,70 @@
 #!/bin/bash
 
-#sed -i 's/^ZSH_THEME=".*"$/ZSH_THEME="mat"/' ~/.zshrc
-
-if [ -f ~/.bashrc ]; then
-    rm ~/.bashrc
+# universal terminal rc
+if [ ! -h ~/.termrc ]; then
+    if [ -f ~/.termrc ]; then rm ~/.termrc; fi
+    ln -s ~/scripts/dotfiles/termrc ~/.termrc
 fi
-ln -s ~/scripts/dotfiles/bashrc ~/.bashrc
 
-if [ -f ~/.bash_aliases ]; then
-    rm ~/.bash_aliases
+# source termrc in both bashrc and zshrc
+text=$'\n#source custom termrc\nif [ -f ~/.termrc ]; then . ~/termrc; fi\n'
+if ! grep -q '~/.termrc' ~/.bashrc; then
+    echo_blue "Appending termrc to bashrc"
+    echo "$text" >> ~/.bashrc
 fi
-ln -s ~/scripts/dotfiles/bash_aliases ~/.bash_aliases
 
-if [ -f ~/.sh_aliases ]; then
-    rm ~/.sh_aliases
+if ! grep -q '~/.termrc' ~/.zshrc; then
+    echo_blue "Appending termrc to zshrc"
+    echo "$text" >> ~/.zshrc
 fi
-ln -s ~/scripts/dotfiles/sh_aliases ~/.sh_aliases
+unset text
 
-if [ -f ~/.rosrc ]; then
-    rm ~/.rosrc
+# change zsh theme to my custom theme
+if ! grep -q 'ZSH_THEME="mat"' ~/.zshrc; then 
+    echo_blue "Changing ZSH_THEME to mat"
+    sed -i 's/^ZSH_THEME=".*"$/ZSH_THEME="mat"/' ~/.zshrc
 fi
-ln -s ~/scripts/dotfiles/rosrc ~/.rosrc
 
-if [ -f ~/.ros_aliases ]; then
-    rm ~/.ros_aliases
+# aliases
+if [ ! -h ~/.sh_aliases ]; then
+    if [ -f ~/.sh_aliases ]; then rm ~/.sh_aliases; fi
+    ln -s ~/scripts/dotfiles/sh_aliases ~/.sh_aliases
 fi
-ln -s ~/scripts/dotfiles/ros_aliases ~/.ros_aliases
 
+# ROS
+if [ ! -h ~/.rosrc ]; then
+    if [ -f ~/.rosrc ]; then rm ~/.rosrc; fi
+    ln -s ~/scripts/dotfiles/rosrc ~/.rosrc
+fi
+
+if [ ! -h ~/.ros_aliases ]; then
+    if [ -f ~/.ros_aliases ]; then rm ~/.ros_aliases; fi
+    ln -s ~/scripts/dotfiles/ros_aliases ~/.ros_aliases
+fi
+
+# apply changes to current shell
 source ~/.bashrc
 
-rm ~/.gitconfig
-ln -s ~/scripts/dotfiles/gitconfig ~/.gitconfig
+# git
+if [ ! -h ~/.gitconfig ]; then
+    if [ -f ~/.gitconfig ]; then rm ~/.gitconfig; fi
+    ln -s ~/scripts/dotfiles/gitconfig ~/.gitconfig
+fi
 
-rm ~/.config/nvim/init.vim
-ln -s ~/scripts/dotfiles/init.vim ~/.config/nvim/init.vim
+# nvim
+if [ ! -h ~/.config/nvim/init.vim ]; then
+    if [ -f ~/.config/nvim/init.vim ]; then rm ~/.config/nvim/init.vim; fi
+    ln -s ~/scripts/dotfiles/init.vim ~/.config/nvim/init.vim
+fi
 
-ln -s ~/scripts/dotfiles/tmux-snapshot ~/.tmux-snapshot
-ln -s ~/scripts/dotfiles/tmux.conf ~/.tmux.conf
+# tmux
+if [ ! -h ~/.tmux-snapshot ]; then
+    if [ -f ~/.tmux-snapshot ]; then rm ~/.tmux-snapshot; fi
+    ln -s ~/scripts/dotfiles/tmux-snapshot ~/.tmux-snapshot
+fi
+
+if [ ! -h ~/.tmux.conf ]; then
+    if [ -f ~/.tmux.conf ]; then rm ~/.tmux.conf; fi
+    ln -s ~/scripts/dotfiles/tmux.conf ~/.tmux.conf
+fi
 tmux source-file ~/.tmux.conf
