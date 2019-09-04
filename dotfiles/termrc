@@ -1,0 +1,37 @@
+#!/bin/bash
+
+##################################  BASH  ######################################
+if [ $BASH ]; then
+    echo_blue "BASH"
+    export GIT_PS1_SHOWDIRTYSTATE=1
+    PS1='\n';   # start with a new line
+    PS1+='${debian_chroot:+($debian_chroot)}';
+    PS1+='\[\033[00;92m\]\u@\h';          # print username@hostname
+    PS1+='\[\033[00m\]:';
+    PS1+='\[\033[01;34m\]\w';             # print working directory
+    PS1+='\[\033[00;33m\] $(__git_ps1)';  # print git branch when in git repo
+    PS1+='\n';                            # print new line before dollar sign
+    PS1+='\[\033[00;92m\]\$';             # print dollar sign
+    PS1+='\[\033[00m\] ';                 # reset color to white
+    
+    alias sbashrc='source ~/.bashrc'
+    alias vbashrc='nvim ~/.bashrc'
+
+##################################  ZSH  ######################################
+elif [ $ZSH_NAME ]; then
+    echo_blue "ZSH"
+    alias szshrc='source ~/.zshrc'
+    alias vzshrc='nvim ~/.zshrc'
+fi
+
+##################################  BOTH  ######################################
+alias stermrc='source ~/.termrc'
+alias vtermrc='vi ~/.termrc'
+
+if [ -f ~/.sh_aliases ]; then
+    . ~/.sh_aliases
+fi
+
+if [ -f ~/.rosrc ]; then
+    source ~/.rosrc
+fi
