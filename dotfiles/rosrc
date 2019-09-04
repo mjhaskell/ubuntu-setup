@@ -4,7 +4,8 @@ if [ -n "$BASH" ]; then
 elif [ -n "$ZSH_NAME" ]; then
     source /opt/ros/melodic/setup.zsh
 else
-    echo_red "[ERROR] rosrc not sourced - invalid shell type"
+    source /opt/ros/melodic/setup.sh
+    echo_purple "[INFO] default ros setup.sh sourced"
 fi
 
 # set ROS info
