@@ -7,7 +7,7 @@ if [ ! -h ~/.termrc ]; then
 fi
 
 # source termrc in both bashrc and zshrc
-text=$'\n#source custom termrc\nif [ -f ~/.termrc ]; then . ~/termrc; fi\n'
+text=$'\n# source custom termrc\nif [ -f ~/.termrc ]; then . ~/.termrc; fi\n'
 if ! grep -q '~/.termrc' ~/.bashrc; then
     echo_blue "Appending termrc to bashrc"
     echo "$text" >> ~/.bashrc
@@ -43,7 +43,13 @@ if [ ! -h ~/.ros_aliases ]; then
 fi
 
 # apply changes to current shell
-source ~/.bashrc
+if [ $BASH ]; then
+    echo_purple "Sourcing bashrc"
+    source ~/.bashrc
+elif [ $ZSH_NAME ]; then
+    echo_purple "Sourcing zshrc"
+    source ~/.zshrc
+fi
 
 # git
 if [ ! -h ~/.gitconfig ]; then

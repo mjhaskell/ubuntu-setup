@@ -43,11 +43,12 @@ git checkout $(curl --silent "https://api.github.com/repos/opencv/opencv/release
 cd ..
 
 ## for real sense camera
-# librealsense with apt
-sudo apt-key adv --keyserver keys.gnupg.net --recv-key F6E65AC044F831AC80A06380C8B3A55A6F3EFCDE || sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-key F6E65AC044F831AC80A06380C8B3A55A6F3EFCDE
-sudo add-apt-repository "deb http://realsense-hw-public.s3.amazonaws.com/Debian/apt-repo bionic main" -u
-sudo apt install librealsense2-dkms librealsense2-utils librealsense2-dev librealsense2-dbg
-# OR librealsense from source
+## librealsense with apt
+#sudo apt-key adv --keyserver keys.gnupg.net --recv-key F6E65AC044F831AC80A06380C8B3A55A6F3EFCDE || sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-key F6E65AC044F831AC80A06380C8B3A55A6F3EFCDE
+#sudo add-apt-repository "deb http://realsense-hw-public.s3.amazonaws.com/Debian/apt-repo bionic main" -u
+#sudo apt install librealsense2-dkms librealsense2-utils librealsense2-dev librealsense2-dbg
+
+## OR librealsense from source
 #git clone https://github.com/IntelRealSense/librealsense.git
 #cd librealsense
 #git co $(curl --silent "https://api.github.com/repos/IntelRealSense/librealsense/releases/latest" | grep '"tag_name":' | sed -E 's/.*"([^"]+)".*/\1/')
@@ -57,7 +58,8 @@ echo_blue "installing openCV, this may take a while"
 
 cd opencv
 mkdir build && cd build
-cmake -D CMAKE_BUILD_TYPE=RELEASE \
+if ls /usr/local | grep -q "cuda"; then
+    cmake -D CMAKE_BUILD_TYPE=RELEASE \
             -D CMAKE_INSTALL_PREFIX=/usr/local/opencv \
             -D WITH_CUDA=ON \
             -D ENABLE_FAST_MATH=1 \
@@ -89,10 +91,20 @@ cmake -D CMAKE_BUILD_TYPE=RELEASE \
             -D OPENCV_ENABLE_NONFREE=OFF \
             -D BUILD_EXAMPLES=OFF \
             ..
-cmake -DOPENCV_PYTHON3_VERSION=ON .. # needs to be its own line as 2nd cmake cfg
-
+    cmake -DOPENCV_PYTHON3_VERSION=ON .. # needs to be its own line as 2nd cmake cfg
+else
+    cmake -D CMAKE_BUILD_TYPE=RELEASE \
+            -D CMAKE_INSTALL_PREFIX=/usr/local/opencv \
+            -D INSTALL_PYTHON_EXAMPLES=OFF \
+            -D INSTALL_C_EXAMPLES=OFF \
+            -D OPENCV_ENABLE_NONFREE=ON \
+            -D BUILD_EXAMPLES=OFF \
+            -D OPENCV_EXTRA_MODULES_PATH=~/software/OpenCV/opencv_contrib/modules \
+            ..
+fi
 make -j8
 sudo make install
+sudo ldconfig
 
 cd ~/scripts
 

@@ -2,7 +2,6 @@
 
 ##################################  BASH  ######################################
 if [ $BASH ]; then
-    echo_blue "BASH"
     export GIT_PS1_SHOWDIRTYSTATE=1
     PS1='\n';   # start with a new line
     PS1+='${debian_chroot:+($debian_chroot)}';
@@ -19,7 +18,6 @@ if [ $BASH ]; then
 
 ##################################  ZSH  ######################################
 elif [ $ZSH_NAME ]; then
-    echo_blue "ZSH"
     alias szshrc='source ~/.zshrc'
     alias vzshrc='nvim ~/.zshrc'
 fi
@@ -33,5 +31,5 @@ if [ -f ~/.sh_aliases ]; then
 fi
 
 if [ -f ~/.rosrc ]; then
-    source ~/.rosrc
+    . ~/.rosrc
 fi
