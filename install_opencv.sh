@@ -78,7 +78,7 @@ if ls /usr/local | grep -q "cuda"; then
             -D BUILD_JAVA=OFF \
             -D BUILD_PROTOBUF=ON \
             -D BUILD_opencv_java_bindings_gen=OFF \
-            -D BUILD_opencv_cnn_3dobj=ON \
+            -D BUILD_opencv_cnn_3dobj=OFF \
             -D WITH_GDAL=ON \
             -D WITH_CLP=ON \
             -D Tesseract_INCLUDE_DIR=/usr/include/tesseract \
