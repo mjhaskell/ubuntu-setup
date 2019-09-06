@@ -20,7 +20,7 @@ if [ ! -d "${HOME}/.config/nvim" ]; then
 fi
 
 # Copy UltiSnips folder for nvim to load custom snippets
-cp -r ./UltiSnips/ ~/.config/nvim/UltiSnips
+ln -s ~/scripts/UltiSnips ~/.config/nvim/UltiSnips
 
 # Need a Nerd Font to use some plugins
 # Also need to manually change terminal profile to use a nerd-font
