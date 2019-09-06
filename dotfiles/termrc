@@ -38,9 +38,7 @@ if [ -d /usr/local/opencv ]; then
     if ! echo $PATH | grep -q /usr/local/opencv/bin; then
         export PATH=/usr/local/opencv/bin:$PATH
     fi
-    if ! echo $PYTHONPATH | grep -q /usr/local/opencv/lib/python3.6/dist-packages; then
-        export PYTHONPATH=/usr/local/opencv/lib/python3.6/dist-packages:$PYTHONPATH
-    fi
+    export PYTHONPATH=/usr/local/opencv/lib/python3.6/dist-packages
 fi
 
 # source aliases
