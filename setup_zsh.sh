@@ -2,23 +2,36 @@
 
 echo_blue "setting up zsh"
 
-./install_ohmyzsh.sh
-
-if [ -f ~/.zsh_aliases ]; then
-    rm ~/.zsh_aliases
+if [ ! -d ~/.oh-my-zsh ]; then
+    ./install_ohmyzsh.sh
 fi
-ln -s ~/scripts/dotfiles/zsh_aliases ~/.zsh_aliases
 
-if [ -f ~/.zshrc ]; then
-    rm ~/.zshrc
+if [ ! -h ~/.oh-my-zsh/themes/mat.zsh-theme ]; then
+    if [ -f ~/.oh-my-zsh/themes/mat.zsh-theme ] ; then 
+        rm ~/.oh-my-zsh/themes/mat.zsh-theme
+    fi
+    ln -s ~/scripts/dotfiles/mat.zsh-theme ~/.oh-my-zsh/themes/mat.zsh-theme
 fi
-ln -s ~/scripts/dotfiles/zshrc ~/.zshrc
 
-if [ -f ~/.oh-my-zsh/themes/mat.zsh-theme ]; then
-    rm ~/.oh-my-zsh/themes/mat.zsh-theme
+text=$'\n# source custom termrc\nif [ -f ~/.termrc ]; then . ~/.termrc; fi\n'
+if ! grep -q '~/.termrc' ~/.zshrc; then
+    echo_blue "Appending termrc to zshrc"
+    echo "$text" >> ~/.zshrc
 fi
-ln -s ~/scripts/dotfiles/mat.zsh-theme ~/.oh-my-zsh/themes/mat.zsh-theme
+unset text
+
+# change zsh theme to my custom theme
+if ! grep -q 'ZSH_THEME="mat"' ~/.zshrc; then 
+    echo_blue "Changing ZSH_THEME to mat"
+    sed -i 's/^ZSH_THEME=".*"$/ZSH_THEME="mat"/' ~/.zshrc
+fi
+
 source ~/.zshrc
+
+if [ "$SHELL" = "/bin/zsh" ]; then 
+    echo_blue "Shell is already zsh"
+    return
+fi
 
 cat /etc/shells | grep /bin/zsh > test_shells.txt
 filename='test_shells.txt'
