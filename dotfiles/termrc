@@ -26,16 +26,29 @@ fi
 alias stermrc='source ~/.termrc'
 alias vtermrc='vi ~/.termrc'
 
-if [ -d /usr/local/cuda/bin ]; then export PATH=/usr/local/cuda/bin:$PATH; fi
-if [ -d /usr/local/opencv ]; then 
-    export PATH=/usr/local/opencv/bin:$PATH;
-    export PYTHONPATH=/usr/local/opencv/lib/python3.6/dist-packages:$PYTHONPATH
+# add CUDA to path if not already
+if [ -d /usr/local/cuda/bin ]; then 
+    if ! echo $PATH | grep -q /usr/local/cuda/bin; then
+        export PATH=/usr/local/cuda/bin:$PATH
+    fi
 fi
 
+# add OpenCV to path if not already
+if [ -d /usr/local/opencv ]; then 
+    if ! echo $PATH | grep -q /usr/local/opencv/bin; then
+        export PATH=/usr/local/opencv/bin:$PATH
+    fi
+    if ! echo $PYTHONPATH | grep -q /usr/local/opencv/lib/python3.6/dist-packages; then
+        export PYTHONPATH=/usr/local/opencv/lib/python3.6/dist-packages:$PYTHONPATH
+    fi
+fi
+
+# source aliases
 if [ -f ~/.sh_aliases ]; then
     . ~/.sh_aliases
 fi
 
+# source ros config
 if [ -f ~/.rosrc ]; then
     . ~/.rosrc
 fi
