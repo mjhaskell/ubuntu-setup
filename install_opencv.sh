@@ -90,8 +90,8 @@ if ls /usr/local | grep -q "cuda"; then
             -D INSTALL_C_EXAMPLES=OFF \
             -D OPENCV_ENABLE_NONFREE=OFF \
             -D BUILD_EXAMPLES=OFF \
-            ..
-    cmake -DOPENCV_PYTHON3_VERSION=ON .. # needs to be its own line as 2nd cmake cfg
+            .. > cmake_log.txt 2>&1
+    cmake -DOPENCV_PYTHON3_VERSION=ON .. >> cmake_log.txt 2>&1
 else
     cmake -D CMAKE_BUILD_TYPE=RELEASE \
             -D CMAKE_INSTALL_PREFIX=/usr/local/opencv \
@@ -100,12 +100,19 @@ else
             -D OPENCV_ENABLE_NONFREE=ON \
             -D BUILD_EXAMPLES=OFF \
             -D OPENCV_EXTRA_MODULES_PATH=~/software/OpenCV/opencv_contrib/modules \
-            ..
+            .. > cmake_log.txt 2>&1
 fi
-make -j8
-sudo make install
-sudo ldconfig
+
+if grep -q 'Configuring done' cmake_log.txt; then
+    echo_green "cmake configuration finished"
+    make -j8
+    sudo make install
+    sudo ldconfig
+    echo_green "openCV was installed"
+else
+    echo_red "[ERROR] cmake configuration failed"
+    cat cmake_log.txt
+fi
 
 cd ~/scripts
 
-echo_green "openCV was installed"
