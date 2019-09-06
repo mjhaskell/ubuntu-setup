@@ -12,7 +12,8 @@ ipscan() { ip_addr=$(hostname -I | cut -f1 -d' '); if [ -n "$ZSH_NAME" ]; then
     }
 
 # general aliases
-alias jdrive='sudo mount -t cifs //fs-caedm.et.byu.edu/mhask94 ~/J -o  username=mhask94,rw,uid=1002'
+alias jdrive='sudo mount -t cifs //fs-caedm.et.byu.edu/mhask94 ~/J -o
+username=mhask94,rw,uid=$(id -u)'
 alias shutnow='sudo shutdown -P now'
 alias vi='nvim'
 alias nb='jupyter-notebook'
