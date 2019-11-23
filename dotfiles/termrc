@@ -3,8 +3,7 @@
 ##################################  BASH  ######################################
 if [ $BASH ]; then
     export GIT_PS1_SHOWDIRTYSTATE=1
-    PS1='\n';   # start with a new line
-    PS1+='${debian_chroot:+($debian_chroot)}';
+    PS1='${debian_chroot:+($debian_chroot)}';
     PS1+='\[\033[00;92m\]\u@\h';          # print username@hostname
     PS1+='\[\033[00m\]:';
     PS1+='\[\033[01;34m\]\w';             # print working directory

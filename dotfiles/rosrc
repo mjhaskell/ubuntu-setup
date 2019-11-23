@@ -1,11 +1,11 @@
 # source correct ROS setup script
-if [ -n "$BASH" ]; then
-    source /opt/ros/melodic/setup.bash
-elif [ -n "$ZSH_NAME" ]; then
-    source /opt/ros/melodic/setup.zsh
-else
-    source /opt/ros/melodic/setup.sh
-    echo_purple "[INFO] default ros setup.sh sourced"
+if [ -d /opt/ros ]; then
+    if [ -n "$BASH" ]; then source /opt/ros/melodic/setup.bash
+    elif [ -n "$ZSH_NAME" ]; then source /opt/ros/melodic/setup.zsh
+    else
+        source /opt/ros/melodic/setup.sh
+        echo_purple "[INFO] default ros setup.sh sourced"
+    fi
 fi
 
 # set ROS info
