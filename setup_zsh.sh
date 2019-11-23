@@ -51,7 +51,7 @@ else
 fi
 rm test_shells.txt
 
-source ~/.zsh_rc
+source ~/.zshrc
 
 echo_purple "Log out for change to take place"
 
