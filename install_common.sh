@@ -16,8 +16,9 @@ sudo apt install gedit software-properties-common xclip tmux
 sudo apt install python-dev python-pip python3-dev python3-pip python3-tk
 sudo apt install simplescreenrecorder nmap ccache cifs-utils
 
-echo_green "common installed"
+mkdir ~/software
 
+echo_green "common installed"
 
 echo_blue "adding user to common groups"
 
