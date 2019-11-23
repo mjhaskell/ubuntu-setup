@@ -74,3 +74,12 @@ if [ ! -h ~/.tmux.conf ]; then
     ln -s ~/scripts/dotfiles/tmux.conf ~/.tmux.conf
 fi
 tmux source-file ~/.tmux.conf
+
+# ipython
+dir=~/.ipython/profile_default/startup
+if [ ! -d $dir ]; then mkdir -p $dir; fi
+if [ ! -h $dir/00_imports.py ]; then
+    if [ -f $dir/00_imports.py ]; then rm $dir/00_imports.py; fi
+    ln -s ~/scripts/dotfiles/00_imports.py $dir/00_imports.py
+fi
+unset dir
