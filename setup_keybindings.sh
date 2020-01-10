@@ -29,7 +29,6 @@ $keybind move-to-side-n "['<alt>k']"
 $keybind move-to-side-e "['<alt>l']"
 $keybind move-to-side-s "['<alt>j']"
 $keybind move-to-side-w "['<alt>h']"
-$keybind move-to-center "['<alt>m']"
 
 $keybind move-to-monitor-up      "['<shift><super>k']"
 $keybind move-to-monitor-right   "['<shift><super>l']"
