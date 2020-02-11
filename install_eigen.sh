@@ -1,12 +1,12 @@
 #!/bin/bash
 
-echo_blue "installing eigen"
+echo_blue "installing eigen tag 3.3.7"
 
 mkdir ~/software/eigen3
 cd ~/software/eigen3
-git clone https://github.com/eigenteam/eigen-git-mirror.git
-cd eigen-git-mirror
-git checkout tags/3.3.5
+git clone https://gitlab.com/libeigen/eigen.git 
+cd eigen
+git checkout tags/3.3.7
 mkdir build && cd build
 cmake ..
 sudo make install
