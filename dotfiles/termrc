@@ -25,6 +25,12 @@ fi
 alias stermrc='source ~/.termrc'
 alias vtermrc='vi ~/.termrc'
 
+# Python virtual environments
+if [ -f $HOME/.local/bin/virtualenvwrapper.sh ]; then
+    export VIRTUALENVWRAPPER_PYTHON=/usr/bin/python3
+    source $HOME/.local/bin/virtualenvwrapper.sh
+fi
+
 # add CUDA to path if not already
 if [ -d /usr/local/cuda/bin ]; then 
     if ! echo $PATH | grep -q /usr/local/cuda/bin; then
