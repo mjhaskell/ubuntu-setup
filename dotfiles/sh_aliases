@@ -25,7 +25,7 @@ githubLatestTag() { # $1=github_user/repo (ex: opencv/opencv)
 
 # general aliases
 alias jdrive='sudo mount -t cifs //fs-caedm.et.byu.edu/mhask94 ~/J -o username=mhask94,rw,uid=$(id -u)'
-alias shutnow='sudo shutdown -P now'
+alias shutnow='systemctl poweroff'
 alias vi='nvim'
 alias nb='jupyter-notebook'
 alias make='make -j8'
