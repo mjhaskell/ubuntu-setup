@@ -36,6 +36,7 @@ alias scanip='nmap -sP 192.168.0.*'
 alias untar='tar -xvzf'
 alias keybind='gsettings set org.gnome.desktop.wm.keybindings'
 alias myip='hostname -I'
+alias me='echo_green $USER@$HOST'
 alias chterm='sudo update-alternatives --config x-terminal-emulator'
 
 # location specific aliases
