@@ -1,13 +1,21 @@
 # Install Windows
+These are the steps for installing Windows:
+1. [Create Installation Media](#create-installation-media)
+2. [Create Partition Table](#create-partition-table)
+3. [Install Windows](#)
 
 ## Create Installation Media (USB)
 You probably need to be on a Windows machine to do this (although it might be 
-possible with Wine). 
-Follow [this guide](https://answers.microsoft.com/en-us/windows/forum/windows_10-windows_install/how-to-create-a-windows-10-installation-media/ad10cb15-1848-40f6-a6ad-094f902f669a).
-Here is the [iso](https://www.microsoft.com/en-us/software-download/windows10).
-When following the guide above, choose the option at the end to use a USB flash drive
-rather than an ISO file (it says you need an 8GB flash drive - mine only used ~3.5GB).
+possible with Wine). Follow 
+[this guide](https://answers.microsoft.com/en-us/windows/forum/windows_10-windows_install/how-to-create-a-windows-10-installation-media/ad10cb15-1848-40f6-a6ad-094f902f669a) or watch
+[this video](https://www.youtube.com/watch?v=1DXzr3eXkd4). The software 
+downloads page can be found 
+[here](https://www.microsoft.com/en-us/software-download/windows10).
+When following the guide above, choose the option at the end to use a USB flash 
+drive rather than an ISO file (it says you need an 8GB flash drive - mine only 
+used ~3.5GB).
 
+After your USB flash drive is ready:
 
 ## Create Partition Table
 If you are going to use Windows and Linux on the same hard drive, then create 
@@ -20,7 +28,7 @@ partitions for Windows first.
   - `x` (get into expert menu)
   - `z` (zap the drive - you will have to say yes to a couple of things)
 2. Create new partition table (GPT)
-  - `sudo gdisk /dev/<sda>
+  - `sudo gdisk /dev/<sda>`
   - `o` (creates new table)
   - `w` (write changes)
   - `systemctl poweroff` (power off after writing changes)
