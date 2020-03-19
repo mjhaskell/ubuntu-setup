@@ -4,6 +4,10 @@ These are the steps for installing Windows:
 2. [Create Partition Table](#create-partition-table)
 3. [Install Windows](#)
 
+Note that you will need a Product Key (license) to use Windows unless you 
+already have Windows installed on the machine; in that case, it will 
+know that you had/have a licence when you reinstall Windows.
+
 ## Create Installation Media (USB)
 You probably need to be on a Windows machine to do this (although it might be 
 possible with Wine). Follow 
@@ -12,10 +16,29 @@ possible with Wine). Follow
 downloads page can be found 
 [here](https://www.microsoft.com/en-us/software-download/windows10).
 When following the guide above, choose the option at the end to use a USB flash 
-drive rather than an ISO file (it says you need an 8GB flash drive - mine only 
-used ~3.5GB).
+drive rather than an ISO file (you need an 8GB flash drive or bigger).
 
-After your USB flash drive is ready:
+The installation media is generic for all versions of Windows 10, so you need 
+to figure out which index in `sources\install.esd` matches the version you 
+wand to install. After your USB flash drive is ready:
+  - Open up File Explorer on Windows machine
+  - Navigate to sources folder in flash drive
+  - Click File -> Open Windows PowerShell (as administrator)
+  - `dism /Get-WimInfo /WimFile:install.esd` (list all indices)
+Here are the results when I did this:
+  - Index 1: Windows 10 Home
+  - Index 2: Windows 10 Home N
+  - Index 3: Windows 10 Home Single Language
+  - Index 4: Windows 10 Education
+  - Index 5: Windows 10 Education N
+  - Index 6: Windows 10 Pro
+  - Index 7: Windows 10 Pro N
+This Index is important and will be used later.
+
+If you want to create an installer for 1 specific index:
+  - `dism /export-image /SourceImageFile:install.esd /SourceIndex:<choose index #> /DestinationImageFile:install.wim /Compress:max /CheckIntegrity`
+  - (don't include <> when choosing the index number, e.g. `/SourceIndex:1`)
+  - Be careful how much memory you have when creating `install.wim` (~4GB for Index 1)
 
 ## Create Partition Table
 If you are going to use Windows and Linux on the same hard drive, then create 
