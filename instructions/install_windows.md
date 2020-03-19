@@ -23,7 +23,7 @@ The installation media is generic for all versions of Windows 10, so you need
 to figure out which index in `sources\install.esd` matches the version you 
 wand to install. After your USB flash drive is ready:
   - Open up File Explorer on Windows machine
-  - Navigate to sources folder in flash drive
+  - Navigate to `sources` folder in flash drive
   - Click File -> Open Windows PowerShell (as administrator)
   - `dism /Get-WimInfo /WimFile:install.esd` (list all indices)
 Here are the results when I did this:
