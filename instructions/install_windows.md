@@ -21,18 +21,18 @@ After your USB flash drive is ready:
 If you are going to use Windows and Linux on the same hard drive, then create 
 partitions for Windows first.
 
-1. Zap (erase) current partition table
+### 1. Zap (erase) current partition table
   - Boot into Ubuntu flash drive and open Terminal
   - `lsblk` (figure out which device corresponds to the drive)
   - `sudo gdisk /dev/<sda>` (substitute sda with device found above)
   - `x` (get into expert menu)
   - `z` (zap the drive - you will have to say yes to a couple of things)
-2. Create new partition table (GPT)
+### 2. Create new partition table (GPT)
   - `sudo gdisk /dev/<sda>`
   - `o` (creates new table)
   - `w` (write changes)
   - `systemctl poweroff` (power off after writing changes)
-3. Add partitions for EFI and Windows
+### 3. Add partitions for EFI and Windows
   - `sudo gdisk /dev/<sda>`
   - `n` (create new partition)
   - `ENTER` (use default partition #)
