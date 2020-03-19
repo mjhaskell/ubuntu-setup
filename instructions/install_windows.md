@@ -14,7 +14,8 @@ possible with Wine). Follow
 [this guide](https://answers.microsoft.com/en-us/windows/forum/windows_10-windows_install/how-to-create-a-windows-10-installation-media/ad10cb15-1848-40f6-a6ad-094f902f669a) or watch
 [this video](https://www.youtube.com/watch?v=1DXzr3eXkd4). The software 
 downloads page can be found 
-[here](https://www.microsoft.com/en-us/software-download/windows10).
+[here](https://www.microsoft.com/en-us/software-download/windows10) (only 
+works on Windows machines - otherwise webpage can only download ISO).
 When following the guide above, choose the option at the end to use a USB flash 
 drive rather than an ISO file (you need an 8GB flash drive or bigger).
 
