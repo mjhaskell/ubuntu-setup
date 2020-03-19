@@ -28,12 +28,14 @@ partitions for Windows first.
   - `x` (get into expert menu)
   - `z` (zap the drive - you will have to say yes to a couple of things)
 ### 2. Create new partition table (GPT)
+  - Should still be in Ubuntu Terminal
   - `sudo gdisk /dev/<sda>`
   - `o` (creates new table)
   - `w` (write changes)
   - `systemctl poweroff` (power off after writing changes)
 ### 3. Add partitions for EFI and Windows
-  - `sudo gdisk /dev/<sda>`
+  - Boot into Ubuntu flash drive and open Terminal
+  - `sudo gdisk /dev/<sda>` (same device as before)
   - `n` (create new partition)
   - `ENTER` (use default partition #)
   - `ENTER` (use default start location)
