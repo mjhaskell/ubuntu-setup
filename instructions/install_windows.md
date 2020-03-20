@@ -34,6 +34,7 @@ wand to install. After your USB flash drive is ready:
   - Navigate to `sources` folder in flash drive
   - Click File -> Open Windows PowerShell (as administrator)
   - `dism /Get-WimInfo /WimFile:install.esd` (list all indices)
+
 Here are the results when I did this:
   - Index 1: Windows 10 Home
   - Index 2: Windows 10 Home N
