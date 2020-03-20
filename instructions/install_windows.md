@@ -97,7 +97,12 @@ partitions for Windows first.
 ### Format Partitions
   - Already formatted the EFI partition while booted into Linux
   - Boot into Windows flash drive
-  - Open Command Prompt as Administrator
+  - Open Command Prompt as administrator
+    - `Shift + F10` (if that doesn't work, do the following steps)
+    - Click `Next` to get past 1st screen
+    - Click `Repair your computer` to bring up more options
+    - Click `Troubleshoot`
+    - Click `Command Prompt`
   - `diskpart` (open disk partion menu)
   - `list disk` (display all drives - don't need but can use to verify info)
   - `list volume` (display all partitions/drives) -> use regularly to verify steps
