@@ -2,11 +2,19 @@
 These are the steps for installing Windows:
 1. [Create Installation Media](#create-installation-media)
 2. [Create Partition Table](#create-partition-table)
-3. [Install Windows](#)
+3. [Format Partitions](#format-partitions)
+4. [Install Windows](#install-windows)
+5. [Install Linux (Optional)](#install-linux)
 
 Note that you will need a Product Key (license) to use Windows unless you 
 already have Windows installed on the machine; in that case, it will 
 know that you had/have a licence when you reinstall Windows.
+
+Also note that UEFI is better than Legacy BIOS and GPT is better than MBR
+for the partition table. So, even though there is an option in Settings 
+to Reset the computer (wipe hard drive and reinstall Windows), you might 
+not want to use that because it might use Legacy BIOS with MBR (and the 
+Reset option failed every time I tried it - but that might not be common).
 
 ## Create Installation Media (USB)
 You probably need to be on a Windows machine to do this (although it might be 
@@ -34,6 +42,7 @@ Here are the results when I did this:
   - Index 5: Windows 10 Education N
   - Index 6: Windows 10 Pro
   - Index 7: Windows 10 Pro N
+  
 This Index is important and will be used later.
 
 If you want to create an installer for 1 specific index:
@@ -84,3 +93,61 @@ partitions for Windows first.
   - `w` (write changes)
   - `sudo mkfs.vfat /dev/<sda1> -n ESP` (Format EFI partition you just made)
   - `systemctl poweroff` (reboot after writing to partition table)
+
+### Format Partitions
+  - Already formatted the EFI partition while booted into Linux
+  - Boot into Windows flash drive
+  - Open Command Prompt as Administrator
+  - `diskpart` (open disk partion menu)
+  - `list disk` (display all drives - don't need but can use to verify info)
+  - `list volume` (display all partitions/drives) -> use regularly to verify steps
+    - Make a note of the letter assigned to your Windows flash drive (need it later)
+  - `select volume <#>` (select EFI partition - should see * appear using `list volume`)
+    - `format quick fs=fat32 label=System` (Don't need to do this -> did on Linux earlier)
+  - `assign letter="S"` (give it a letter for easy access later)
+  - `list volume` (verify changes)
+  - `select volume <#>` (select Windows partition)
+  - `format quick fs=ntfs label="Windows"` (format partition)
+  - `assign letter="W"` (change letter to W)
+  - `list volume` (verify changes)
+  - `select volume <#>` (select 3GB Windows Recovery partition)
+  - `format quick fs=ntfs label="Recovery Tools"` (format partition)
+  - `assign letter="R"` (change letter to R)
+  - `list volume` (verify changes)
+  - `exit` (leave `diskpart` menu)
+  
+### Install Windows
+  - Should still be in Command Prompt on Windows USB from formatting partitions
+  - `dism /Apply-Image /ImageFile:<I>:\sources\install.esd /Index:<1> /ApplyDir:W:\`
+    - Use the letter assigned to your Windows flash drive for image file (e.g. `/ImageFile:I`)
+    - Use the index of the Windows version you want, 1 is Windows 10 Home (e.g. `/Index:1`)
+    - Can use `install.wim` instead of `install.esd` if you created it -> index would be 1 (installer for 1 version only)
+  - `W:\Windows\System32\bcdboot W:\Windows /s S:`
+  - `md R:\Recovery\WindowsRE`
+  - `copy W:\Windows\System32\Recovery\winre.wim R:\Recovery\WindowsRE\winre.wim`
+  - `W:\Windows\System32\reagentc /setreimage /path R:\Recovery\WindowsRE /target W:\Windows`
+  - `exit` (leave Command Prompt)
+  - Power off and reboot into Windows partion to go through setup
+    - You will need a Product Key if you didn't already have Windows on the computer
+    - I selected option to not use internet for setup
+    - I don't allow location services or any of the other privacy options
+    - I just create local accounts rather than signing into my Microsoft account
+    
+### Install Linux
+This is optional if you want to add a Linux partition on the same hard drive 
+where you installed Windows.
+  - Boot into Ubuntu flash drive and open Terminal
+  - `lsblk` (figure out which device you want put Linux on)
+  - `sudo gdisk /dev/<sda>` (use the device you found)
+  - `p` (print - should see the EFI and 3 Windows partitions)
+  - `n` (create new partition)
+  - `ENTER` (use default partition #)
+  - `+32M` (leave 32MB empty space after last partition)
+  - `-64M` (go until 64MB left on drive - don't use the last little bit)
+  - `8300` (Linux filesystem)
+  - `p` (print - verify changes)
+  - `w` (write changes)
+  - `systemctl poweroff` (reboot after writing to partition table)
+  - Boot into Ubuntu flash drive and run installer
+    - When option comes up to install Ubuntu, select "Something else" for manual control
+    - Format your Linux partition as ext4 and mount to /
