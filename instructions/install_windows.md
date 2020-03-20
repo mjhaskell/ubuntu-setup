@@ -1,4 +1,4 @@
-# Install Windows
+# Windows Installation
 These are the steps for installing Windows:
 1. [Create Installation Media](#create-installation-media)
 2. [Create Partition Table](#create-partition-table)
