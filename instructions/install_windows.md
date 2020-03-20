@@ -93,7 +93,7 @@ Warning: Careful, the following steps will destroy access to all data on your di
     - write the new GPT table to disk - accept confirmations
     - poweroff to guarantee a reset of the cache in the booted system that holds the partition layout
   ```sh
-    $ sudo gdisk /dev/<sda>`
+    $ sudo gdisk /dev/<sda>
     Command (? for help): o
     Command (? for help): w
     $ systemctl poweroff
@@ -175,7 +175,7 @@ Warning: Careful, the following steps will destroy access to all data on your di
 ### Install Linux
 This is optional if you want to add a Linux partition on the same hard drive 
 where you installed Windows.
-  - Boot into the Ubuntu Live ISO flash drive and open Terminal
+  - Boot into the Linux Live ISO flash drive and open Terminal
   - `lsblk` (figure out which device you want put Linux on)
   - `sudo gdisk /dev/<sda>` (use the device you found)
     - `p` (print - should see the EFI and 3 Windows partitions)
@@ -187,6 +187,6 @@ where you installed Windows.
     - `p` (print - verify changes)
     - `w` (write changes)
   - `systemctl poweroff` (reboot after writing to partition table)
-  - Boot last time into the Ubuntu Live ISO flash drive and run installer
+  - Boot last time into the Linux Live ISO flash drive and run installer
     - When option comes up to install Ubuntu, select "Something else" for manual control
     - Format your Linux partition as ext4 and mount to /
