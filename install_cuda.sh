@@ -13,10 +13,10 @@ if lspci -v | grep VGA | grep -q NVIDIA; then
 
     echo '#!/bin/sh' > web_instructions.sh
     echo '' >> web_instructions.sh
-    STR=$(curl --silent "https://developer.nvidia.com/cuda-downloads" | 
-        grep -n Linux/x86_64/Ubuntu/18.04/ | 
-        grep -n /cuda-repo-ubuntu1804)
-    echo $STR | grep -oP '(?<="cudaBash">).+?(?=</span>)' >> web_instructions.sh
+    curl --silent "https://developer.nvidia.com/cuda-downloads" | 
+        grep -n Linux/x86_64/Ubuntu/18.04/ | # specific to Ubuntu 18.04
+        grep -n /cuda-repo-ubuntu1804 | # specific to Ubuntu 18.04
+        grep -oP '(?<="cudaBash">).+?(?=</span>)' >> web_instructions.sh
     sed -i 's/dpkg -i&nbsp;/apt install .\//' web_instructions.sh
     sed -i 's/apt-get/apt/' web_instructions.sh
 
