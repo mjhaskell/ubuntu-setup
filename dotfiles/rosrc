@@ -1,3 +1,5 @@
+#!/bin/sh
+
 # source correct ROS setup script
 if [ -d /opt/ros ]; then
     if [ -n "$BASH" ]; then source /opt/ros/melodic/setup.bash

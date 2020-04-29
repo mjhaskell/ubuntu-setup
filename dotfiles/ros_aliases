@@ -1,4 +1,4 @@
-#!/bin/bash 
+#!/bin/sh 
 
 alias vrosrc='vim ~/.rosrc'
 alias srosrc='source ~/.rosrc'
