@@ -1,9 +1,9 @@
 #!/bin/sh
 
 #Install ROS
-echo_green "Install ROS Melodic for Ubuntu 16.04 LTS Xenial Xerus based off of wiki.ros.org installation guide"
-echo_blue "Setup your sources.list"
+echo_blue "Installing ROS Melodic for Ubuntu 18.04 based off of wiki.ros.org installation guide"
 
+echo_blue "Setup your sources.list"
 sudo sh -c 'echo "deb http://packages.ros.org/ros/ubuntu $(lsb_release -sc) main" > /etc/apt/sources.list.d/ros-latest.list'
 
 echo_blue "Set up up your keys"
@@ -14,15 +14,17 @@ sudo -E apt-key adv --keyserver 'hkp://keyserver.ubuntu.com:80' --recv-key C1CF6
 echo_blue "Installation"
 
 sudo apt update
-sudo apt install ros-melodic-desktop-full
+sudo apt install -y ros-melodic-desktop-full
 
 echo_blue "Initialize rosdep"
 
 sudo rosdep init
 rosdep update
 
-sudo apt install python-rosinstall python-rosinstall-generator python-wstool
-sudo apt install ros-melodic-eigen-stl-containers
-sudo apt install python3-catkin-pkg-modules python3-rospkg-modules
+echo_blue "Installing final dependencies"
+
+sudo apt install -y python-rosinstall python-rosinstall-generator python-wstool
+sudo apt install -y ros-melodic-eigen-stl-containers
+sudo apt install -y python3-catkin-pkg-modules python3-rospkg-modules
 
 echo_green "ROS Melodic installed"

@@ -12,7 +12,7 @@ ipscan() { ip_addr=$(hostname -I | cut -f1 -d' '); if [ -n "$ZSH_NAME" ]; then
     setopt shwordsplit; fi; saveIFS="$IFS"; IFS='.'; a=(${ip_addr}); 
     IFS="$saveIFS"; echo "${ip_addr%${a[-1]}}*"; nmap -sP "${ip_addr%${a[-1]}}*"
     }
-code2pdf() { for var in "$@"; do nvim "$var" -c ":hardcopy > temp.ps" -c ":q"; 
+code2pdf() { for var in "$@"; do vim "$var" -c ":hardcopy > temp.ps" -c ":q"; 
     ps2pdf temp.ps "${var%.*}".pdf; rm temp.ps; done; }
 githubLatestRelease() { # $1=github_user/repo (ex: opencv/opencv)
     curl --silent "https://api.github.com/repos/$1/releases/latest" | 
@@ -26,11 +26,11 @@ githubLatestTag() { # $1=github_user/repo (ex: opencv/opencv)
 # general aliases
 alias jdrive='sudo mount -t cifs //fs-caedm.et.byu.edu/mhask94 ~/J -o username=mhask94,rw,uid=$(id -u)'
 alias shutnow='systemctl poweroff'
-alias vi='nvim'
+alias vi='vim'
 alias nb='jupyter-notebook'
 alias make='make -j8'
 alias lscam='ls -ltrh /dev/video*'
-alias valias='nvim ~/.sh_aliases'
+alias valias='vim ~/.sh_aliases'
 alias salias='source ~/.sh_aliases'
 alias scanip='nmap -sP 192.168.0.*'
 alias untar='tar -xvzf'

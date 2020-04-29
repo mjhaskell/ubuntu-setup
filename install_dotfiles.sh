@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 
 # universal terminal rc
 if [ ! -h ~/.termrc ]; then
@@ -7,23 +7,23 @@ if [ ! -h ~/.termrc ]; then
 fi
 
 # source termrc in both bashrc and zshrc
-text=$'\n# source custom termrc\nif [ -f ~/.termrc ]; then . ~/.termrc; fi\n'
+TEXT='\n# source custom termrc\nif [ -f ~/.termrc ]; then . ~/.termrc; fi\n'
 if ! grep -q '~/.termrc' ~/.bashrc; then
     echo_blue "Appending termrc to bashrc"
-    echo "$text" >> ~/.bashrc
+    echo "$TEXT" >> ~/.bashrc
 fi
 
 if ! grep -q '~/.termrc' ~/.zshrc; then
     echo_blue "Appending termrc to zshrc"
-    echo "$text" >> ~/.zshrc
+    echo "$TEXT" >> ~/.zshrc
 fi
-unset text
+unset TEXT
 
 # change zsh theme to my custom theme
-if ! grep -q 'ZSH_THEME="mat"' ~/.zshrc; then 
-    echo_blue "Changing ZSH_THEME to mat"
-    sed -i 's/^ZSH_THEME=".*"$/ZSH_THEME="mat"/' ~/.zshrc
-fi
+#if ! grep -q 'ZSH_THEME="mat"' ~/.zshrc; then 
+#    echo_blue "Changing ZSH_THEME to mat"
+#    sed -i 's/^ZSH_THEME=".*"$/ZSH_THEME="mat"/' ~/.zshrc
+#fi
 
 # aliases
 if [ ! -h ~/.sh_aliases ]; then
@@ -57,10 +57,10 @@ if [ ! -h ~/.gitconfig ]; then
     ln -s ~/scripts/dotfiles/gitconfig ~/.gitconfig
 fi
 
-# nvim
-if [ ! -h ~/.config/nvim/init.vim ]; then
-    if [ -f ~/.config/nvim/init.vim ]; then rm ~/.config/nvim/init.vim; fi
-    ln -s ~/scripts/dotfiles/init.vim ~/.config/nvim/init.vim
+# vim
+if [ ! -h ~/.vimrc ]; then
+    if [ -f ~/.vimrc ]; then rm ~/.vimrc; fi
+    ln -s ~/scripts/dotfiles/vimrc ~/.vimrc
 fi
 
 # tmux

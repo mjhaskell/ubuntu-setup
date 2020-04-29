@@ -1,8 +1,8 @@
 #!/bin/bash 
 
-alias vrosrc='nvim ~/.rosrc'
+alias vrosrc='vim ~/.rosrc'
 alias srosrc='source ~/.rosrc'
-alias vrosalias='nvim ~/.ros_aliases'
+alias vrosalias='vim ~/.ros_aliases'
 alias srosalias='source ~/.ros_aliases'
 
 alias catkin_maker='catkin_make -DCMAKE_BUILD_TYPE=Release'

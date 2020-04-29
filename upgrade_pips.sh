@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 
 echo_blue "upgrading pip2"
 pip2 install --upgrade pip setuptools wheel --user

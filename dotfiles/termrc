@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 
 ##################################  BASH  ######################################
 if [ $BASH ]; then
@@ -13,12 +13,12 @@ if [ $BASH ]; then
     PS1+='\[\033[00m\] ';                 # reset color to white
     
     alias sbashrc='source ~/.bashrc'
-    alias vbashrc='nvim ~/.bashrc'
+    alias vbashrc='vim ~/.bashrc'
 
 ##################################  ZSH  ######################################
 elif [ $ZSH_NAME ]; then
     alias szshrc='source ~/.zshrc'
-    alias vzshrc='nvim ~/.zshrc'
+    alias vzshrc='vim ~/.zshrc'
 fi
 
 ##################################  BOTH  ######################################

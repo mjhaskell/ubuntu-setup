@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 
 # required dependencies before running this file include:
 # build-essential cmake git python-dev python-numpy
@@ -6,16 +6,18 @@
 
 echo_blue "installing dependencies for openCV"
 
-# other required dependencies before installing openCV
-sudo apt install libgtk-3-dev pkg-config libavcodec-dev libavformat-dev
-sudo apt install libswscale-dev libtbb2 libtbb-dev libjpeg-dev libpng-dev
-sudo apt install libtiff-dev libjasper-dev libdc1394-22-dev ffmpeg
-sudo apt install libv41-dev libxvidcore-dev libx264-dev unzip
-sudo apt install libatlas-base-dev gfortran libhdf5-serial-dev
-sudo apt install libeigen-stl-containers-dev libavresample-dev 
-sudo apt install libprotobuf-dev libgtkglext1-dev libceres-dev libcaffe-cuda-dev
-sudo apt install coinor-libclp-dev libogre-1.9-dev ogre-1.9-tools ocl-icd-dev
-sudo apt install hdf5-tools 
+# other dependencies before installing openCV
+sudo apt install -y libopenblas-dev liblapacke-dev tesseract-ocr libtesseract-dev
+sudo apt install -y ocl-icd-libopencl1 opencl-headers clinfo
+sudo apt install -y libgtk-3-dev pkg-config libavcodec-dev libavformat-dev
+sudo apt install -y libswscale-dev libtbb2 libtbb-dev libjpeg-dev libpng-dev
+sudo apt install -y libtiff-dev libjasper-dev libdc1394-22-dev ffmpeg
+sudo apt install -y libv41-dev libxvidcore-dev libx264-dev hdf5-tools
+sudo apt install -y libatlas-base-dev gfortran libhdf5-serial-dev
+sudo apt install -y libeigen-stl-containers-dev libavresample-dev 
+sudo apt install -y libprotobuf-dev libgtkglext1-dev libceres-dev libcaffe-cuda-dev
+sudo apt install -y libleptonica-dev libboost-all-dev libtbb-dev ocl-icd-opencl-dev
+sudo apt install -y coinor-libclp-dev libogre-1.9-dev ogre-1.9-tools ocl-icd-dev
 # sudo apt install libvtk7-dev (broken - ROS uses vtk6)
 
 echo_blue "updating/upgrading apt"
@@ -88,7 +90,7 @@ if ls /usr/local | grep -q "cuda"; then
             -D WITH_VULKAN=ON \
             -D PYTHON3_INCLUDE_DIR2=~/.local/include/python3.6m \
             -D INSTALL_C_EXAMPLES=OFF \
-            -D OPENCV_ENABLE_NONFREE=OFF \
+            -D OPENCV_ENABLE_NONFREE=ON \
             -D BUILD_EXAMPLES=OFF \
             .. > cmake_log.txt 2>&1
     cmake -DOPENCV_PYTHON3_VERSION=ON .. >> cmake_log.txt 2>&1
