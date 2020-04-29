@@ -4,14 +4,13 @@
 nvidia-smi
 
 str=$(grep -o 'X Driver...........' /var/log/Xorg.0.log)
-version=$(echo $str | cut -c10-19)
+version=$(echo $str | cut -c10-19) # might have to change if not 9 chars
 
-# check that NVIDIA driver version matches cuda install instructions
-if [ "$version" = "440.33.01" ]; then
-    echo_blue "NVIDIA driver version: $version"
-    echo_blue "CUDA version: 10.2.89"
-    echo_green "cuda installed"
+if [ -z "$str" ]; then
+    echo_red "[Error] No nvidia drivers found"
+    echo_purple "\tCheck CUDA and NVIDIA driver installations"
 else
-    echo_red "[ERROR] NVIDIA driver version is not 440.33.01"
-    echo_red "\tCheck CUDA and NVIDIA driver installations"
+    echo_blue "Nvidia driver version found is $version"
+    echo_green "Cuda installed successfully"
 fi
+
