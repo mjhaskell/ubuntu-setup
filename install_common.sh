@@ -26,3 +26,7 @@ sudo usermod -a -G dialout $USER
 sudo usermod -a -G plugdev $USER
 
 echo_green "user added to common groups"
+
+sudo timedatectl set-timezone America/Denver
+
+echo_green "timezone set to MDT"
