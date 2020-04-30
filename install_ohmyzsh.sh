@@ -1,4 +1,4 @@
-#!/bin/zsh
+#!/bin/sh
 
 echo_blue "configuring zsh with oh-my-zsh"
 

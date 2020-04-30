@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 
 echo_blue "Installing Google Test"
 
