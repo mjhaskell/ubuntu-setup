@@ -13,17 +13,19 @@ if ! grep -q '~/.termrc' ~/.bashrc; then
     echo "$TEXT" >> ~/.bashrc
 fi
 
-if ! grep -q '~/.termrc' ~/.zshrc; then
-    echo_blue "Appending termrc to zshrc"
-    echo "$TEXT" >> ~/.zshrc
+if [ -h ~/.zshrc ]; then
+    if ! grep -q '~/.termrc' ~/.zshrc; then
+        echo_blue "Appending termrc to zshrc"
+        echo "$TEXT" >> ~/.zshrc
+    fi
+    unset TEXT
+    
+    # change zsh theme to my custom theme
+    if ! grep -q 'ZSH_THEME="mat"' ~/.zshrc; then 
+        echo_blue "Changing ZSH_THEME to mat"
+        sed -i 's/^ZSH_THEME=".*"$/ZSH_THEME="mat"/' ~/.zshrc
+    fi
 fi
-unset TEXT
-
-# change zsh theme to my custom theme
-#if ! grep -q 'ZSH_THEME="mat"' ~/.zshrc; then 
-#    echo_blue "Changing ZSH_THEME to mat"
-#    sed -i 's/^ZSH_THEME=".*"$/ZSH_THEME="mat"/' ~/.zshrc
-#fi
 
 # aliases
 if [ ! -h ~/.sh_aliases ]; then

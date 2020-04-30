@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 
 echo_blue "setting up zsh"
 
@@ -13,20 +13,24 @@ if [ ! -h ~/.oh-my-zsh/themes/mat.zsh-theme ]; then
     ln -s ~/scripts/dotfiles/mat.zsh-theme ~/.oh-my-zsh/themes/mat.zsh-theme
 fi
 
-text=$'\n# source custom termrc\nif [ -f ~/.termrc ]; then . ~/.termrc; fi\n'
+## change zsh theme to my custom theme
+if ! grep -q 'ZSH_THEME="mat"' ~/.zshrc; then
+    echo_blue "Changing ZSH_THEME to mat"
+    sed -i 's/^ZSH_THEME=".*"$/ZSH_THEME="mat"/' ~/.zshrc
+fi
+
+TEXT=$'\n# source custom termrc\nif [ -f ~/.termrc ]; then . ~/.termrc; fi\n'
 if ! grep -q '~/.termrc' ~/.zshrc; then
     echo_blue "Appending termrc to zshrc"
-    echo "$text" >> ~/.zshrc
+    echo "$TEXT" >> ~/.zshrc
 fi
-unset text
+unset TEXT
 
 # change zsh theme to my custom theme
 if ! grep -q 'ZSH_THEME="mat"' ~/.zshrc; then 
     echo_blue "Changing ZSH_THEME to mat"
     sed -i 's/^ZSH_THEME=".*"$/ZSH_THEME="mat"/' ~/.zshrc
 fi
-
-source ~/.zshrc
 
 if [ "$SHELL" = "/bin/zsh" ]; then 
     echo_blue "Shell is already zsh"
@@ -51,7 +55,7 @@ else
 fi
 rm test_shells.txt
 
-source ~/.zshrc
+zsh ~/.zshrc
 
 echo_purple "Log out for change to take place"
 
