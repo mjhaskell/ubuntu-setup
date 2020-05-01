@@ -1,0 +1,18 @@
+#!/bin/bash
+
+echo -e "\033[0;30mNormal \033[1;30mBold\033[0m"
+echo -e "\033[0;31mNormal \033[1;31mBold\033[0m"
+echo -e "\033[0;32mNormal \033[1;32mBold\033[0m"
+echo -e "\033[0;33mNormal \033[1;33mBold\033[0m"
+echo -e "\033[0;34mNormal \033[1;34mBold\033[0m"
+echo -e "\033[0;35mNormal \033[1;35mBold\033[0m"
+echo -e "\033[0;36mNormal \033[1;36mBold\033[0m"
+echo -e "\033[0;37mNormal \033[1;37mBold\033[0m"
+echo -e "\033[0;90mNormal \033[1;90mBold\033[0m"
+echo -e "\033[0;91mNormal \033[1;91mBold\033[0m"
+echo -e "\033[0;92mNormal \033[1;92mBold\033[0m"
+echo -e "\033[0;93mNormal \033[1;93mBold\033[0m"
+echo -e "\033[0;94mNormal \033[1;94mBold\033[0m"
+echo -e "\033[0;95mNormal \033[1;95mBold\033[0m"
+echo -e "\033[0;96mNormal \033[1;96mBold\033[0m"
+echo -e "\033[0;97mNormal \033[1;97mBold\033[0m"
