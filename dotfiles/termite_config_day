@@ -1,0 +1,105 @@
+# Default config file can be found at /etc/xdg/termite/config
+
+[options]
+
+font = Monospace 10
+font = CodeNewRoman Nerd Font 10
+
+scrollback_lines = -1
+clickable_url = true
+allow_bold = true
+bold_is_bright = true
+dynamic_title = true
+#hyperlinks = false
+
+# $BROWSER is used by default if set, with xdg-open as a fallback
+#browser = xdg-open
+
+# "block", "underline" or "ibeam"
+cursor_shape = ibeam
+
+# Emit escape sequences for extra modified keys
+#modify_other_keys = false
+
+[colors]
+
+# white cursor
+cursor              = #010112
+cursor_foreground   = #434c5e
+
+# red cursor
+cursor              = #EE0000
+
+# day
+foreground = #00070d
+foreground_bold = #000000
+foreground_bold = #b50a0a
+background = #ebebeb
+background = #f7f7f7
+
+# 16 color space
+# color order: https://misc.flogisoft.com/bash/tip_colors_and_formatting
+# test color: echo -e "\033[0;##mSTUFF GOES HERE\033[0m"
+# test bold:  echo -e "\033[1;##mSTUFF GOES HERE\033[0m"
+
+# Black: 30
+color0  = #fafafa
+
+# Red: 31
+color1  = #ca1243
+
+# Green: 32
+color2  = #50a14f
+
+# Yellow: 33
+color3  = #c18401
+
+# Blue: 34
+color4  = #4078f2
+
+# Magenta: 35 (more purple)
+color5  = #a626a4
+
+# Cyan: 36
+color6  = #0184bc
+
+# Light Gray: 37
+color7  = #383a42
+
+# Dark Gray: 90
+color8  = #a0a1a7
+
+# Light red: 91
+color9  = #c40808
+
+# Light Green: 92
+color10 = #0d6b0d
+
+# Light Yellow: 93
+color11 = #c18401
+
+# Light Blue: 94
+color12  = #0c119c
+
+# Light Magenta: 95
+color13 = #a626a4
+
+# Light Cyan: 96 
+color14 = #0184bc
+
+# White: 97
+color15 = #090a0b
+
+# Extra colors
+
+# Pale orange
+color16 = #e8633a
+# Pale Red
+color17 = #be5046
+# Grays
+color18 = #3b4252
+color19 = #434c5e
+color20 = #565c64
+# Off white
+color21 = #e5e9f0
+
