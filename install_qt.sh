@@ -3,6 +3,7 @@
 # Last time I tried to run this (4/2020) Qt had changed to require an account
 # with them. I did not create an account, but rather did
 # sudo apt install qtcreator
+# sudo apt install qt5-doc qt5-doc-html qtbase5-doc-html qtbase5-examples
 # and everything seems to work fine. It installed QtCreator 4.5.8, but my final
 # project from ME 570 still built an ran just fine with whatever version of Qt 
 # was already on the computer.
