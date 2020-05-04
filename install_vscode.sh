@@ -19,5 +19,9 @@ code --install-extension vscodevim.vim
 # IntelliCode extension
 code --install-extension visualstudioexptteam.vscodeintellicode
 
+# Live Share
+code --install-extension ms-vsliveshare.vsliveshare
+code --install-extension ms-vsliveshare.vsliveshare-audio
+
 echo_green "VSCode installed with extensions"
 
