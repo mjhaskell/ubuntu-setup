@@ -31,6 +31,11 @@ if [ -f $HOME/.local/bin/virtualenvwrapper.sh ]; then
     source $HOME/.local/bin/virtualenvwrapper.sh
 fi
 
+# add ~/.local/bin to path if not already
+if ! echo $PATH | grep -q /.local/bin; then
+    export PATH=$HOME/.local/bin:$PATH
+fi
+
 # add CUDA to path if not already
 if [ -d /usr/local/cuda/bin ]; then 
     if ! echo $PATH | grep -q /usr/local/cuda/bin; then
