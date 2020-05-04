@@ -41,7 +41,7 @@ filetype plugin on
 filetype indent on
 
 " Always copy and paste to clipboard
-set clipboard+=unnamedplus
+set clipboard=unnamedplus
 
 "set encoding=UTF-8
 "set guifont=Hack\ Regular\ 12
@@ -110,13 +110,16 @@ vmap <space> <leader>
 
 " Escape Mappings for insert and visual modes
 inoremap jk <esc>
-vnoremap jk <esc>
+"vnoremap jk <esc>
 
 " Mappings to move up and down faster
 nnoremap J 10j
 nnoremap K 10k
 vnoremap J 10j
 vnoremap K 10k
+
+" Don't yank after paste
+vnoremap p "_dP
 
 " Mappings to edit .vimrc/init.vim and source/save .vimrc
 nnoremap <leader>ev :vsplit $MYVIMRC<cr>
@@ -135,7 +138,7 @@ inoremap {<CR> {<CR>}<Esc>ko
 " Install cquery https://github.com/cquery-project/cquery
 " Install pyls https://github.com/palantir/python-language-server
 let g:ale_linters = {'cpp': ['ccls', 'cquery', 'gcc'], 'python':['pyls'], 'cmake': ['cmakelint']}
-let g:ale_fixers = {'cpp': ['trim-whitespace', 'clang-format'], 'python':['trim-whitespace', 'autopep8']}
+let g:ale_fixers = {'cpp': ['clang-format'], 'python':['autopep8']}
 let g:ale_fix_on_save = 1
 let g:ale_completion_enabled = 1
 let g:ale_sign_column_always = 1

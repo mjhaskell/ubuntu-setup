@@ -3,7 +3,8 @@
 echo_blue "installing vim"
 
 # install vim
-sudo apt install -y vim
+sudo apt remove -y vim
+sudo apt install -y vim-gtk
 
 # install vim-plug package manager
 curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
