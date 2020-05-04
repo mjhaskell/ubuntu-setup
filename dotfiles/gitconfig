@@ -2,7 +2,7 @@
     	name = Mat Haskell
     	email = mhaskell9@gmail.com
 [core]
-	editor = nvim
+	editor = vi
 [push]
 	default = simple
 [alias]
