@@ -1,0 +1,42 @@
+
+
+! ======================================
+
+! Xorg
+
+! scaling
+! Xft.dpi: 186
+
+
+! ======================================
+
+! XTerm
+
+! xterm.saveLines: 10000000
+! xterm.Foreground.foreground: lightgray
+! xterm.Background.background: black
+
+xterm.vt100.saveLines: 10000000
+xterm.vt100.background: black
+xterm.vt100.foreground: lightgray
+! xterm*background: black
+! xterm*foreground: lightgray
+xterm*faceName: CodeNewRoman:pixelsize=12
+
+xterm*VT100.Translations: #override \
+                 Ctrl Shift <Key>V:    insert-selection(CLIPBOARD) \n\
+                 Ctrl Shift <Key>C:    copy-selection(CLIPBOARD)
+!
+xterm.vt100.alternateScroll: true
+
+
+! disable bold font faces, instead make text light blue.
+XTerm.vt100.colorBDMode: true
+XTerm.vt100.colorBD: rgb:82/a4/d3
+! disable underlined text, instead make it white.
+XTerm.vt100.colorULMode: true
+XTerm.vt100.colorUL: rgb:e4/e4/e4
+! similarly use colorIT for italics
+! XTerm.vt100.colorIT: rgb:
+
+!

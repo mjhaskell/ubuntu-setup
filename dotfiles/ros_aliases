@@ -7,10 +7,20 @@ alias srosalias='source ~/.ros_aliases'
 
 alias catkin_maker='catkin_make -DCMAKE_BUILD_TYPE=Release'
 alias catkin_maked='catkin_make -DCMAKE_BUILD_TYPE=Debug'
-alias copter='source ~/copter_ws/devel/setup.bash --extend'
-alias sdev='source devel/setup.zsh'
+
+alias catkin_make_py3='catkin_make -DPYTHON_EXECUTABLE=$(which python3)'
+alias catkin_maker_py3='catkin_make_py3 -DCMAKE_BUILD_TYPE=Release' 
+alias catkin_maked_py3='catkin_make_py3 -DCMAKE_BUILD_TYPE=Debug' 
+
 ros_make() {(cd `echo $ROS_PACKAGE_PATH | awk -Fsrc: '{print $1}'` && catkin_make); }
 ros_maker() {(cd `echo $ROS_PACKAGE_PATH | awk -Fsrc: '{print $1}'` && catkin_maker); }
 ros_maked() {(cd `echo $ROS_PACKAGE_PATH | awk -Fsrc: '{print $1}'` && catkin_maked); }
+
+ros_make_py3() {(cd `echo $ROS_PACKAGE_PATH | awk -Fsrc: '{print $1}'` && catkin_make_py3); }
+ros_maker_py3() {(cd `echo $ROS_PACKAGE_PATH | awk -Fsrc: '{print $1}'` && catkin_maker_py3); }
+ros_maked_py3() {(cd `echo $ROS_PACKAGE_PATH | awk -Fsrc: '{print $1}'` && catkin_maked_py3); }
+
+alias copter='source ~/copter_ws/devel/setup.bash --extend'
+alias sdev='source devel/setup.sh'
 
 alias sshpeter='ssh nvidia@192.168.1.122'

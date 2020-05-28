@@ -16,7 +16,7 @@ dynamic_title = true
 #browser = xdg-open
 
 # "block", "underline" or "ibeam"
-cursor_shape = ibeam
+cursor_shape = block
 
 # Emit escape sequences for extra modified keys
 #modify_other_keys = false
@@ -28,7 +28,7 @@ cursor              = #d8dee9
 cursor_foreground   = #434c5e
 
 # red cursor
-cursor              = #EE0000
+# cursor              = #EE0000
 
 foreground = #c9c9c9
 foreground_bold = #ffffff
@@ -36,8 +36,8 @@ background = #00070d
 
 # 16 color space
 # color order: https://misc.flogisoft.com/bash/tip_colors_and_formatting
-# test color: echo -e "\033[0;##mSTUFF GOES HERE\033[0m"
-# test bold:  echo -e "\033[1;##mSTUFF GOES HERE\033[0m"
+# test color: echo -e "\033[0;##mTEXT GOES HERE\033[0m"
+# test bold:  echo -e "\033[1;##mTEXT GOES HERE\033[0m"
 
 # Black: 30
 color0  = #12151c

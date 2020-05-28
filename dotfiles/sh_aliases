@@ -38,14 +38,10 @@ alias keybind='gsettings set org.gnome.desktop.wm.keybindings'
 alias myip='hostname -I'
 alias me='echo_green $USER@$HOST'
 alias chterm='sudo update-alternatives --config x-terminal-emulator'
+alias cmaked='cmake -DCMAKE_BUILD_TYPE=Debug'
+alias cmaker='cmake -DCMAKE_BUILD_TYPE=Release'
 
 # location specific aliases
-if [ -d ~/Qt ]; then
-    alias qt='~/Qt/Tools/QtCreator/bin/qtcreator'
-    alias qtsh='~/Qt/Tools/QtCreator/bin/qtcreator.sh'
-elif [ -d ~/software/Qt ]; then
-    alias qt='~/software/Qt/Tools/QtCreator/bin/qtcreator'
-    alias qtsh='~/software/Qt/Tools/QtCreator/bin/qtcreator.sh'; fi
 if [ -d ~/STM32CubeMX ]; then
     alias cubemx='~/STM32CubeMX/STM32CubeMX'; fi
 if [ -d ~/Ac6 ]; then
