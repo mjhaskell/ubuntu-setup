@@ -3,7 +3,7 @@
 echo_blue "setting up zsh"
 
 if [ ! -d ~/.oh-my-zsh ]; then
-    ./install_ohmyzsh.sh
+    source install_ohmyzsh.sh
 fi
 
 if [ ! -h ~/.oh-my-zsh/themes/mat.zsh-theme ]; then
@@ -19,43 +19,36 @@ if ! grep -q 'ZSH_THEME="mat"' ~/.zshrc; then
     sed -i 's/^ZSH_THEME=".*"$/ZSH_THEME="mat"/' ~/.zshrc
 fi
 
-TEXT=$'\n# source custom termrc\nif [ -f ~/.termrc ]; then . ~/.termrc; fi\n'
+TEXT='\n# source custom termrc\nif [ -f ~/.termrc ]; then . ~/.termrc; fi\n'
 if ! grep -q '~/.termrc' ~/.zshrc; then
     echo_blue "Appending termrc to zshrc"
     echo "$TEXT" >> ~/.zshrc
 fi
 unset TEXT
 
-# change zsh theme to my custom theme
-if ! grep -q 'ZSH_THEME="mat"' ~/.zshrc; then 
-    echo_blue "Changing ZSH_THEME to mat"
-    sed -i 's/^ZSH_THEME=".*"$/ZSH_THEME="mat"/' ~/.zshrc
-fi
-
-if [ "$SHELL" = "/bin/zsh" ]; then 
-    echo_blue "Shell is already zsh"
-    return
-fi
-
-cat /etc/shells | grep /bin/zsh > test_shells.txt
-filename='test_shells.txt'
-exists=0
-while read line; do
-    if [ "$line" = "/bin/zsh" ]; then
-        exists=1
-        break
+if cat /etc/shells | grep -q /bin/zsh; then
+    if [ $SHELL = /bin/zsh ]; then
+        echo_green "Shell is already zsh"
+    else
+        chsh -s /bin/zsh $USER
+        echo_green "switched to zsh"
+        echo_purple "Log out for change to take place"
     fi
-done < $filename
-
-if [ $exists = 1 ]; then
-    echo_green "switched to zsh"
-    chsh -s /bin/zsh $USER
 else
-    echo_red "[ERROR] can't switch to zsh\n\t/bin/zsh does not exist"
+    echo_blue "Installing zsh"
+    sudo apt install -y zsh
+    if cat /etc/shells | grep -q /bin/zsh; then
+        if [ $SHELL = /bin/zsh ]; then
+            echo_green "Shell is already zsh"
+        else
+            chsh -s /bin/zsh $USER
+            echo_green "switched to zsh"
+            echo_purple "Log out for change to take place"
+        fi
+    else
+        echo_red "[ERROR] can't switch to zsh\n\t/bin/zsh does not exist"
+    fi
 fi
-rm test_shells.txt
 
 zsh ~/.zshrc
-
-echo_purple "Log out for change to take place"
 
