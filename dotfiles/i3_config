@@ -4,116 +4,37 @@
 # Should you change your keyboard layout some time, delete
 # this file and re-run i3-config-wizard(1).
 #
-
 # i3 config file (v4)
 #
 # Please see https://i3wm.org/docs/userguide.html for a complete reference!
 
+
+# ---------------------------------------------------------------------------- #
+# ------------------------------ Useful Aliases ------------------------------ #
+# ---------------------------------------------------------------------------- #
+
+# mods: display with command `xmodmap -pm`
 set $mod Mod4
+set $alt Mod1
 
-# Font for window titles. Will also be used by the bar unless a different font
-# is used in the bar {} block below.
-font pango:monospace 8
-font pango:CodeNewRoman Nerd Font 8
-
-# This font is widely installed, provides lots of unicode glyphs, right-to-left
-# text rendering and scalability on retina/hidpi displays (thanks to pango).
-#font pango:DejaVu Sans Mono 8
-
-# The combination of xss-lock, nm-applet and pactl is a popular choice, so
-# they are included here as an example. Modify as you see fit.
-
-# xss-lock grabs a logind suspend inhibit lock and will use i3lock to lock the
-# screen before suspend. Use loginctl lock-session to lock your screen.
-exec --no-startup-id xss-lock --transfer-sleep-lock -- i3lock --nofork
-
-# NetworkManager is the most popular way to manage wireless networks on Linux,
-# and nm-applet is a desktop environment-independent system tray GUI for it.
-exec --no-startup-id nm-applet
-
-# Use pactl to adjust volume in PulseAudio.
+# i3status
 set $refresh_i3status killall -SIGUSR1 i3status
-bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +10% && $refresh_i3status
-bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ -10% && $refresh_i3status
-bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute @DEFAULT_SINK@ toggle && $refresh_i3status
-bindsym XF86AudioMicMute exec --no-startup-id pactl set-source-mute @DEFAULT_SOURCE@ toggle && $refresh_i3status
-bindsym $mod+XF86AudioMute exec --no-startup-id pactl set-source-mute @DEFAULT_SOURCE@ toggle && $refresh_i3status
 
-# Use Mouse+$mod to drag floating windows to their wanted position
-floating_modifier $mod
+# terminal
+set $term --no-startup-id termite
+set $term_samedir --no-startup-id ${HOME}/.config/termite/samedir.sh
+set $term_day --no-startup-id termite -c ${HOME}/.config/termite/config_day
+set $named_term --no-startup-id termite --name
 
-# start a terminal
-# bindsym $mod+Return exec i3-sensible-terminal
-# bindsym $mod+Return exec xterm
-bindsym $mod+Return exec termite
-bindsym $mod+Shift+Return exec termite -c ${HOME}/.config/termite/config_day
+# audio
+set $volume --no-startup-id pactl set-sink-volume @DEFAULT_SINK@
+set $mute --no-startup-id pactl set-sink-mute @DEFAULT_SINK@
+set $mic_mute --no-startup-id pactl set-source-mute @DEFAULT_SOURCE@
 
-# kill focused window
-bindsym $mod+Shift+q kill
+# internet browser
+set $browser --no-startup-id google-chrome --process-per-site 
 
-# start dmenu (a program launcher)
-# bindsym $mod+d exec dmenu_run
-# There also is the (new) i3-dmenu-desktop which only displays applications
-# shipping a .desktop file. It is a wrapper around dmenu, so you need that
-# installed.
-# bindsym $mod+d exec --no-startup-id i3-dmenu-desktop
-
-bindsym $mod+d exec rofi -show combi
-bindsym $mod+Tab exec rofi -show window -location 0
-bindsym $mod+F2 exec rofi -show run
-
-# change focus
-bindsym $mod+h focus left
-bindsym $mod+j focus down
-bindsym $mod+k focus up
-bindsym $mod+l focus right
-
-# alternatively, you can use the cursor keys:
-bindsym $mod+Left focus left
-bindsym $mod+Down focus down
-bindsym $mod+Up focus up
-bindsym $mod+Right focus right
-
-# move focused window
-bindsym $mod+Shift+h move left
-bindsym $mod+Shift+j move down
-bindsym $mod+Shift+k move up
-bindsym $mod+Shift+l move right
-
-# alternatively, you can use the cursor keys:
-bindsym $mod+Shift+Left move left
-bindsym $mod+Shift+Down move down
-bindsym $mod+Shift+Up move up
-bindsym $mod+Shift+Right move right
-
-# split in horizontal orientation
-bindsym $mod+semicolon split h
-
-# split in vertical orientation
-bindsym $mod+v split v
-
-# enter fullscreen mode for the focused container
-bindsym $mod+f fullscreen toggle
-
-# change container layout (stacked, tabbed, toggle split)
-bindsym $mod+s layout stacking
-bindsym $mod+t layout tabbed
-bindsym $mod+e layout toggle split
-
-# toggle tiling / floating
-bindsym $mod+Shift+space floating toggle
-
-# change focus between tiling / floating windows
-bindsym $mod+space focus mode_toggle
-
-# focus the parent container
-bindsym $mod+a focus parent
-
-# focus the child container
-#bindsym $mod+d focus child
-
-# Define names for default workspaces for which we configure key bindings later on.
-# We use variables to avoid repeating the names in multiple places.
+# Define names for default workspaces 
 set $ws1 "1"
 set $ws2 "2"
 set $ws3 "3"
@@ -124,6 +45,180 @@ set $ws7 "7"
 set $ws8 "8"
 set $ws9 "9"
 set $ws10 "10"
+
+
+# ---------------------------------------------------------------------------- #
+# ---------------------------------- Config ---------------------------------- #
+# ---------------------------------------------------------------------------- #
+
+# ---------- General ---------- #
+# Font for window titles and bar (unless specified in the bar {} block below)
+#font pango:monospace 8
+#font pango:DejaVu Sans Mono 8
+font pango:CodeNewRoman Nerd Font 8
+
+# xss-lock grabs a logind suspend inhibit lock and will use i3lock to lock the
+# screen before suspend. Use loginctl lock-session to lock your screen.
+exec --no-startup-id xss-lock --transfer-sleep-lock -- i3lock --nofork
+
+# NetworkManager is the most popular way to manage wireless networks on Linux,
+# and nm-applet is a desktop environment-independent system tray GUI for it.
+exec --no-startup-id nm-applet
+
+# Don't change focus when mouse moves
+focus_follows_mouse no
+
+# status bar: configured in ~/.config/i3status/config
+bar {
+  #font pango:mono 8
+  status_command i3status
+  position bottom
+  mode dock
+  modifier None
+}
+
+
+# ---------- Modes ---------- #
+# resize window (you can also use the mouse for that)
+mode "resize" {
+  # These bindings trigger as soon as you enter the resize mode
+  bindsym h resize shrink width 10 px or 10 ppt
+  bindsym j resize grow height 10 px or 10 ppt
+  bindsym k resize shrink height 10 px or 10 ppt
+  bindsym l resize grow width 10 px or 10 ppt
+
+  # same bindings, but for the arrow keys
+  bindsym Left resize shrink width 10 px or 10 ppt
+  bindsym Down resize grow height 10 px or 10 ppt
+  bindsym Up resize shrink height 10 px or 10 ppt
+  bindsym Right resize grow width 10 px or 10 ppt
+
+  # back to normal: Enter or Escape or $mod+r
+  bindsym Return mode "default"
+  bindsym Escape mode "default"
+  bindsym $mod+r mode "default"
+}
+
+
+# ---------- Scratchpad Windows ----------- #
+# Startup configuration
+for_window [instance="spad_*"] floating enable
+for_window [instance="spad_normal"] move position center
+for_window [instance="spad_math"] move position 1050px 700px
+for_window [instance="spad_*"] move scratchpad
+for_window [instance="spad_*"] sticky enable
+for_window [instance="spad_normal"] resize set 625 400
+for_window [instance="spad_math"] resize set 750 300
+for_window [instance="spad_*"] border pixel 5
+
+# launch scratchpad windows when i3 starts up
+exec $named_term spad_normal
+exec $named_term spad_math -e ipython3
+
+
+# ---------------------------------------------------------------------------- #
+# ---------------------------- Keyboard Shortcuts ---------------------------- #
+# ---------------------------------------------------------------------------- #
+
+# ---------- General ---------- #
+# reload the configuration file
+bindsym $mod+Shift+c reload
+# restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
+bindsym $mod+Shift+r restart
+# exit i3 (logs you out of your X session)
+bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -B 'Yes, exit i3' 'i3-msg exit'"
+
+# kill focused window
+bindsym $mod+Shift+q kill
+
+# Application launcher (replaced drun)
+bindsym $mod+d exec rofi -show combi
+bindsym $mod+Tab exec rofi -show window -location 0
+bindsym $mod+F2 exec rofi -show run
+
+# Change modes
+bindsym $mod+r mode "resize"
+
+# Use PulseAudio to map keyboard volume buttons
+bindsym XF86AudioRaiseVolume exec $volume +10%     && $refresh_i3status
+bindsym XF86AudioLowerVolume exec $volume -10%     && $refresh_i3status
+bindsym XF86AudioMute        exec $mute toggle     && $refresh_i3status
+bindsym XF86AudioMicMute     exec $mic_mute toggle && $refresh_i3status
+bindsym $mod+XF86AudioMute   exec $mic_mute toggle && $refresh_i3status
+
+# Remap CapsLock to Escape
+exec xmodmap -e 'clear Lock'
+bindsym $mod+Escape exec xmodmap -e 'keycode 0x42=Caps_Lock'
+bindsym $mod+Shift+Escape exec xmodmap -e 'keycode 0x42=Escape'
+
+
+# ---------- Applications ---------- #
+# Terminal
+bindsym $mod+Return exec $term
+bindsym $mod+Shift+Return exec $term_samedir 
+bindsym $mod+BackSpace exec $term_day 
+
+# Internet Browser 
+bindsym $mod+g exec $browser
+bindsym $mod+Shift+g exec $browser --incognito
+
+
+# ---------- Scratchpad ---------- #
+# $mod+key           Toggle scratchpad window
+# $mod+Shift+key     Move scratchpad window to startup location
+
+# Normal terminal
+bindsym $mod+n [instance="spad_normal"] scratchpad show
+bindsym $mod+Shift+n [instance="spad_normal"] scratchpad show, move position center
+
+# Math terminal (ipython3)
+bindsym $mod+m [instance="spad_math"] scratchpad show
+bindsym $mod+Shift+m [instance="spad_math"] scratchpad show, move position 1050 700 
+
+# Cycle through scratpad windows
+#bindsym $mod+p scratchpad show
+
+
+# ---------- Floating Windows ---------- #
+# Drag floating windows with $mod+Mouse
+floating_modifier $mod
+
+# toggle tiling / floating
+bindsym $mod+Shift+space floating toggle
+
+# change focus between tiling / floating windows
+bindsym $mod+space focus mode_toggle
+
+
+# ---------- Layout ---------- #
+bindsym $mod+s layout stacking
+bindsym $mod+t layout tabbed
+bindsym $mod+e layout toggle split
+
+# split in horizontal orientation
+bindsym $mod+semicolon split h
+
+# split in vertical orientation
+bindsym $mod+v split v
+
+# enter fullscreen mode for the focused container
+bindsym $mod+f fullscreen toggle
+
+
+# ---------- Change Focus ---------- #
+# switch focused container on current workspace
+bindsym $mod+h focus left
+bindsym $mod+j focus down
+bindsym $mod+k focus up
+bindsym $mod+l focus right
+
+bindsym $mod+Left  focus left
+bindsym $mod+Down  focus down
+bindsym $mod+Up    focus up
+bindsym $mod+Right focus right
+
+bindsym $mod+p focus parent
+bindsym $mod+c focus child
 
 # switch to workspace
 bindsym $mod+1 workspace number $ws1
@@ -137,7 +232,20 @@ bindsym $mod+8 workspace number $ws8
 bindsym $mod+9 workspace number $ws9
 bindsym $mod+0 workspace number $ws10
 
-# move focused container to workspace
+
+# ---------- Move Windows ---------- #
+# move focused window on current workspace
+bindsym $mod+Shift+h move left
+bindsym $mod+Shift+j move down
+bindsym $mod+Shift+k move up
+bindsym $mod+Shift+l move right
+
+bindsym $mod+Shift+Left  move left
+bindsym $mod+Shift+Down  move down
+bindsym $mod+Shift+Up    move up
+bindsym $mod+Shift+Right move right
+
+# move focused window to workspace
 bindsym $mod+Shift+1 move container to workspace number $ws1
 bindsym $mod+Shift+2 move container to workspace number $ws2
 bindsym $mod+Shift+3 move container to workspace number $ws3
@@ -149,74 +257,3 @@ bindsym $mod+Shift+8 move container to workspace number $ws8
 bindsym $mod+Shift+9 move container to workspace number $ws9
 bindsym $mod+Shift+0 move container to workspace number $ws10
 
-# reload the configuration file
-bindsym $mod+Shift+c reload
-# restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
-bindsym $mod+Shift+r restart
-# exit i3 (logs you out of your X session)
-bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -B 'Yes, exit i3' 'i3-msg exit'"
-
-# resize window (you can also use the mouse for that)
-mode "resize" {
-        # These bindings trigger as soon as you enter the resize mode
-
-        # Pressing left will shrink the window’s width.
-        # Pressing right will grow the window’s width.
-        # Pressing up will shrink the window’s height.
-        # Pressing down will grow the window’s height.
-        bindsym j resize shrink width 10 px or 10 ppt
-        bindsym k resize grow height 10 px or 10 ppt
-        bindsym l resize shrink height 10 px or 10 ppt
-        bindsym semicolon resize grow width 10 px or 10 ppt
-
-        # same bindings, but for the arrow keys
-        bindsym Left resize shrink width 10 px or 10 ppt
-        bindsym Down resize grow height 10 px or 10 ppt
-        bindsym Up resize shrink height 10 px or 10 ppt
-        bindsym Right resize grow width 10 px or 10 ppt
-
-        # back to normal: Enter or Escape or $mod+r
-        bindsym Return mode "default"
-        bindsym Escape mode "default"
-        bindsym $mod+r mode "default"
-}
-
-bindsym $mod+r mode "resize"
-
-# =====================================
-# =========== Custom stuff ============
-# =====================================
-
-focus_follows_mouse no
-
-bindsym $mod+g exec --no-startup-id google-chrome --process-per-site
-bindsym $mod+Shift+g exec --no-startup-id google-chrome --incognito
-
-# https://faq.i3wm.org/question/3747/enabling-multimedia-keys.1.html
-# bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +5%
-# bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ -5%
-# bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute @DEFAULT_SINK@ toggle
-#bindsym XF86AudioRaiseVolume exec --no-startup-id amixer set Master 5%+ && $refresh_i3status
-#bindsym XF86AudioLowerVolume exec --no-startup-id amixer set Master 5%- && $refresh_i3status
-#bindsym XF86AudioMute exec --no-startup-id amixer set Master toggle     && $refresh_i3status
-#bindsym XF86AudioMicMute exec --no-startup-id amixer set Capture toggle
-
-# for macbook, these are correct, except macbook does not have 'stop' keys
-# bindsym XF86AudioPlay exec playerctl play-pause
-# bindsym XF86AudioStop exec playerctl stop
-# bindsym XF86AudioNext exec playerctl next
-# bindsym XF86AudioPrev exec playerctl previous
-
-# others use `backlight` but my soln does not require another program installed
-# only a small, executable bash script. Can use a value instead of $p20_bness.
-#bindsym XF86MonBrightnessUp   exec --no-startup-id bness $p20_bness  1
-#bindsym XF86MonBrightnessDown exec --no-startup-id bness $p20_bness -1
-
-#bindsym XF86KbdBrightnessUp   exec --no-startup-id kbness $kp20_bness  1
-#bindsym XF86KbdBrightnessDown exec --no-startup-id kbness $kp20_bness -1
-
-# Start i3bar to display a workspace bar (plus the system information i3status
-# finds out, if available)
-bar {
-        status_command i3status
-}

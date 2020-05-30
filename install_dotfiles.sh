@@ -1,48 +1,60 @@
 #!/bin/sh
 
+setup_link()
+{
+    symfile=$1
+    srcfile=$2
+    symdir=${3:-~}
+    srcdir=${4:-~/scripts/dotfiles}
+
+    if [ ! -d $symdir ]; then 
+        mkdir -p $symdir
+        echo_blue "Created $symdir"
+    fi
+    if [ ! -h $symdir/$symfile ]; then
+        if [ -f $symdir/$symfile ]; then 
+            mv $symdir/$symfile $symdir/$symfile.bak
+            echo_red "Moved $symdir/$symfile to $symdir/$symfile.bak"
+        fi
+        ln -s $srcdir/$srcfile $symdir/$symfile
+        echo_blue "Linked $symdir/$symfile -> $srcdir/$srcfile"
+    else
+        echo_purple "No change to $symdir/$symfile"
+    fi
+}
+
+echo_blue "Installing dotfiles"
+
 # universal terminal rc
-if [ ! -h ~/.termrc ]; then
-    if [ -f ~/.termrc ]; then rm ~/.termrc; fi
-    ln -s ~/scripts/dotfiles/termrc ~/.termrc
-fi
+setup_link .termrc termrc
 
 # source termrc in both bashrc and zshrc
 TEXT='\n# source custom termrc\nif [ -f ~/.termrc ]; then . ~/.termrc; fi\n'
 if ! grep -q '~/.termrc' ~/.bashrc; then
-    echo_blue "Appending termrc to bashrc"
     echo "$TEXT" >> ~/.bashrc
+    echo_blue "Appended termrc to bashrc"
 fi
 
-if [ -h ~/.zshrc ]; then
+if [ -f ~/.zshrc ]; then
     if ! grep -q '~/.termrc' ~/.zshrc; then
-        echo_blue "Appending termrc to zshrc"
         echo "$TEXT" >> ~/.zshrc
+        echo_blue "Appended termrc to zshrc"
     fi
-    unset TEXT
     
     # change zsh theme to my custom theme
     if ! grep -q 'ZSH_THEME="mat"' ~/.zshrc; then 
-        echo_blue "Changing ZSH_THEME to mat"
         sed -i 's/^ZSH_THEME=".*"$/ZSH_THEME="mat"/' ~/.zshrc
+        echo_blue "Changed ZSH_THEME to mat"
     fi
 fi
+unset TEXT
 
 # aliases
-if [ ! -h ~/.sh_aliases ]; then
-    if [ -f ~/.sh_aliases ]; then rm ~/.sh_aliases; fi
-    ln -s ~/scripts/dotfiles/sh_aliases ~/.sh_aliases
-fi
+setup_link .sh_aliases sh_aliases
 
 # ROS
-if [ ! -h ~/.rosrc ]; then
-    if [ -f ~/.rosrc ]; then rm ~/.rosrc; fi
-    ln -s ~/scripts/dotfiles/rosrc ~/.rosrc
-fi
-
-if [ ! -h ~/.ros_aliases ]; then
-    if [ -f ~/.ros_aliases ]; then rm ~/.ros_aliases; fi
-    ln -s ~/scripts/dotfiles/ros_aliases ~/.ros_aliases
-fi
+setup_link .rosrc rosrc
+setup_link .ros_aliases ros_aliases 
 
 # apply changes to current shell
 if [ $BASH ]; then
@@ -54,34 +66,35 @@ elif [ $ZSH_NAME ]; then
 fi
 
 # git
-if [ ! -h ~/.gitconfig ]; then
-    if [ -f ~/.gitconfig ]; then rm ~/.gitconfig; fi
-    ln -s ~/scripts/dotfiles/gitconfig ~/.gitconfig
-fi
+setup_link .gitconfig gitconfig
 
 # vim
-if [ ! -h ~/.vimrc ]; then
-    if [ -f ~/.vimrc ]; then rm ~/.vimrc; fi
-    ln -s ~/scripts/dotfiles/vimrc ~/.vimrc
-fi
+setup_link .vimrc vimrc
 
 # tmux
-if [ ! -h ~/.tmux-snapshot ]; then
-    if [ -f ~/.tmux-snapshot ]; then rm ~/.tmux-snapshot; fi
-    ln -s ~/scripts/dotfiles/tmux-snapshot ~/.tmux-snapshot
-fi
-
-if [ ! -h ~/.tmux.conf ]; then
-    if [ -f ~/.tmux.conf ]; then rm ~/.tmux.conf; fi
-    ln -s ~/scripts/dotfiles/tmux.conf ~/.tmux.conf
-fi
+setup_link .tmux-snapshot tmux-snapshot
+setup_link .tmux.conf tmux.conf
 tmux source-file ~/.tmux.conf
 
 # ipython
-dir=~/.ipython/profile_default/startup
-if [ ! -d $dir ]; then mkdir -p $dir; fi
-if [ ! -h $dir/00_imports.py ]; then
-    if [ -f $dir/00_imports.py ]; then rm $dir/00_imports.py; fi
-    ln -s ~/scripts/dotfiles/00_imports.py $dir/00_imports.py
-fi
-unset dir
+setup_link 00_imports.py 00_imports.py ~/.ipython/profile_default/startup
+
+# i3
+setup_link config i3_config ~/.config/i3
+
+# i3status
+setup_link config i3status_config ~/.config/i3status
+
+# termite
+setup_link config termite_config ~/.config/termite
+setup_link config_day termite_config_day ~/.config/termite
+setup_link samedir.sh termite_samedir.sh ~/.config/termite
+
+# ubuntu server
+setup_link .Xauthority Xauthority
+setup_link .Xresources Xresources 
+setup_link .xinitrc xinitrc 
+setup_link .xserverrc xserverrc 
+
+echo_green "Dotfiles installed"
+
