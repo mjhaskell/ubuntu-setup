@@ -26,5 +26,8 @@ echo_purple "Use installer framework 3.0 in tools"
 cd ~/scripts
 rm -rf ~/software/qt_installer
 
+ln -s $HOME/software/Qt/Tools/QtCreator/bin/qtcreator $HOME/bin/qtcreator 
+ln -s $HOME/software/Qt/Tools/QtCreator/bin/qtcreator.sh $HOME/bin/qtcreator.sh
+
 echo_green "launched qt-installer"
 

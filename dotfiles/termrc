@@ -36,6 +36,11 @@ if ! echo $PATH | grep -q /.local/bin; then
     export PATH=$HOME/.local/bin:$PATH
 fi
 
+# add ~/bin to path if not already
+if ! echo $PATH | grep -q ${HOME}/bin; then
+    export PATH=$HOME/bin:$PATH
+fi
+
 # add CUDA to path if not already
 if [ -d /usr/local/cuda/bin ]; then 
     if ! echo $PATH | grep -q /usr/local/cuda/bin; then

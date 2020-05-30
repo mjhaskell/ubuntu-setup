@@ -19,6 +19,7 @@ sudo apt install -y libcanberra-gtk-module mesa-utils mesa-utils-extra
 # sudo apt install libeigen3-dev
 
 if [ ! -d ~/software ]; then mkdir ~/software; fi
+if [ ! -d ~/bin ]; then mkdir ~/bin; fi
 
 echo_green "common installed"
 
