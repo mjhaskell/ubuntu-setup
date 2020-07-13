@@ -23,5 +23,8 @@ code --install-extension visualstudioexptteam.vscodeintellicode
 code --install-extension ms-vsliveshare.vsliveshare
 code --install-extension ms-vsliveshare.vsliveshare-audio
 
+# Github-style markdown preview
+code --install-extension bierner.markdown-preview-github-styles
+
 echo_green "VSCode installed with extensions"
 
