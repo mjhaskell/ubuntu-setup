@@ -1,0 +1,120 @@
+{
+    "editor.wordWrap": "wordWrapColumn",
+    "editor.wordWrapColumn": 99,
+    "editor.rulers": [80, 90],
+    "editor.tabSize": 2,
+    "editor.minimap.maxColumn": 90,
+    // "editor.minimap.enabled": false,
+    "editor.fontFamily": "'CodeNewRoman Nerd Font Mono','Droid Sans Mono', 'monospace'",
+    "editor.fontSize": 12,
+    "editor.insertSpaces": true,
+    "editor.renderWhitespace": "all",
+    "editor.lineNumbers": "relative",
+    "editor.renderLineHighlight": "all",
+    // "editor.mouseWheelZoom": true,
+    "editor.definitionLinkOpensInPeek": true,
+    "editor.suggestSelection": "first",
+    "editor.acceptSuggestionOnEnter": "smart",
+    "vsintellicode.modify.editor.suggestSelection": "automaticallyOverrodeDefaultValue",
+    "window.zoomLevel": 0,
+
+    "files.trimFinalNewlines": true,
+    "files.insertFinalNewline": true,
+    "files.trimTrailingWhitespace": true,
+    "files.autoSave": "afterDelay",
+    "files.exclude": {
+        "**/build": true,
+        "**/devel": true
+    },
+    "files.associations": {
+        "*.tpp": "cpp"
+    },
+
+    "terminal.integrated.shell.linux": "/bin/zsh",
+    "terminal.external.linuxExec": "termite",
+    "terminal.integrated.fontFamily": "CodeNewRoman Nerd Font",
+    "terminal.integrated.fontSize": 12,
+    "debug.console.fontSize": 12,
+
+    "python.jediEnabled": false,
+    "[python]": {
+        "editor.tabSize": 4
+    },
+    "[cpp]": {
+        "editor.tabSize": 2
+    },
+    "[markdown]": {
+        "editor.wordWrap": "wordWrapColumn",
+        "editor.wordWrapColumn": 90
+    },
+
+    "liveshare.accountProvider": "",
+    "liveshare.account": "",
+    "liveshare.anonymousGuestApproval": "accept",
+    "liveshare.audio.joinCallBehavior": "accept",
+
+    "vim.vimrc.enable": true,
+    "vim.useSystemClipboard": true,
+    "vim.useCtrlKeys": true,
+    "vim.sneak": true,
+    "vim.sneakReplacesF": true,
+    "vim.whichwrap": "h,l,<,>,[,]",
+    "vim.textwidth": 83,
+    "vim.ignorecase": false,
+    "vim.foldfix": true,
+    "vim.timeout": 200,
+    "vim.cursorStylePerMode.insert": "line",
+    "vim.cursorStylePerMode.normal": "block",
+    "vim.cursorStylePerMode.replace": "block-outline",
+    "vim.leader": "\\",
+    "vim.handleKeys": {
+        "<C-d>": false,
+        "<C-/>": false,
+        "<C-z>": false,
+        "<C-Z>": false,
+        "<C-]>": false,
+        "<C-[>": false,
+        "<C-b>": false,
+        "<C-y>": true,
+        "Up": true,
+        "Down": true,
+        "Left": true,
+        "Right": true
+    },
+    "vim.insertModeKeyBindingsNonRecursive": [
+        {
+            "before": ["<leader>", "c", "i"],
+            "commands": ["editor.action.commentLine"]
+        },
+    ],
+    "vim.normalModeKeyBindingsNonRecursive": [
+        {
+            "before": ["k"],
+            "after": ["g", "k"]
+        },
+        {
+            "before": ["j"],
+            "after": ["g", "j"]
+        },
+        {
+            "before": ["<leader>", "c", "i"],
+            "commands": ["editor.action.commentLine"]
+        },
+        {
+            "before": ["m"],
+            "commands": ["editor.action.toggleMinimap"]
+        },
+    ],
+    "vim.visualModeKeyBindingsNonRecursive": [
+        {
+            "before": ["k"],
+            "after": ["g", "k"]
+        },
+        {
+            "before": ["j"],
+            "after": ["g", "j"]
+        }
+    ],
+    "editor.minimap.enabled": false,
+    "python.languageServer": "Microsoft",
+}

@@ -96,5 +96,8 @@ setup_link .Xresources Xresources
 setup_link .xinitrc xinitrc 
 setup_link .xserverrc xserverrc 
 
+# VS Code
+setup_link settings.json vscode_settings.json ~/.config/Code/User
+
 echo_green "Dotfiles installed"
 
