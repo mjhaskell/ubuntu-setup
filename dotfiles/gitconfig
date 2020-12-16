@@ -10,3 +10,4 @@
 	st = status
 	cm = commit
 	subup = submodule update --init --recursive
+    graph = log --oneline --graph --decorate --all
