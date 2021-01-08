@@ -16,12 +16,17 @@
 ! xterm.Foreground.foreground: lightgray
 ! xterm.Background.background: black
 
-xterm.vt100.saveLines: 10000000
-xterm.vt100.background: black
-xterm.vt100.foreground: lightgray
+!xterm.vt100.saveLines: 10000000
+!xterm.vt100.background: black
+!xterm.vt100.foreground: lightgray
+*saveLines: 10000000
+*background: black
+*foreground: lightgray
+
 ! xterm*background: black
 ! xterm*foreground: lightgray
-xterm*faceName: CodeNewRoman:pixelsize=12
+!xterm*faceName: CodeNewRoman:pixelsize=12
+*faceName: CodeNewRoman Nerd Font:pixelsize=12
 
 xterm*VT100.Translations: #override \
                  Ctrl Shift <Key>V:    insert-selection(CLIPBOARD) \n\

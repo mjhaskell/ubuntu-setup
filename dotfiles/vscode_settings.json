@@ -1,6 +1,6 @@
 {
     "editor.wordWrap": "wordWrapColumn",
-    "editor.wordWrapColumn": 99,
+    "editor.wordWrapColumn": 90,
     "editor.rulers": [80, 90],
     "editor.tabSize": 2,
     "editor.minimap.maxColumn": 90,
@@ -48,6 +48,14 @@
         "editor.wordWrapColumn": 90
     },
 
+    "C_Cpp.default.includePath": [
+        "/usr/include/**",
+        "/usr/local/include/**"
+    ],
+    "C_Cpp.default.compilerPath": "/usr/bin/gcc",
+    "C_Cpp.default.cppStandard": "c++14",
+    "C_Cpp.default.cStandard": "c11",
+
     "liveshare.accountProvider": "",
     "liveshare.account": "",
     "liveshare.anonymousGuestApproval": "accept",
@@ -85,7 +93,7 @@
         {
             "before": ["<leader>", "c", "i"],
             "commands": ["editor.action.commentLine"]
-        },
+        }
     ],
     "vim.normalModeKeyBindingsNonRecursive": [
         {
@@ -103,7 +111,7 @@
         {
             "before": ["m"],
             "commands": ["editor.action.toggleMinimap"]
-        },
+        }
     ],
     "vim.visualModeKeyBindingsNonRecursive": [
         {
@@ -115,6 +123,6 @@
             "after": ["g", "j"]
         }
     ],
-    "editor.minimap.enabled": false,
+    "editor.minimap.enabled": true,
     "python.languageServer": "Microsoft",
 }

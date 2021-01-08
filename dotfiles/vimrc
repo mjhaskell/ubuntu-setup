@@ -44,7 +44,7 @@ filetype indent on
 " Always copy and paste to clipboard
 set clipboard=unnamedplus
 
-"set encoding=UTF-8
+set encoding=UTF-8
 "set guifont=Hack\ Regular\ 12
 
 " Use xclip for clipboard

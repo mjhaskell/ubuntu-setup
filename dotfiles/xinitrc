@@ -1,5 +1,8 @@
 #!/bin/sh
 
+#xrandr --setprovideroutputsource modesetting NVIDIA-G0
+xrandr --auto
+
 userresources=$HOME/.Xresources
 usermodmap=$HOME/.Xmodmap
 sysresources=/etc/X11/xinit/.Xresources
@@ -62,7 +65,7 @@ fi
 session=${1:-i3}
 
 case $session in
-	i3|i3wm		) exec i3;;
+	i3|i3wm		) export XDG_CURRENT_DESKTOP=Gnome; exec i3;;
 	budgie		) export XDG_CURRENT_DESKTOP=Budgie:Gnome; exec budgie-desktop;;
 	kde		) exec startkde;;
 	xfce|xfce4	) exec startxfce4;;

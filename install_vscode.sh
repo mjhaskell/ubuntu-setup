@@ -23,6 +23,8 @@ code --install-extension visualstudioexptteam.vscodeintellicode
 code --install-extension eamodio.gitlens
 
 # Live Share
+sudo apt install -y x11-utils desktop-file-utils
+#sudo apt install -y gnome-keyring
 code --install-extension ms-vsliveshare.vsliveshare
 code --install-extension ms-vsliveshare.vsliveshare-audio
 
