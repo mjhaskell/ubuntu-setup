@@ -8,8 +8,8 @@
 [pull]
     rebase = true
 [alias]
-	co = checkout
-	st = status
-	cm = commit
-	subup = submodule update --init --recursive
+    co = checkout
+    st = status
+    cm = commit
+    subup = submodule update --init --recursive
     graph = log --oneline --graph --decorate --all
