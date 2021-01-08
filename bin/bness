@@ -1,0 +1,85 @@
+#!/bin/zsh
+
+# blt_dir=intel_backlight
+# blt_dir=gmux_backlight
+# bnessf=/sys/class/backlight/$blt_dir/brightness
+# max_bnessf=/sys/class/backlight/$blt_dir/max_brightness
+# max_bness=`cat $max_bnessf`
+old_bness=`cat $bnessf`
+# echo $old_bness
+# echo $max_bness
+# arg1=400
+# arg2=Null
+# old_bness=500
+num_args=$#
+# enforce all arguments to be integers
+# if ! [[ "$1" ]]
+# (( arg1=$1 ))
+# (( arg2=$2 ))
+# for absolute value
+# echo ${arg_name/#-/}
+if [ $num_args -eq 1 ] ;
+then
+    (( new_bness=$1 ))
+elif [ $num_args -eq 2 ] ;
+then
+    # this will print an error if argument is a non-integer
+    (( arg1=$1 ))
+    (( arg2=$2 ))
+    # echo $arg1
+    # echo $arg2
+    if (( arg2==0 )) ;
+    then
+        echo "error: second argument must be +1 or -1"
+        # echo "please assign the second argument to +1 or -1"
+        exit
+    elif (( arg2<-1 )) ;
+    then
+        (( arg2=-1 ))
+    elif (( arg2>1 )) ;
+    then
+        (( arg2=1 ))
+    # else
+    #     (( arg2=$2 ))
+    #     # echo "arg2"
+    #     # echo $arg2
+    fi
+    if [ $old_bness -le $p20_bness ] ;
+    then
+        if [ $arg2 -eq -1 ] ;
+        then
+            (( new_bness=old_bness-$p15_low ))
+        elif [ $arg2 -eq 1 ] ;
+        then
+            (( new_bness=old_bness+$p15_low ))
+        fi
+    else
+        (( crement=arg1*arg2 ))
+        # echo $crement
+        # echo "\n\n"
+        (( new_bness=old_bness+crement ))
+        if [ $new_bness -lt $p20_s1 ] ;
+        then
+            (( new_bness=$p20_s1 ))
+        fi
+    fi
+else
+    echo "wrong number of arguments"
+    echo "arguments must be integers"
+    echo "must include at least 1 argument"
+    echo "must have no more than 2 arguments"
+    echo "the second argument should be 1 or -1"
+    exit
+fi
+if [ $new_bness -lt 0 ] ;
+then
+    new_bness=0
+elif [ $max_bness -lt $new_bness ] ;
+then
+    new_bness=$max_bness
+fi
+# echo $1
+# echo $1 > $bnessf
+# echo $new_bness
+echo $new_bness > $bnessf
+# exit

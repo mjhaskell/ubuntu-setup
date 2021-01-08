@@ -88,10 +88,9 @@ setup_link config i3status_config ~/.config/i3status
 # termite
 setup_link config termite_config ~/.config/termite
 setup_link config_day termite_config_day ~/.config/termite
-setup_link samedir.sh termite_samedir.sh ~/bin/termite
+setup_link samedir.sh termite_samedir.sh ~/bin/termite ~/scripts/bin
 
 # ubuntu server
-setup_link .Xauthority Xauthority
 setup_link .Xresources Xresources 
 setup_link .xinitrc xinitrc 
 setup_link .xserverrc xserverrc 
