@@ -99,7 +99,7 @@ exec xmodmap -e 'clear Lock'
 
 # launch scratchpad windows when i3 starts up
 exec $term_named spad_normal
-exec $term_named spad_math -e $HOME/.pyvenv/bin/ipython3
+exec $term_named spad_math -e $HOME/.local/bin/ipython3
 
 
 # ---------- Modes ---------- #
