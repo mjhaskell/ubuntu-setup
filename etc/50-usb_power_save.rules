@@ -1,0 +1,12 @@
+# blocklist for usb autosuspend
+# ACTION=="add", SUBSYSTEM=="usb", ATTR{idVendor}=="05c6", ATTR{idProduct}=="9205", GOTO="power_usb_rules_end"
+
+# allow list for usb autosuspend
+ACTION=="add", SUBSYSTEM=="usb", TEST=="power/control", ATTR{idVendor}=="27c6", ATTR{idProduct}=="533c", ATTR{power/control}="auto"
+
+# allow all
+# ACTION=="add", SUBSYSTEM=="usb", TEST=="power/control", ATTR{power/control}="auto"
+# LABEL="power_usb_rules_end"
+
+#
+

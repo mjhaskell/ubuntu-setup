@@ -1,0 +1,9 @@
+#!/usr/bin/sh
+
+# see https://wiki.archlinux.org/index.php/NVIDIA_Optimus#Available_methods
+
+sudo ln -sf $HOME/scripts/etc/xorg-blank.conf /etc/X11/xorg.conf
+echo_green "Switched to use iGPU with PRIME render offloading"
+echo_purple "Use 'prime-run <cmd>' to use dGPU for single command"
+echo_red "Need to exit X server to see change - might need to power off"
+

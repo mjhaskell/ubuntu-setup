@@ -1,0 +1,16 @@
+
+# pci runtime power management
+
+# block list
+# SUBSYSTEM=="pci", ATTR{vendor}=="0x1234", ATTR{device}=="0x1234", ATTR{power/control}="on", GOTO="pci_pm_end"
+
+# allow list
+# SUBSYSTEM=="pci", ATTR{vendor}=="0x1234", ATTR{device}=="0x1234", ATTR{power/control}="auto"
+
+# power all unused devices down
+SUBSYSTEM=="pci", ATTR{power/control}="auto"
+
+# LABEL="pci_pm_end"
+
+#
+

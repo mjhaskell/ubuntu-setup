@@ -1,0 +1,21 @@
+
+# /etc/udev/rules.d/backlight.rules
+
+# change group and write access to backlight brightness files
+
+# screen
+ACTION=="add", SUBSYSTEM=="backlight", KERNEL=="intel_backlight", RUN+="/bin/chgrp video /sys/class/backlight/%k/brightness"
+ACTION=="add", SUBSYSTEM=="backlight", KERNEL=="intel_backlight", RUN+="/bin/chmod g+w /sys/class/backlight/%k/brightness"
+
+# ACTION=="add", SUBSYSTEM=="backlight", KERNEL=="gmux_backlight", RUN+="/bin/chgrp video /sys/class/backlight/%k/brightness"
+# ACTION=="add", SUBSYSTEM=="backlight", KERNEL=="gmux_backlight", RUN+="/bin/chmod g+w /sys/class/backlight/%k/brightness"
+
+# keyboard
+# ACTION=="add", SUBSYSTEM=="leds", KERNEL=="smc::kbd_backlight", RUN+="/bin/chgrp video /sys/class/leds/%k/brightness"
+# ACTION=="add", SUBSYSTEM=="leds", KERNEL=="smc::kbd_backlight", RUN+="/bin/chmod g+w /sys/class/leds/%k/brightness"
+
+# nvidia backlight (macbook)
+# ACTION=="add", SUBSYSTEM=="backlight", KERNEL=="gmux_backlight", RUN+="/usr/bin/setpci -v -H1 -s 00:01.00 BRIDGE_CONTROL=0"
+
+
+#
