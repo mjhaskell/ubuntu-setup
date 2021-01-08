@@ -1,0 +1,14 @@
+export blt_dir=intel_backlight
+export bnessf=/sys/class/backlight/$blt_dir/brightness
+export max_bnessf=/sys/class/backlight/$blt_dir/max_brightness
+export max_bness=`cat $max_bnessf`
+export p20_bness=$(( max_bness / 20 ))
+export p15_low=$(( p20_bness / 15 ))
+export p20_s1=$(( p20_bness - p15_low ))
+
+## autostart X at LOGIN ##
+# if systemctl -q is-active graphical.target && [[ ! $DISPLAY && $XDG_VTNR -le 3 ]]; then
+if systemctl -q is-active graphical.target && [[ ! $DISPLAY && $XDG_VTNR && $XDG_VTNR -le 3 ]]; then
+    startx
+fi
+
