@@ -19,6 +19,12 @@ if ! grep -q 'ZSH_THEME="mat"' ~/.zshrc; then
     sed -i 's/^ZSH_THEME=".*"$/ZSH_THEME="mat"/' ~/.zshrc
 fi
 
+## add custom plugins
+if grep -q 'plugins=(git)' ~/.zshrc; then
+    echo_blue "Adding zsh plugins"
+    sed -i 's/^plugins=(git).*$/plugins=(git zsh-autosuggestions zsh-completions zsh-syntax-highlighting)\nautoload -U compinit \&\& compinit/' ~/.zshrc
+fi
+
 TEXT='\n# source custom termrc\nif [ -f ~/.termrc ]; then . ~/.termrc; fi\n'
 if ! grep -q '~/.termrc' ~/.zshrc; then
     echo_blue "Appending termrc to zshrc"
