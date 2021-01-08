@@ -3,6 +3,13 @@
 sudo apt update
 sudo apt upgrade
 
+sudo cp color_functions/echo_* /usr/local/bin
+echo_green "Color functions installed"
+
+# set password for root
+echo_blue "Creating password for root"
+sudo passwd root
+
 echo_blue "installing common"
 
 sudo apt install -y zsh curl htop ssh gcc cmake ccache make gdb
