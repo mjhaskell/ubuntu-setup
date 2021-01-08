@@ -113,7 +113,8 @@ for_window [instance="spad_*"] border pixel 5
 
 # launch scratchpad windows when i3 starts up
 exec $named_term spad_normal
-exec $named_term spad_math -e ipython3
+exec $named_term spad_math
+#exec $named_term spad_math -e ipython3
 
 
 # ---------------------------------------------------------------------------- #
