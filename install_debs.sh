@@ -15,4 +15,4 @@ wget -O ~/software/slack.deb "https://downloads.slack-edge.com/linux_releases/sl
 sudo apt install ~/software/slack.deb
 echo_green "slack installed"
 
-sudo apt install -f
+#sudo apt install -f

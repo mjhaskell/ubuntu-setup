@@ -2,8 +2,8 @@
 
 sudo apt install -y python3-catkin-pkg-modules python3-rospkg-modules
 pip3 uninstall em
-pip3 install --user empy
-pip3 install --user posix_ipc pyyaml catkin-pkg pygame
+pip3 install empy
+pip3 install posix_ipc pyyaml catkin-pkg pygame
 
 cd ~/
 if [ ! -d ~/holodeck_ws ]; then
@@ -43,7 +43,7 @@ fi
 
 echo_blue "Building holodeck_ws"
 cd ~/holodeck_ws 
-catkin_make -DPYTHON_EXECUTABLE=/usr/bin/python3
+catkin_make 
 
 echo_blue "Building Holodeck"
 cd src/rosflight_holodeck/python/holodeck

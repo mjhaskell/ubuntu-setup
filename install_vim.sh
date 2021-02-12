@@ -35,7 +35,7 @@ cd ~/scripts
 
 # if running pip gives an error about finding "main" then see this website:
 # https://stackoverflow.com/questions/28210269/importerror-cannot-import-name-main-when-running-pip-version-command-in-windo
-pip install testresources --user
-pip install python-language-server --user
+pip install testresources
+pip install python-language-server
 
 echo_green "vim installed"

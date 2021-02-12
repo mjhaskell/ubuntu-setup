@@ -2,8 +2,13 @@
 
 # print cuda information
 nvidia-smi
+cat /usr/local/cuda/version.txt
 
-str=$(grep -o 'X Driver...........' /var/log/Xorg.0.log)
+# print nvcc version
+nvcc --version | grep release
+
+#str=$(grep -o 'X Driver...........' /var/log/Xorg.0.log)
+str=$(grep -o 'X Driver...........' ~/.local/share/xorg/Xorg.0.log)
 version=$(echo $str | cut -c10-19) # might have to change if not 9 chars
 
 if [ -z "$str" ]; then

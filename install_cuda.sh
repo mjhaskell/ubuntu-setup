@@ -1,10 +1,6 @@
 #!/bin/sh
 
-if lspci -v | grep VGA | grep -q NVIDIA; then
-    echo_blue "Getting NVIDIA graphics drivers"
-    sudo add-apt-repository ppa:graphics-drivers/ppa
-    sudo apt update
-
+if lspci -v | grep -i 'VGA\|3d\|2d' | grep -q NVIDIA; then
     mkdir -p ~/software/cuda
     cd ~/software/cuda
 
@@ -14,8 +10,8 @@ if lspci -v | grep VGA | grep -q NVIDIA; then
     echo '#!/bin/sh' > web_instructions.sh
     echo '' >> web_instructions.sh
     curl --silent "https://developer.nvidia.com/cuda-downloads" | 
-        grep -n Linux/x86_64/Ubuntu/18.04/ | # specific to Ubuntu 18.04
-        grep -n /cuda-repo-ubuntu1804 | # specific to Ubuntu 18.04
+        grep -n Linux/x86_64/Ubuntu/20.04/ | # specific to Ubuntu 20.04
+        grep -n /cuda-repo-ubuntu2004 | # specific to Ubuntu 20.04
         grep -oP '(?<="cudaBash">).+?(?=</span>)' >> web_instructions.sh
     sed -i 's/dpkg -i&nbsp;/apt install .\//' web_instructions.sh
     sed -i 's/apt-get/apt/' web_instructions.sh
@@ -39,7 +35,7 @@ sudo apt -y install cuda
     case $EXE in
         [yY]* ) # if first letter is y or Y (yes)
             echo_blue "installing cuda"
-            sh ~/scripts/web_instructions.sh
+            sh ~/software/cuda/web_instructions.sh
             cd ~/scripts
             echo_green "Cuda installed"
             echo_purple "After reboot, check that it worked"

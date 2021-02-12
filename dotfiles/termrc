@@ -26,9 +26,9 @@ alias stermrc='source ~/.termrc'
 alias vtermrc='vi ~/.termrc'
 
 # Python virtual environments
-if [ -f $HOME/.local/bin/virtualenvwrapper.sh ]; then
-    export VIRTUALENVWRAPPER_PYTHON=/usr/bin/python3
-    source $HOME/.local/bin/virtualenvwrapper.sh
+if [ -d $HOME/.pyvenv ]; then
+    export PYVENV_DIR=$HOME/.pyvenv
+    export PATH=$PYVENV_DIR/bin:$PATH
 fi
 
 # add ~/.local/bin to path if not already
@@ -48,14 +48,6 @@ if [ -d /usr/local/cuda/bin ]; then
     fi
 fi
 
-# add OpenCV to path if not already
-if [ -d /usr/local/opencv ]; then 
-    if ! echo $PATH | grep -q /usr/local/opencv/bin; then
-        export PATH=/usr/local/opencv/bin:$PATH
-    fi
-    export PYTHONPATH=/usr/local/opencv/lib/python3.6/dist-packages
-fi
-
 # source aliases
 if [ -f ~/.sh_aliases ]; then
     . ~/.sh_aliases
@@ -65,3 +57,14 @@ fi
 if [ -f ~/.rosrc ]; then
     . ~/.rosrc
 fi
+
+# add OpenCV to path if not already
+if [ -d /usr/local/opencv ]; then 
+    if ! echo $PATH | grep -q /usr/local/opencv/bin; then
+        export PATH=/usr/local/opencv/bin:$PATH
+    fi
+    if ! echo $PYTHONPATH | grep -q opencv; then
+        export PYTHONPATH=/usr/local/opencv/lib/python3.8/dist-packages:$PYTHONPATH
+    fi
+fi
+
