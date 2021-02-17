@@ -45,11 +45,13 @@ echo_yellow "G++ compiler information:"
 sudo update-alternatives --display g++
 
 # python deps
-sudo apt install -y python3-dev python3-venv
+sudo apt install -y python3-dev python3-venv python3-tk
 sudo apt install -y pybind11-dev libtool libffi-dev
 # pygame deps
 sudo apt install -y libfreetype-dev libsdl-image1.2-dev libsdl-mixer1.2-dev
 sudo apt install -y libsdl1.2-dev libsdl-ttf2.0-dev libportmidi-dev
+# pytesseract/tesserocr deps
+sudo apt install -y libtesseract-dev libleptonica-dev tesseract-ocr 
 
 # pdf, image, and video viewers
 sudo apt install -y qpdfview shotwell vlc ffmpeg
