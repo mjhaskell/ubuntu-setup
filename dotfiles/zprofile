@@ -8,7 +8,11 @@ export p20_s1=$(( p20_bness - p15_low ))
 
 ## autostart X at LOGIN ##
 # if systemctl -q is-active graphical.target && [[ ! $DISPLAY && $XDG_VTNR -le 3 ]]; then
-if systemctl -q is-active graphical.target && [[ ! $DISPLAY && $XDG_VTNR && $XDG_VTNR -le 3 ]]; then
+if systemctl -q is-active graphical.target && [[ ! $DISPLAY && $XDG_VTNR && $XDG_VTNR -eq 2 ]]; then
     startx
+fi
+
+if systemctl -q is-active graphical.target && [[ ! $DISPLAY && $XDG_VTNR && $XDG_VTNR -eq 1 ]]; then
+    startx ~/.xinitrc budgie
 fi
 
