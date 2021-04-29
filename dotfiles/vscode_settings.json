@@ -4,7 +4,7 @@
     "editor.rulers": [80, 90],
     "editor.tabSize": 2,
     "editor.minimap.maxColumn": 90,
-    // "editor.minimap.enabled": false,
+    "editor.minimap.enabled": false,
     "editor.fontFamily": "'CodeNewRoman Nerd Font Mono','Droid Sans Mono', 'monospace'",
     "editor.fontSize": 12,
     "editor.insertSpaces": true,
@@ -37,6 +37,7 @@
     "debug.console.fontSize": 12,
 
     "python.jediEnabled": false,
+    "python.languageServer": "Pylance",
     "[python]": {
         "editor.tabSize": 4
     },
@@ -45,7 +46,7 @@
     },
     "[markdown]": {
         "editor.wordWrap": "wordWrapColumn",
-        "editor.wordWrapColumn": 90
+        "editor.wordWrapColumn": 120
     },
 
     "C_Cpp.default.includePath": [
@@ -123,6 +124,12 @@
             "after": ["g", "j"]
         }
     ],
-    "editor.minimap.enabled": true,
-    "python.languageServer": "Microsoft",
+    "latex-workshop.view.pdf.viewer": "tab",
+    "workbench.editorAssociations": [
+        {
+            "viewType": "jupyter.notebook.ipynb",
+            "filenamePattern": "*.ipynb"
+        }
+    ],
+    "extensions.autoUpdate": false,
 }
