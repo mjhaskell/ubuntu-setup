@@ -1,0 +1,5 @@
+#!/bin/sh
+
+FILE=$1
+/usr/bin/qtcreator $FILE >/dev/null 2>/dev/null &
+
