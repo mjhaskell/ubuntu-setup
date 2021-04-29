@@ -1,12 +1,12 @@
 #!/bin/sh
 
-if [ ! -d ~/.pyvenv ]; then 
+if [ ! -d ~/.virturalenvs ]; then 
     echo_purple "creating python global venv"
-    mkdir ~/.pyvenv
-    python3 -m venv ${HOME}/.pyvenv
+    mkdir ~/virturalenvs.
+    python3 -m venv ${HOME}/.virturalenvs default
 fi
 
-if echo $PATH | grep -q .pyvenv; then
+if echo $PATH | grep -q .virturalenvs/default; then
     echo_purple "upgrading pip"
     pip install --upgrade pip setuptools wheel
 
@@ -16,7 +16,7 @@ if echo $PATH | grep -q .pyvenv; then
     pip install pyopencl pytesseract tesserocr jupyter control
     pip install pylint autopep8
 else
-    echo_red "PATH does not contain ~/.pyvenv/bin"
+    echo_red "PATH does not contain ~/.virturalenvs/default/bin"
     echo_red "Need to install dotfiles first and source ~/.termrc"
 fi
 
