@@ -37,6 +37,10 @@ set $sound --no-startup-id amixer set
 set $browser --no-startup-id google-chrome --process-per-site 
 
 # Define names for default workspaces 
+#set $ws1 "1 Comms"
+#set $ws2 "2 Search"
+#set $ws3 "3 Code"
+#set $ws4 "4 ROS"
 set $ws1 "1"
 set $ws2 "2"
 set $ws3 "3"
