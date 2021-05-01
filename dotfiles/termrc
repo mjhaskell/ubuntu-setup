@@ -30,7 +30,9 @@ alias vtermrc='vi ~/.termrc'
     #export PYVENV_DIR=$HOME/.pyvenv
     #export PATH=$PYVENV_DIR/bin:$PATH
 #fi
-source $HOME/.virtualenvs/default/bin/activate
+if [ -d $HOME/.virtualenvs ]; then
+    source $HOME/.virtualenvs/default/bin/activate
+fi
 
 # add ~/.local/bin to path if not already
 if ! echo $PATH | grep -q /.local/bin; then
