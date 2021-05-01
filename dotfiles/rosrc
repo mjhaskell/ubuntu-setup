@@ -1,37 +1,41 @@
 #!/bin/sh
 
-# Add rospkg to python path
-if ! echo $PYTHONPATH | grep -q /usr/lib/python3/dist-packages; then
-    export PYTHONPATH=$PYTHONPATH:/usr/lib/python3/dist-packages
-fi
-
-# source correct ROS setup script
+# If ROS is installed
 if [ -d /opt/ros ]; then
+
+    # Add rospkg to python path
+    if ! echo $PYTHONPATH | grep -q /usr/lib/python3/dist-packages; then
+        export PYTHONPATH=$PYTHONPATH:/usr/lib/python3/dist-packages
+    fi
+
+    # source correct ROS setup script
     if [ -n "$BASH" ]; then source /opt/ros/noetic/setup.bash
     elif [ -n "$ZSH_NAME" ]; then source /opt/ros/noetic/setup.zsh
     else
         source /opt/ros/noetic/setup.sh
         echo_purple "[INFO] default ros setup.sh sourced"
     fi
-fi
 
-# set ROS info
-export ROS_IP=$(hostname -I | cut -f1 -d' ')
+    # set ROS info
+    export ROS_IP=$(hostname -I | cut -f1 -d' ')
 
-# print ROS info
-COFF="\033[0m"
-if [ -n "$ROS_MASTER_URI" ]; then
-    echo_yellow "ROS_MASTER: $COFF$ROS_MASTER_URI"
-    if [ -n "$ROS_IP" ]; then
-        echo_yellow "ROS_IP: $COFF$ROS_IP"
+    # print ROS info
+    COFF="\033[0m"
+    if [ -n "$ROS_MASTER_URI" ]; then
+        echo_yellow "ROS_MASTER: $COFF$ROS_MASTER_URI"
+        if [ -n "$ROS_IP" ]; then
+            echo_yellow "ROS_IP: $COFF$ROS_IP"
+        fi
+        if [ -n "$ROS_HOSTNAME" ]; then
+            echo_yellow "ROS_HOSTNAME: $COFF$ROS_HOSTNAME"
+        fi
     fi
-    if [ -n "$ROS_HOSTNAME" ]; then
-        echo_yellow "ROS_HOSTNAME: $COFF$ROS_HOSTNAME"
+    
+    # source my ros aliases
+    if [ -f ~/.ros_aliases ]; then
+        source ~/.ros_aliases
     fi
+
 fi
 
-# source my ros aliases
-if [ -f ~/.ros_aliases ]; then
-    source ~/.ros_aliases
-fi
 
