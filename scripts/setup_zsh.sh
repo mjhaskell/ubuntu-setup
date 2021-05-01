@@ -2,15 +2,18 @@
 
 echo_blue "setting up zsh"
 
+SCRIPT_DIR="$( cd "$( dirname $0 )" && pwd )"
+SETUP_DIR="$( cd $SCRIPT_DIR/.. && pwd )"
+
 if [ ! -d ~/.oh-my-zsh ]; then
-    source install_ohmyzsh.sh
+    sh $SCRIPT_DIR/install_ohmyzsh.sh
 fi
 
 if [ ! -h ~/.oh-my-zsh/themes/mat.zsh-theme ]; then
-    if [ -f ~/.oh-my-zsh/themes/mat.zsh-theme ] ; then 
+    if [ -f ~/.oh-my-zsh/themes/mat.zsh-theme ] ; then
         rm ~/.oh-my-zsh/themes/mat.zsh-theme
     fi
-    ln -s ~/scripts/dotfiles/mat.zsh-theme ~/.oh-my-zsh/themes/mat.zsh-theme
+    ln -s $SETUP_DIR/dotfiles/mat.zsh-theme ~/.oh-my-zsh/themes/mat.zsh-theme
 fi
 
 ## change zsh theme to my custom theme
@@ -57,4 +60,3 @@ else
 fi
 
 zsh ~/.zshrc
-

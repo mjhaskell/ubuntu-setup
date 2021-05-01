@@ -12,7 +12,7 @@ if [ -f ~/.ssh/id_ed25519 ]; then
     echo_blue "Found an existing ed25519 ssh key"
 else
     if [ -f ~/.ssh/id_rsa ]; then
-	echo_blue "Old rsa key type exists (Recommended to use ed25519)"
+	    echo_blue "Old rsa key type exists (Recommended to use ed25519)"
     fi
     echo_blue "Creating new ed25519 ssh key"
     echo "Enter git email (can leave empty): \c"
@@ -29,4 +29,3 @@ if [ -f /usr/bin/xclip ]; then
     echo_blue "ssh key has been copied to clipboard"
     echo_purple "Go add key to github and bitbucket"
 fi
-

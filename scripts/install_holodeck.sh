@@ -1,5 +1,10 @@
 #!/bin/sh
 
+echo_blue "Installing Holodeck"
+
+CUR_DIR="$(pwd)"
+SCRIPT_DIR="$( cd "$( dirname $0 )" && pwd )"
+
 sudo apt install -y python3-catkin-pkg-modules python3-rospkg-modules
 pip3 uninstall em
 pip3 install empy
@@ -11,7 +16,7 @@ if [ ! -d ~/holodeck_ws ]; then
 fi
 cd holodeck_ws
 
-if [ ! -d src ]; then 
+if [ ! -d src ]; then
     mkdir src
 fi
 cd src
@@ -23,17 +28,17 @@ fi
 
 if [ ! -d rosflight ]; then
     echo_blue "Cloning rosflight package into holodeck_ws"
-    git clone --recursive https://github.com/rosflight/rosflight.git 
+    git clone --recursive https://github.com/rosflight/rosflight.git
 fi
 
 if [ ! -d rosflight_joy ]; then
     echo_blue "Cloning rosflight_joy package into holodeck_ws"
-    git clone --recursive https://github.com/rosflight/rosflight_joy.git 
+    git clone --recursive https://github.com/rosflight/rosflight_joy.git
 fi
 
 if [ ! -d roscopter ]; then
     echo_blue "Cloning roscopter package into holodeck_ws"
-    git clone --recursive https://github.com/byu-magicc/roscopter.git 
+    git clone --recursive https://github.com/byu-magicc/roscopter.git
 fi
 
 if [ ! -d rosflight_holodeck ]; then
@@ -42,17 +47,17 @@ if [ ! -d rosflight_holodeck ]; then
 fi
 
 echo_blue "Building holodeck_ws"
-cd ~/holodeck_ws 
-catkin_make 
+cd ~/holodeck_ws
+catkin_make
 
 echo_blue "Building Holodeck"
 cd src/rosflight_holodeck/python/holodeck
-pip3 install --prefix=~/.local -e .
+# pip3 install --prefix=~/.local -e .
+pip3 install -e . # test if this works when using global venv
 
-cd ~/scripts
+cd $CUR_DIR
 
 echo_blue "Installing Holodeck worlds"
-python3 install_holodeck_worlds.py
+python3 $SCRIPT_DIR/install_holodeck_worlds.py
 
 echo_green "Holodeck installed"
-

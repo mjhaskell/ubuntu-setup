@@ -1,10 +1,12 @@
 #!/bin/sh
 
+echo_blue "installing dependencies for openCV"
+
+CUR_DIR="$(pwd)"
+
 # required dependencies before running this file include:
 # build-essential cmake git python-dev python-numpy
 # (these should already be installed from previous install scripts)
-
-echo_blue "installing dependencies for openCV"
 
 # other dependencies before installing openCV
 sudo apt install -y libopenblas-dev liblapacke-dev tesseract-ocr libtesseract-dev
@@ -14,7 +16,7 @@ sudo apt install -y libswscale-dev libtbb2 libtbb-dev libjpeg-dev libpng-dev
 sudo apt install -y libtiff-dev libjasper-dev libdc1394-22-dev ffmpeg
 sudo apt install -y libv41-dev libxvidcore-dev libx264-dev hdf5-tools
 sudo apt install -y libatlas-base-dev gfortran libhdf5-serial-dev
-sudo apt install -y libeigen-stl-containers-dev libavresample-dev 
+sudo apt install -y libeigen-stl-containers-dev libavresample-dev
 sudo apt install -y libprotobuf-dev libgtkglext1-dev libceres-dev libcaffe-cuda-dev
 sudo apt install -y libleptonica-dev libboost-all-dev libtbb-dev ocl-icd-opencl-dev
 sudo apt install -y coinor-libclp-dev libogre-1.9-dev ogre-1.9-tools ocl-icd-dev
@@ -116,5 +118,4 @@ else
     cat cmake_log.txt
 fi
 
-cd ~/scripts
-
+cd $CUR_DIR

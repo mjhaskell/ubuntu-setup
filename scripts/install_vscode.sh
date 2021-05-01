@@ -2,9 +2,9 @@
 
 echo_blue "Installing VSCode"
 
-wget -O install_vscode.deb https://go.microsoft.com/fwlink/?LinkID=760868
-sudo apt install ./install_vscode.deb
-rm install_vscode.deb
+wget -O ~/software/install_vscode.deb https://go.microsoft.com/fwlink/?LinkID=760868
+sudo apt install ~/software/install_vscode.deb
+rm ~/software/install_vscode.deb
 
 # C/C++ extension
 code --install-extension ms-vscode.cpptools
@@ -12,6 +12,8 @@ code --install-extension twxs.cmake
 
 # Python extension
 code --install-extension ms-python.python
+code --install-extension ms-python.vscode-pylance
+code --install-extension ms-toolsai.jupyter
 
 # Vim extension
 code --install-extension vscodevim.vim
@@ -32,4 +34,3 @@ code --install-extension ms-vsliveshare.vsliveshare-audio
 code --install-extension bierner.markdown-preview-github-styles
 
 echo_green "VSCode installed with extensions"
-

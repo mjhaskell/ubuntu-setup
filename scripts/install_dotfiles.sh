@@ -1,25 +1,28 @@
 #!/bin/sh
 
+SCRIPT_DIR="$( cd "$( dirname $0 )" && pwd )"
+SETUP_DIR="$( cd $SCRIPT_DIR/.. && pwd )"
+
 setup_link()
 {
-    symfile=$1
-    srcfile=$2
-    symdir=${3:-~}
-    srcdir=${4:-~/scripts/dotfiles}
+    SYM_FILE=$1
+    SRC_FILE=$2
+    SYM_DIR=${3:-$HOME}
+    SRC_DIR=${4:-$SETUP_DIR/dotfiles}
 
-    if [ ! -d $symdir ]; then 
-        mkdir -p $symdir
-        echo_blue "Created $symdir"
+    if [ ! -d $SYM_DIR ]; then
+        mkdir -p $SYM_DIR
+        echo_blue "Created $SYM_DIR"
     fi
-    if [ ! -h $symdir/$symfile ]; then
-        if [ -f $symdir/$symfile ]; then 
-            mv $symdir/$symfile $symdir/$symfile.bak
-            echo_red "Moved $symdir/$symfile to $symdir/$symfile.bak"
+    if [ ! -h $SYM_DIR/$SYM_FILE ]; then
+        if [ -f $SYM_DIR/$SYM_FILE ]; then
+            mv $SYM_DIR/$SYM_FILE $SYM_DIR/$SYM_FILE.bak
+            echo_red "Moved $SYM_DIR/$SYM_FILE to $SYM_DIR/$SYM_FILE.bak"
         fi
-        ln -s $srcdir/$srcfile $symdir/$symfile
-        echo_blue "Linked $symdir/$symfile -> $srcdir/$srcfile"
+        ln -s $SRC_DIR/$SRC_FILE $SYM_DIR/$SYM_FILE
+        echo_blue "Linked $SYM_DIR/$SYM_FILE -> $SRC_DIR/$SRC_FILE"
     else
-        echo_purple "No change to $symdir/$symfile"
+        echo_purple "No change to $SYM_DIR/$SYM_FILE"
     fi
 }
 
@@ -40,9 +43,9 @@ if [ -f ~/.zshrc ]; then
         echo "$TEXT" >> ~/.zshrc
         echo_blue "Appended termrc to zshrc"
     fi
-    
+
     # change zsh theme to my custom theme
-    if ! grep -q 'ZSH_THEME="mat"' ~/.zshrc; then 
+    if ! grep -q 'ZSH_THEME="mat"' ~/.zshrc; then
         sed -i 's/^ZSH_THEME=".*"$/ZSH_THEME="mat"/' ~/.zshrc
         echo_blue "Changed ZSH_THEME to mat"
     fi
@@ -54,7 +57,7 @@ setup_link .sh_aliases sh_aliases
 
 # ROS
 setup_link .rosrc rosrc
-setup_link .ros_aliases ros_aliases 
+setup_link .ros_aliases ros_aliases
 
 # apply changes to current shell
 if [ $BASH ]; then
@@ -88,15 +91,14 @@ setup_link config i3status_config ~/.config/i3status
 # termite
 setup_link config termite_config ~/.config/termite
 setup_link config_day termite_config_day ~/.config/termite
-setup_link samedir.sh termite_samedir.sh ~/bin/termite ~/scripts/bin
+setup_link samedir.sh termite_samedir.sh ~/bin/termite ~/ubuntu-setup/bin
 
 # ubuntu server
-setup_link .Xresources Xresources 
-setup_link .xinitrc xinitrc 
-setup_link .xserverrc xserverrc 
+setup_link .Xresources Xresources
+setup_link .xinitrc xinitrc
+setup_link .xserverrc xserverrc
 
 # VS Code
 setup_link settings.json vscode_settings.json ~/.config/Code/User
 
 echo_green "Dotfiles installed"
-

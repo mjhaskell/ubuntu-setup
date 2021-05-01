@@ -1,5 +1,7 @@
 #!/bin/sh
 
+CUR_DIR="$(pwd)"
+
 if lspci -v | grep -i 'VGA\|3d\|2d' | grep -q NVIDIA; then
     mkdir -p ~/software/cuda
     cd ~/software/cuda
@@ -9,7 +11,7 @@ if lspci -v | grep -i 'VGA\|3d\|2d' | grep -q NVIDIA; then
 
     echo '#!/bin/sh' > web_instructions.sh
     echo '' >> web_instructions.sh
-    curl --silent "https://developer.nvidia.com/cuda-downloads" | 
+    curl --silent "https://developer.nvidia.com/cuda-downloads" |
         grep -n Linux/x86_64/Ubuntu/20.04/ | # specific to Ubuntu 20.04
         grep -n /cuda-repo-ubuntu2004 | # specific to Ubuntu 20.04
         grep -oP '(?<="cudaBash">).+?(?=</span>)' >> web_instructions.sh
@@ -36,7 +38,7 @@ sudo apt -y install cuda
         [yY]* ) # if first letter is y or Y (yes)
             echo_blue "installing cuda"
             sh ~/software/cuda/web_instructions.sh
-            cd ~/scripts
+            cd $CUR_DIR
             echo_green "Cuda installed"
             echo_purple "After reboot, check that it worked"
             echo "(might have to change bios settings to use GPU)"

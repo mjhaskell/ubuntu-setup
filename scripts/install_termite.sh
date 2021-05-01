@@ -2,9 +2,11 @@
 
 echo_blue "Installing termite"
 
+CUR_DIR="$(pwd)"
+
 sudo apt update
-sudo apt install -y g++ libgtk-3-dev gtk-doc-tools gnutls-bin valac intltool 
-sudo apt install -y libpcre2-dev libglib3.0-cil-dev libgnutls28-dev 
+sudo apt install -y g++ libgtk-3-dev gtk-doc-tools gnutls-bin valac intltool
+sudo apt install -y libpcre2-dev libglib3.0-cil-dev libgnutls28-dev
 sudo apt install -y libgirepository1.0-dev libxml2-utils gperf
 sudo apt install -y dh-autoreconf libglib2.0-dev libpango1.0-dev
 
@@ -61,5 +63,4 @@ else
     echo_red "Installation unsuccessful"
 fi
 
-cd ~/scripts
-
+cd $CUR_DIR
