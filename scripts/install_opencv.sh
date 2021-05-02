@@ -25,7 +25,7 @@ sudo apt install -y coinor-libclp-dev libogre-1.9-dev ogre-1.9-tools ocl-icd-dev
 echo_blue "updating/upgrading apt"
 
 sudo apt update
-sudo apt upgrade
+sudo apt upgrade -y
 
 echo_blue "downloading most recent openCV tag"
 

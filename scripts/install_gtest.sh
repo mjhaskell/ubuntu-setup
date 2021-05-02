@@ -2,7 +2,7 @@
 
 echo_blue "Installing Google Test"
 
-sudo apt install libgtest-dev
+sudo apt install -y libgtest-dev
 
 ## test to see if these are needed
 #cd /usr/src/gtest/

@@ -4,7 +4,7 @@ SCRIPT_DIR="$( cd "$( dirname $0 )" && pwd )"
 SETUP_DIR="$( cd $SCRIPT_DIR/.. && pwd )"
 
 sudo apt update
-sudo apt upgrade
+sudo apt upgrade -y
 
 # create my common folder structure
 if [ ! -d ~/software ]; then mkdir ~/software; fi

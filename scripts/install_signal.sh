@@ -15,7 +15,7 @@ echo 'deb [arch=amd64 signed-by=/usr/share/keyrings/signal-desktop-keyring.gpg] 
 # 3. Update package database and install
 sudo apt update
 echo_blue "Installing Signal Desktop"
-sudo apt install signal-desktop
+sudo apt install -y signal-desktop
 
 echo_green "Signal Desktop Installed"
 

@@ -3,7 +3,7 @@
 echo_blue "Installing VSCode"
 
 wget -O ~/software/install_vscode.deb https://go.microsoft.com/fwlink/?LinkID=760868
-sudo apt install ~/software/install_vscode.deb
+sudo apt install -y ~/software/install_vscode.deb
 rm ~/software/install_vscode.deb
 
 # C/C++ extension
