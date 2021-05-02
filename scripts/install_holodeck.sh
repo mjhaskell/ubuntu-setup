@@ -4,11 +4,13 @@ echo_blue "Installing Holodeck"
 
 CUR_DIR="$(pwd)"
 SCRIPT_DIR="$( cd "$( dirname $0 )" && pwd )"
+PIP=$HOME/.virtualenvs/default/bin/pip
+PYTHON=$HOME/.virtualenvs/default/bin/python3
 
 sudo apt install -y python3-catkin-pkg-modules python3-rospkg-modules
-pip3 uninstall em
-pip3 install empy
-pip3 install posix_ipc pyyaml catkin-pkg pygame
+$PIP uninstall em
+$PIP install empy
+$PIP install posix_ipc pyyaml catkin-pkg pygame
 
 cd ~/
 if [ ! -d ~/holodeck_ws ]; then
@@ -52,12 +54,12 @@ catkin_make
 
 echo_blue "Building Holodeck"
 cd src/rosflight_holodeck/python/holodeck
-# pip3 install --prefix=~/.local -e .
-pip3 install -e . # test if this works when using global venv
+# $PIP install --prefix=~/.local -e .
+$PIP install -e . 
 
 cd $CUR_DIR
 
 echo_blue "Installing Holodeck worlds"
-python3 $SCRIPT_DIR/install_holodeck_worlds.py
+$PYTHON $SCRIPT_DIR/install_holodeck_worlds.py
 
 echo_green "Holodeck installed"
