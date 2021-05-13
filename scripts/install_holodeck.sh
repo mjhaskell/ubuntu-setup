@@ -4,8 +4,14 @@ echo_blue "Installing Holodeck"
 
 CUR_DIR="$(pwd)"
 SCRIPT_DIR="$( cd "$( dirname $0 )" && pwd )"
-PIP=$HOME/.virtualenvs/default/bin/pip
-PYTHON=$HOME/.virtualenvs/default/bin/python3
+
+if [ -d $HOME/.virtualenvs/default ]; then
+    PIP=$HOME/.virtualenvs/default/bin/pip
+    PYTHON=$HOME/.virtualenvs/default/bin/python3
+else
+    echo_red "Default virtualenv is not set up"
+    exit
+fi
 
 sudo apt install -y python3-catkin-pkg-modules python3-rospkg-modules
 $PIP uninstall em
@@ -48,14 +54,12 @@ if [ ! -d rosflight_holodeck ]; then
     git clone --recursive https://magiccvs.byu.edu/gitlab/lab/rosflight_holodeck.git
 fi
 
-echo_blue "Building holodeck_ws"
-cd ~/holodeck_ws
-catkin_make
-
-echo_blue "Building Holodeck"
+echo_blue "Adding Holodeck as editable pip package"
 cd src/rosflight_holodeck/python/holodeck
+## when using pip with --user
 # $PIP install --prefix=~/.local -e .
-$PIP install -e . 
+## when using pip within a virtual environment
+$PIP install -e .
 
 cd $CUR_DIR
 
