@@ -22,7 +22,7 @@ echo_blue "installing common"
 
 # network (use 'sudo nmtui' to configure wifi)
 sudo systemctl disable systemd-networkd.service
-sudo apt install -y network-manager nmap cifs-utils
+sudo apt install -y network-manager nmap
 
 # terminal
 sudo apt install -y git zsh curl htop ssh
@@ -40,6 +40,8 @@ sudo apt install -y alsa-base alsa-utils
 
 # windows file system (fs)
 sudo apt install -y ntfs-3g
+# tools for mounting J-drive
+sudo apt install -y cifs-utils
 
 # C++
 sudo apt install -y build-essential gcc g++ gcc-10 g++-10 cmake ccache make gdb
