@@ -1,0 +1,100 @@
+" vimrc
+" author: Mat Haskell
+" contact: mhaskell9@gmail.com
+" date: Aug 2 2021
+
+"""""""" Custom Settings """"""""""""""
+" syntax highlighting and filetype specific features
+syntax on
+filetype on
+filetype plugin on
+filetype indent on
+
+" Always copy and paste to clipboard
+set clipboard=unnamedplus
+
+set encoding=UTF-8
+"set guifont=Hack\ Regular\ 12
+
+" Use xclip for clipboard
+" sudo apt install xclip
+let g:clipboard = {
+  \   'name': 'xclip-xfce4-clipman',
+  \   'copy': {
+  \      '+': 'xclip -selection clipboard',
+  \      '*': 'xclip -selection clipboard',
+  \    },
+  \   'paste': {
+  \      '+': 'xclip -selection clipboard -o',
+  \      '*': 'xclip -selection clipboard -o',
+  \   },
+  \   'cache_enabled': 1,
+  \ }
+  
+" Colorscheme
+"set termguicolors
+set background=dark
+
+" Relative line numbering with absolute line number on current line
+set relativenumber
+set number
+  
+" Always display status bar
+set laststatus=2
+
+" swp files are the worst, disable them
+set nobackup
+set noswapfile
+
+" Don't redraw while executing macros
+set lazyredraw 
+
+" allows pattern matching with special characters
+set magic 
+
+" show the cursor position all the time
+set ruler   
+
+" 80 character per line
+set textwidth=80
+
+" Highlight one column after limit
+set colorcolumn=+1
+
+" tabs are four spaces, smart tabbing
+set tabstop=4
+set shiftwidth=4
+set expandtab
+set smarttab
+
+autocmd FileType make set noexpandtab softtabstop=0
+autocmd FileType c setlocal ts=2 sw=2 expandtab
+autocmd FileType cpp setlocal ts=2 sw=2 expandtab
+autocmd FileType py setlocal ts=4 sw=4 expandtab
+
+"""""""" Custom Keys """"""""""""""
+" Set space for the leader
+let mapleader = "\\"
+nmap <space> <leader>
+vmap <space> <leader>
+
+" Escape Mappings for insert and visual modes
+inoremap jk <esc>
+"vnoremap jk <esc>
+
+" Mappings to move up and down faster
+nnoremap J 10j
+nnoremap K 10k
+vnoremap J 10j
+vnoremap K 10k
+
+" Don't yank after paste
+vnoremap p "_dP
+
+" Mappings to edit .vimrc/init.vim and source/save .vimrc
+nnoremap <leader>ev :vsplit $MYVIMRC<cr>
+nnoremap <leader>sv :source $MYVIMRC<cr>
+
+" Cpp stuff: nice curly braces
+inoremap {<CR> {<CR>}<Esc>ko
+

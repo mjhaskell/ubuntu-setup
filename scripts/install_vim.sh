@@ -30,6 +30,9 @@ cd ~/software
 # install vim pluggins
 vim -c 'PlugInstall | quit | quit'
 
+# install basic vimrc for root
+sudo ln -s ~/ubuntu-setup/dotfiles/sudo_vimrc /root/.vimrc
+
 
 ## CQuery was archived...and it did not even build (did not `#include <string>`)
 #sudo apt install -y libncurses5
