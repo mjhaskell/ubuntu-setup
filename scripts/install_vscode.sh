@@ -8,6 +8,7 @@ rm ~/software/install_vscode.deb
 
 # C/C++ extension
 code --install-extension ms-vscode.cpptools
+code --install-extension ms-vscode.cmake-tools
 code --install-extension twxs.cmake
 
 # Python extension
