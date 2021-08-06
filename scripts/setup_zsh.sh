@@ -5,9 +5,27 @@ echo_blue "setting up zsh"
 SCRIPT_DIR="$( cd "$( dirname $0 )" && pwd )"
 SETUP_DIR="$( cd $SCRIPT_DIR/.. && pwd )"
 
+change_shell()
+{
+    if [ $SHELL = /bin/zsh ]; then
+        echo_green "Shell is already zsh"
+    else
+        chsh -s /bin/zsh $USER
+        export SHELL=/bin/zsh
+        echo_green "switched to zsh"
+        echo_purple "Log out for change to take place in new terminals"
+    fi
+}
+
 if [ ! -d ~/.oh-my-zsh ]; then
     sh $SCRIPT_DIR/install_ohmyzsh.sh
 fi
+
+ZSH_CUSTOM=${ZSH_CUSTOM:-$ZSH/custom}
+
+git clone https://github.com/zsh-users/zsh-syntax-highlighting.git $ZSH_CUSTOM/plugins/zsh-syntax-highlighting
+git clone https://github.com/zsh-users/zsh-autosuggestions.git $ZSH_CUSTOM/plugins/zsh-autosuggestions
+git clone https://github.com/zsh-users/zsh-completions.git $ZSH_CUSTOM/plugins/zsh-completions
 
 if [ ! -h ~/.oh-my-zsh/themes/mat.zsh-theme ]; then
     if [ -f ~/.oh-my-zsh/themes/mat.zsh-theme ] ; then
@@ -35,28 +53,19 @@ if ! grep -q '~/.termrc' ~/.zshrc; then
 fi
 unset TEXT
 
+echo_blue "Changing shell to zsh"
 if cat /etc/shells | grep -q /bin/zsh; then
-    if [ $SHELL = /bin/zsh ]; then
-        echo_green "Shell is already zsh"
-    else
-        chsh -s /bin/zsh $USER
-        echo_green "switched to zsh"
-        echo_purple "Log out for change to take place"
-    fi
+    change_shell
 else
     echo_blue "Installing zsh"
     sudo apt install -y zsh
     if cat /etc/shells | grep -q /bin/zsh; then
-        if [ $SHELL = /bin/zsh ]; then
-            echo_green "Shell is already zsh"
-        else
-            chsh -s /bin/zsh $USER
-            echo_green "switched to zsh"
-            echo_purple "Log out for change to take place"
-        fi
+        change_shell
     else
         echo_red "[ERROR] can't switch to zsh\n\t/bin/zsh does not exist"
     fi
 fi
 
-zsh ~/.zshrc
+# zsh ~/.zshrc
+exec zsh -lc "echo_green Successfully opened zsh; zsh -i"
+# exec zsh -lc "echo_green Successfully opened zsh; sh $SCRIPT_DIR/test.sh; zsh -i"
