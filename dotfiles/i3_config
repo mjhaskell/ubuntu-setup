@@ -145,6 +145,8 @@ bindsym $mod+Shift+b bar mode hide
 
 # kill focused window
 bindsym $mod+Shift+q kill
+bindsym $mod+Shift+button2 --whole-window kill
+bindsym $mod+Shift+button10 --whole-window kill
 
 # Application launcher (replaced drun)
 bindsym $mod+d   exec rofi -show combi
@@ -215,9 +217,11 @@ floating_modifier $mod
 
 # toggle tiling / floating
 bindsym $mod+Shift+space floating toggle
+bindsym $mod+Shift+button3 --whole-window floating toggle
 
 # change focus between tiling / floating windows
 bindsym $mod+space focus mode_toggle
+bindsym $mod+button3 --whole-window focus mode_toggle
 
 
 # ---------- Layout ---------- #
