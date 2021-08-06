@@ -193,6 +193,10 @@ bindsym $mod+BackSpace    exec $term_day
 bindsym $mod+g       exec $browser
 bindsym $mod+Shift+g exec $browser --incognito
 
+# Screenshot
+bindsym $mod+Print exec flameshot gui
+#bindsym $mod+Print exec gnome-screenshot -i
+
 
 # ---------- Scratchpad ---------- #
 # $mod+key           Toggle scratchpad window
