@@ -28,4 +28,19 @@ if [ -f /usr/bin/xclip ]; then
     xclip -sel clip < ~/.ssh/id_ed25519.pub
     echo_blue "ssh key has been copied to clipboard"
     echo_purple "Go add key to github and bitbucket"
+else
+    echo_purple "Copy ~/.ssh/id_ed25519.pub contents to your git servers"
 fi
+
+read "Press ENTER to continue..."
+
+# read -r "Do you want to add ssh key to Github? (Y/n): " ANS
+# ANS=${ANS:-Y}
+# case $ANS in
+#     [yY]* )
+#         read -r "Enter Github username: " $UNAME
+#         curl -u "$UNAME" --data "{\"title\":\"$UNAME\",\"key\":\"`cat $HOME/.ssh/id_
+# ed25519.pub`\"}" https://api.github.com/user/keys;;
+#     * )
+#         echo "Not adding ssh key to Github";;
+# esac
