@@ -270,6 +270,12 @@ bindsym $mod+0 workspace number $ws10
 bindsym $alt+j workspace prev
 bindsym $alt+k workspace next
 
+# switch to output
+bindsym $alt+h focus output left
+#bindsym $alt+j focus output down
+#bindsym $alt+k focus output up
+bindsym $alt+l focus output right
+
 
 # ---------- Move Windows ---------- #
 # move focused window on current workspace
@@ -284,16 +290,28 @@ bindsym $mod+Shift+Up    move up
 bindsym $mod+Shift+Right move right
 
 # move focused window to workspace
-bindsym $mod+Shift+1 move container to workspace $ws1; workspace $ws1
-bindsym $mod+Shift+2 move container to workspace $ws2; workspace $ws2
-bindsym $mod+Shift+3 move container to workspace $ws3; workspace $ws3
-bindsym $mod+Shift+4 move container to workspace $ws4; workspace $ws4
-bindsym $mod+Shift+5 move container to workspace $ws5; workspace $ws5
-bindsym $mod+Shift+6 move container to workspace $ws6; workspace $ws6
-bindsym $mod+Shift+7 move container to workspace $ws7; workspace $ws7
-bindsym $mod+Shift+8 move container to workspace $ws8; workspace $ws8
-bindsym $mod+Shift+9 move container to workspace $ws9; workspace $ws9
-bindsym $mod+Shift+0 move container to workspace $ws10; workspace $ws0
-bindsym $alt+Shift+j move container to workspace prev; workspace prev
-bindsym $alt+Shift+k move container to workspace next; workspace next
+bindsym $mod+Ctrl+1 move container to workspace $ws1; workspace $ws1
+bindsym $mod+Ctrl+2 move container to workspace $ws2; workspace $ws2
+bindsym $mod+Ctrl+3 move container to workspace $ws3; workspace $ws3
+bindsym $mod+Ctrl+4 move container to workspace $ws4; workspace $ws4
+bindsym $mod+Ctrl+5 move container to workspace $ws5; workspace $ws5
+bindsym $mod+Ctrl+6 move container to workspace $ws6; workspace $ws6
+bindsym $mod+Ctrl+7 move container to workspace $ws7; workspace $ws7
+bindsym $mod+Ctrl+8 move container to workspace $ws8; workspace $ws8
+bindsym $mod+Ctrl+9 move container to workspace $ws9; workspace $ws9
+bindsym $mod+Ctrl+0 move container to workspace $ws10; workspace $ws0
+bindsym $alt+Ctrl+j move container to workspace prev; workspace prev
+bindsym $alt+Ctrl+k move container to workspace next; workspace next
+
+# move focused window to output
+bindsym $alt+Shift+h move to output left
+bindsym $alt+Shift+j move to output down
+bindsym $alt+Shift+k move to output up
+bindsym $alt+Shift+l move to output right
+
+# move focused workspace to output
+bindsym $alt+Ctrl+h move workspace to output left
+bindsym $alt+Ctrl+j move workspace to output down
+bindsym $alt+Ctrl+k move workspace to output up
+bindsym $alt+Ctrl+l move workspace to output right
 
