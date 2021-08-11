@@ -40,6 +40,10 @@ sudo systemctl start logid
 # make it so logid service always starts on login
 sudo systemctl enable logid
 
+# print name of device so it registers on computer
+echo_purple "^C after the printing stops"
+sudo logid -v
+
 cd $CUR_DIR
 
 echo_green "logiopts installed"
