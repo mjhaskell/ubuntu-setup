@@ -133,6 +133,6 @@
     ],
     "latex-workshop.view.pdf.viewer": "tab",
     "workbench.editorAssociations": {
-        "*.ipynb": "jupyter.notebook.ipynb"
+        "*.ipynb": "jupyter-notebook"
     },
 }
