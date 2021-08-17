@@ -17,7 +17,7 @@ sudo apt install -y libtiff-dev libdc1394-22-dev ffmpeg
 sudo apt install -y libv4l-dev libxvidcore-dev libx264-dev hdf5-tools
 sudo apt install -y libatlas-base-dev gfortran libhdf5-serial-dev
 sudo apt install -y libeigen-stl-containers-dev libavresample-dev
-sudo apt install -y libprotobuf-dev libgtkglext1-dev libceres-dev libcaffe-cuda-dev
+sudo apt install -y libprotobuf-dev libgtkglext1-dev libceres-dev # libcaffe-cuda-dev
 sudo apt install -y libleptonica-dev libboost-all-dev libtbb-dev ocl-icd-opencl-dev
 sudo apt install -y coinor-libclp-dev libogre-1.9-dev ogre-1.9-tools ocl-icd-dev
 # sudo apt install -y libjasper-dev (for JPEG2000 but requires additional package source)
@@ -65,37 +65,39 @@ cd opencv
 mkdir build && cd build
 if ls /usr/local | grep -q "cuda"; then
     cmake -D CMAKE_BUILD_TYPE=RELEASE \
-            -D CMAKE_INSTALL_PREFIX=/usr/local/opencv \
-            -D WITH_CUDA=ON \
-            -D ENABLE_FAST_MATH=1 \
-            -D CUDA_FAST_MATH=1 \
-            -D WITH_CUBLAS=1 \
-            -D INSTALL_PYTHON_EXAMPLES=OFF \
-            -D ENABLE_PRECOMPILED_HEADERS=OFF \
-            -D WITH_OPENMP=ON \
-            -D WITH_NVCUVID=ON \
-            -D OPENCV_EXTRA_MODULES_PATH=~/software/OpenCV/opencv_contrib/modules \
-            -D BUILD_opencv_cudacodec=OFF \
-            -D PYTHON_DEFAULT_EXECUTABLE=$(which python3) \
-            -D BUILD_USE_SYMLINKS=ON \
-            -D BUILD_PERF_TESTS=OFF \
-            -D BUILD_TESTS=OFF \
-            -D BUILD_JAVA=OFF \
-            -D BUILD_PROTOBUF=ON \
-            -D BUILD_opencv_java_bindings_gen=OFF \
-            -D BUILD_opencv_cnn_3dobj=OFF \
-            -D WITH_GDAL=ON \
-            -D WITH_CLP=ON \
-            -D Tesseract_INCLUDE_DIR=/usr/include/tesseract \
-            -D Tesseract_LIBRARY=/usr/lib/x86_64-linux-gnu/libtesseract.so \
-            -D OpenBLAS_LIB=/usr/lib/x86_64-linux-gnu/openblas/libblas.so \
-            -D WITH_OPENGL=ON \
-            -D WITH_VULKAN=ON \
-            -D PYTHON3_INCLUDE_DIR2=~/.local/include/python3.6m \
-            -D INSTALL_C_EXAMPLES=OFF \
-            -D OPENCV_ENABLE_NONFREE=ON \
-            -D BUILD_EXAMPLES=OFF \
-            .. > cmake_log.txt 2>&1
+        # g++-10 didn't work with opencv 11.4 and cuda 1.14 on (8/6/21)
+        -D CMAKE_CXX_COMPILER=/usr/bin/g++-9 \
+        -D CMAKE_INSTALL_PREFIX=/usr/local/opencv \
+        -D WITH_CUDA=ON \
+        -D ENABLE_FAST_MATH=1 \
+        -D CUDA_FAST_MATH=1 \
+        -D WITH_CUBLAS=1 \
+        -D INSTALL_PYTHON_EXAMPLES=OFF \
+        -D ENABLE_PRECOMPILED_HEADERS=OFF \
+        -D WITH_OPENMP=ON \
+        -D WITH_NVCUVID=ON \
+        -D OPENCV_EXTRA_MODULES_PATH=~/software/OpenCV/opencv_contrib/modules \
+        -D BUILD_opencv_cudacodec=OFF \
+        -D PYTHON_DEFAULT_EXECUTABLE=$(which python3) \
+        -D BUILD_USE_SYMLINKS=ON \
+        -D BUILD_PERF_TESTS=OFF \
+        -D BUILD_TESTS=OFF \
+        -D BUILD_JAVA=OFF \
+        -D BUILD_PROTOBUF=ON \
+        -D BUILD_opencv_java_bindings_gen=OFF \
+        -D BUILD_opencv_cnn_3dobj=OFF \
+        -D WITH_GDAL=ON \
+        -D WITH_CLP=ON \
+        -D Tesseract_INCLUDE_DIR=/usr/include/tesseract \
+        -D Tesseract_LIBRARY=/usr/lib/x86_64-linux-gnu/libtesseract.so \
+        -D OpenBLAS_LIB=/usr/lib/x86_64-linux-gnu/openblas/libblas.so \
+        -D WITH_OPENGL=ON \
+        -D WITH_VULKAN=ON \
+        # -D PYTHON3_INCLUDE_DIR2=~/.local/include/python3.6m \
+        -D INSTALL_C_EXAMPLES=OFF \
+        -D OPENCV_ENABLE_NONFREE=ON \
+        -D BUILD_EXAMPLES=OFF \
+        .. > cmake_log.txt 2>&1
     cmake -DOPENCV_PYTHON3_VERSION=ON .. >> cmake_log.txt 2>&1
 else
     cmake -D CMAKE_BUILD_TYPE=RELEASE \
@@ -117,6 +119,13 @@ if grep -q 'Configuring done' cmake_log.txt; then
 else
     echo_red "[ERROR] cmake configuration failed"
     cat cmake_log.txt
+fi
+
+DEFAULT=$HOME/.virtualevns/default
+if [ -d $DEFAULT ]; then
+    DIR=/usr/local/opencv/lib/python3.8/site-packages/cv2/python-3.8
+    FILE=cv2.cpython-38-x86_64-linux-gnu.so
+    sudo ln -s $DIR/$FILE $DEFAULT/lib/python3.8/site-packages/cv2.so
 fi
 
 cd $CUR_DIR
