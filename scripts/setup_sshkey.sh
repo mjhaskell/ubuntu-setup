@@ -32,7 +32,7 @@ else
     echo_purple "Copy ~/.ssh/id_ed25519.pub contents to your git servers"
 fi
 
-read "Press ENTER to continue..."
+read -p "Press ENTER to continue..." _
 
 # read -r "Do you want to add ssh key to Github? (Y/n): " ANS
 # ANS=${ANS:-Y}

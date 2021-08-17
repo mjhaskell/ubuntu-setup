@@ -38,6 +38,7 @@ sudo apt -y install cuda
         [yY]* ) # if first letter is y or Y (yes)
             echo_blue "installing cuda"
             sh ~/software/cuda/web_instructions.sh
+            sudo apt install -y nvidia-cuda-toolkit
             cd $CUR_DIR
             echo_green "Cuda installed"
             echo_purple "After reboot, check that it worked"

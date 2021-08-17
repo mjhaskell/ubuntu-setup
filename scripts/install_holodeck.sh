@@ -55,7 +55,7 @@ if [ ! -d rosflight_holodeck ]; then
 fi
 
 echo_blue "Adding Holodeck as editable pip package"
-cd src/rosflight_holodeck/python/holodeck
+cd rosflight_holodeck/python/holodeck
 ## when using pip with --user
 # $PIP install --prefix=~/.local -e .
 ## when using pip within a virtual environment
