@@ -15,12 +15,9 @@ ask_to_install()
   case $ANS in
     [yY]* ) # if first letter is y or Y (yes)
       INSTALL_ARR="${INSTALL_ARR} $FILE";;
-      # INSTALL=1;;
     * ) # anything else
       ;;
-      # INSTALL=0;;
   esac
-  # return $INSTALL
 }
 
 

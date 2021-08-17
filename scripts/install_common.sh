@@ -3,12 +3,15 @@
 SCRIPT_DIR="$( cd "$( dirname $0 )" && pwd )"
 SETUP_DIR="$( cd $SCRIPT_DIR/.. && pwd )"
 
+echo_blue "installing common"
+
 sudo apt update
 sudo apt upgrade -y
 
 # create my common folder structure
 if [ ! -d ~/software ]; then mkdir ~/software; fi
 if [ ! -d ~/bin ]; then mkdir ~/bin; fi
+if [ ! -d ~/tmp ]; then mkdir ~/tmp; fi
 
 # install color functions
 sudo cp $SETUP_DIR/bin/color_functions/echo_* /usr/local/bin/
@@ -18,8 +21,6 @@ echo_green "Color functions installed"
 echo_blue "Creating password for root"
 sudo passwd root
 
-echo_blue "installing common"
-
 # network (use 'sudo nmtui' to configure wifi)
 sudo systemctl disable systemd-networkd.service
 sudo apt install -y network-manager nmap
@@ -27,7 +28,7 @@ sudo apt install -y network-manager nmap
 # terminal
 sudo apt install -y git zsh curl htop ssh
 sudo apt install -y manpages-dev software-properties-common
-sudo apt install -y xterm rxvt-unicode
+# sudo apt install -y xterm rxvt-unicode
 sudo apt install -y tmux xclip unzip
 sudo apt install -y fonts-emojione
 
@@ -65,12 +66,12 @@ if [ ! -d ~/.virtualenvs ]; then
 fi
 
 # pdf, image, and video viewers
-sudo apt install -y qpdfview # zathura?
+# sudo apt install -y qpdfview
+sudo apt install -y zathura
 sudo apt install -y shotwell
 sudo apt install -y vlc ffmpeg
 
 # screenshot and screen recording
-#sudo apt install gnome-screenshot
 sudo apt install -y flameshot
 sudo apt install -y simplescreenrecorder
 
