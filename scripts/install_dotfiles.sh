@@ -75,9 +75,9 @@ setup_link .gitconfig gitconfig
 setup_link .vimrc vimrc
 
 # tmux
-setup_link .tmux-snapshot tmux-snapshot
-setup_link .tmux.conf tmux.conf
-tmux source-file ~/.tmux.conf
+# setup_link .tmux-snapshot tmux-snapshot
+# setup_link .tmux.conf tmux.conf
+# tmux source-file ~/.tmux.conf
 
 # ipython
 setup_link 00_imports.py 00_imports.py ~/.ipython/profile_default/startup

@@ -15,7 +15,8 @@ if [ -d $HOME/.virtualenvs/default ]; then
 
     echo_blue "installing python libs with pip"
     $PIP install ipython numpy scipy pygame matplotlib pyside2 pybind11 vtk
-    $PIP install pyqt5 pyqtgraph pyopengl pyopengl_accelerate gnupg
+    # $PIP install pyqt5 pyqtgraph pyopengl pyopengl_accelerate gnupg
+    $PIP install pyqt5 pyqtgraph pyopengl gnupg empy
     $PIP install pyopencl pytesseract tesserocr jupyter control
     $PIP install pylint autopep8
 else

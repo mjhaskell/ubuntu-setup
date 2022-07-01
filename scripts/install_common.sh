@@ -29,7 +29,8 @@ sudo apt install -y network-manager nmap
 sudo apt install -y git zsh curl htop ssh
 sudo apt install -y manpages-dev software-properties-common
 # sudo apt install -y xterm rxvt-unicode
-sudo apt install -y tmux xclip unzip
+# sudo apt install -y tmux xclip unzip
+sudo apt install -y xclip unzip
 sudo apt install -y fonts-emojione
 
 # graphics
@@ -39,19 +40,23 @@ sudo apt install -y mesa-utils mesa-utils-extra
 sudo apt install -y libcanberra-gtk-module
 sudo apt install -y alsa-base alsa-utils
 
+# printers
+sudo apt install -y hplip
+
 # windows file system (fs)
 sudo apt install -y ntfs-3g
 # tools for mounting J-drive
 sudo apt install -y cifs-utils
 
 # C++
-sudo apt install -y build-essential gcc g++ gcc-10 g++-10 cmake ccache make gdb
+sudo apt install -y build-essential gcc g++ gcc-12 g++-12 gdb
+sudo apt install -y cmake ccache make cmake-curses-gui
 # set up compiler versions (last # is priority - highest is default)
 # change compilers with `sudo update-alternatives --config <g++>`
-sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-9 9
-sudo update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-9 9
-sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-10 10
-sudo update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-10 10
+sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-11 11
+sudo update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-11 11
+sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-12 12
+sudo update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-12 12
 echo_yellow "G++ compiler information:"
 sudo update-alternatives --display g++
 

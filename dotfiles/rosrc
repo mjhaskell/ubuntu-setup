@@ -3,39 +3,36 @@
 # If ROS is installed
 if [ -d /opt/ros ]; then
 
-    # Add rospkg to python path
+    # # Add rospkg to python path
     if ! echo $PYTHONPATH | grep -q /usr/lib/python3/dist-packages; then
         export PYTHONPATH=$PYTHONPATH:/usr/lib/python3/dist-packages
     fi
 
-    # source correct ROS setup script
-    if [ -n "$BASH" ]; then source /opt/ros/noetic/setup.bash
-    elif [ -n "$ZSH_NAME" ]; then source /opt/ros/noetic/setup.zsh
+    # # source correct ROS setup script
+    if [ -n "$BASH" ]; then source /opt/ros/humble/setup.bash
+    elif [ -n "$ZSH_NAME" ]; then source /opt/ros/humble/setup.zsh
     else
-        source /opt/ros/noetic/setup.sh
+        source /opt/ros/humble/setup.sh
         echo_purple "[INFO] default ros setup.sh sourced"
     fi
 
-    # set ROS info
-    export ROS_IP=$(hostname -I | cut -f1 -d' ')
+    source /usr/share/colcon_cd/function/colcon_cd.sh
+    export _colcon_cd_root=/opt/ros/humble/
+    source /usr/share/colcon_argcomplete/hook/colcon-argcomplete.zsh
+    complete -o nospace -o default -F _python_argcomplete "ros2"
 
-    # print ROS info
+    # # set ROS info
+    export ROS_DOMAIN_ID=9
+
+    # # print ROS info
     COFF="\033[0m"
-    if [ -n "$ROS_MASTER_URI" ]; then
-        echo_yellow "ROS_MASTER: $COFF$ROS_MASTER_URI"
-        if [ -n "$ROS_IP" ]; then
-            echo_yellow "ROS_IP: $COFF$ROS_IP"
-        fi
-        if [ -n "$ROS_HOSTNAME" ]; then
-            echo_yellow "ROS_HOSTNAME: $COFF$ROS_HOSTNAME"
-        fi
-    fi
-    
+    # echo_yellow "IP: $(hostname -I | cut -f1 -d' ')"
+    # echo_yellow "IPs: $COFF$(myip)"
+    echo_yellow "ROS_DOMAIN_ID: $COFF$ROS_DOMAIN_ID"
+
     # source my ros aliases
     if [ -f ~/.ros_aliases ]; then
         source ~/.ros_aliases
     fi
 
 fi
-
-
