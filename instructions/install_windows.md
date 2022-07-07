@@ -6,30 +6,40 @@ These are the steps for installing Windows:
 4. [Install Windows](#install-windows)
 5. [Install Linux (Optional)](#install-linux)
 
-Note that you will need a Product Key (license) to use Windows unless you 
-already have Windows installed on the machine; in that case, it will 
+Note that you will need a Product Key (license) to use Windows unless you
+already have Windows installed on the machine; in that case, it will
 know that you had/have a licence when you reinstall Windows.
 
 Also note that UEFI is better than Legacy BIOS and GPT is better than MBR.
 Additionally, do not attempt to use MBR with UEFI boot, and also do not
 attempt to use a GPT disk with BIOS (or Legacy) boot. Technically, the latter
 is possible, but unless you know what you are doing, will only cause
-headache. So, even though there is an option in Settings 
-to Reset the computer (wipe hard drive and reinstall Windows), you might 
-not want to use that because it might use Legacy BIOS with MBR (and the 
+headache. So, even though there is an option in Settings
+to Reset the computer (wipe hard drive and reinstall Windows), you might
+not want to use that because it might use Legacy BIOS with MBR (and the
 Reset option failed every time I tried it - but that might not be common);
 and by doing things manually, you can sometimes convert an old machine to
 UEFI boot.
 
 ## Create Installation Media (USB)
-You probably need to be on a Windows machine to do this (although it might be 
-possible with Wine). Follow 
+
+### Linux
+1. Download image file: Google search "\<distro> \<flavor> iso" (e.g. "ubuntu 22.04 budgie iso") and
+    you should find it easily enough
+1. Plug in the USB you wish to use (make sure it has enough space to hold the image file)
+1. Figure out what device the USB drive is on (e.g. `/dev/sda`) by running `lsblk`
+1. Flash the USB (or partition) with the image file: `sudo dd if=<image file>.iso of=/dev/<device> oflag=sync conv=fdatasync bs=4M status=progress`
+1. Now you can boot into that USB
+
+### Windows
+You probably need to be on a Windows machine to do this (although it might be
+possible with Wine). Follow
 [this guide](https://answers.microsoft.com/en-us/windows/forum/windows_10-windows_install/how-to-create-a-windows-10-installation-media/ad10cb15-1848-40f6-a6ad-094f902f669a) or watch
-[this video](https://www.youtube.com/watch?v=1DXzr3eXkd4). The software 
-downloads page can be found 
-[here](https://www.microsoft.com/en-us/software-download/windows10) (only 
+[this video](https://www.youtube.com/watch?v=1DXzr3eXkd4). The software
+downloads page can be found
+[here](https://www.microsoft.com/en-us/software-download/windows10) (only
 works on Windows machines - otherwise webpage can only download ISO).
-When following the guide above, choose the option at the end to use a USB flash 
+When following the guide above, choose the option at the end to use a USB flash
 drive rather than an ISO file (you need an 8GB flash drive or bigger).
 If you are comfortable enough with computers, just download the ISO and
 [Rufus](https://rufus.ie/) (I prefer the "portable" version). Use Rufus to
@@ -37,8 +47,8 @@ flash your USB flash drive with the ISO image, deselecting the option that says
 something to the effect of "create auto start files".
 
 Once the image is flashed to the USB flash drive, the installation media is
-generic for all versions of Windows 10, so you need 
-to figure out which index in `sources\install.esd` matches the version you 
+generic for all versions of Windows 10, so you need
+to figure out which index in `sources\install.esd` matches the version you
 want to install. After your USB flash drive is ready:
   - Open up File Explorer on a Windows machine
   - Navigate to the `sources` folder on your flash drive
@@ -66,7 +76,7 @@ If you want to create an installer for 1 specific index:
   - Be careful how much memory you have when creating `install.wim` (~4GB for Index 1)
 
 ## Create Partition Table
-If you are going to use Windows and Linux on the same hard drive, then create 
+If you are going to use Windows and Linux on the same hard drive, then create
 partitions for Windows first.
 
 <aside class="warning">
@@ -154,7 +164,7 @@ Warning: Careful, the following steps will destroy access to all data on your di
   - `assign letter="R"` (change letter to R)
   - `list volume` (verify changes)
   - `exit` (leave `diskpart` menu)
-  
+
 ### Install Windows
   - Should still be in Command Prompt on Windows USB from formatting partitions
   - `dism /Apply-Image /ImageFile:<I>:\sources\install.esd /Index:<1> /ApplyDir:W:\`
@@ -171,9 +181,9 @@ Warning: Careful, the following steps will destroy access to all data on your di
     - I selected option to not use internet for setup
     - I don't allow location services or any of the other privacy options
     - I just create local accounts rather than signing into my Microsoft account
-    
+
 ### Install Linux
-This is optional if you want to add a Linux partition on the same hard drive 
+This is optional if you want to add a Linux partition on the same hard drive
 where you installed Windows.
   - Boot into the Linux Live ISO flash drive and open Terminal
   - `lsblk` (figure out which device you want put Linux on)
