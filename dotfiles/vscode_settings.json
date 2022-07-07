@@ -33,7 +33,7 @@
         "*.tpp": "cpp"
     },
 
-    "terminal.integrated.defaultProfile.linux": "/bin/zsh",
+    "terminal.integrated.defaultProfile.linux": "zsh",
     "terminal.external.linuxExec": "termite",
     "terminal.integrated.fontFamily": "CodeNewRoman Nerd Font",
     "terminal.integrated.fontSize": 12,
