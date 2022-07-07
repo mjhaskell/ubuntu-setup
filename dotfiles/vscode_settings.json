@@ -58,6 +58,7 @@
     "C_Cpp.default.includePath": [
         "/usr/include/**",
         "/usr/local/include/**",
+        "/opt/**",
         "${workspaceFolder}/**"
     ],
     "C_Cpp.default.compilerPath": "/usr/bin/gcc",

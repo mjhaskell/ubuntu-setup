@@ -20,9 +20,9 @@ sudo apt install -y qtwebengine5-dev libqt5svg5-dev libqt5websockets5-dev
 pip install empy
 
 sudo apt install python3-colcon-common-extensions python3-colcon-argcomplete
-sudo apt install -y ros-humble-ros-base
-sudo apt install -y ros-humble-rqt-common-plugins
-# sudo apt install -y ros-humble-desktop
+sudo apt install -y ros-humble-ros-base ros-humble-rqt-common-plugins
+sudo apt install -y ros-humble-rviz2
+# sudo apt install -y ros-humble-desktop # wanted to remove budgie
 
 # echo_blue "Initialize rosdep"
 # sudo apt install python3-rosdep
