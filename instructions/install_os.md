@@ -1,5 +1,5 @@
-# Windows Installation
-These are the steps for installing Windows:
+# Operating System Installation
+These are the steps for installing an OS:
 1. [Create Installation Media](#create-installation-media)
 2. [Create Partition Table](#create-partition-table)
 3. [Format Partitions](#format-partitions)
