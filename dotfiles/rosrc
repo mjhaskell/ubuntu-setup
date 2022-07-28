@@ -22,7 +22,7 @@ if [ -d /opt/ros ]; then
     complete -o nospace -o default -F _python_argcomplete "ros2"
 
     # # set ROS info
-    export ROS_DOMAIN_ID=9
+    export ROS_DOMAIN_ID=0
 
     # # print ROS info
     COFF="\033[0m"

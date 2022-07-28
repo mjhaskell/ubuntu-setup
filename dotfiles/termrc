@@ -11,7 +11,7 @@ if [ $BASH ]; then
     PS1+='\n';                            # print new line before dollar sign
     PS1+='\[\033[00;92m\]\$';             # print dollar sign
     PS1+='\[\033[00m\] ';                 # reset color to white
-    
+
     alias sbashrc='source ~/.bashrc'
     alias vbashrc='vim ~/.bashrc'
 
@@ -45,7 +45,7 @@ if ! echo $PATH | grep -q ${HOME}/bin; then
 fi
 
 # add CUDA to path if not already
-if [ -d /usr/local/cuda/bin ]; then 
+if [ -d /usr/local/cuda/bin ]; then
     if ! echo $PATH | grep -q /usr/local/cuda/bin; then
         export PATH=/usr/local/cuda/bin:$PATH
     fi
@@ -61,8 +61,15 @@ if [ -f ~/.rosrc ]; then
     . ~/.rosrc
 fi
 
+# add gradle to path if not already
+if [ -d /opt/gradle ]; then
+    if ! echo $PATH | grep -q /opt/gradle; then
+        export PATH=/opt/gradle/gradle-6.3/bin:$PATH
+    fi
+fi
+
 # add OpenCV to path if not already
-if [ -d /usr/local/opencv ]; then 
+if [ -d /usr/local/opencv ]; then
     if ! echo $PATH | grep -q /usr/local/opencv/bin; then
         export PATH=/usr/local/opencv/bin:$PATH
     fi
@@ -70,4 +77,3 @@ if [ -d /usr/local/opencv ]; then
         export PYTHONPATH=/usr/local/opencv/lib/python3.8/dist-packages:$PYTHONPATH
     fi
 fi
-
