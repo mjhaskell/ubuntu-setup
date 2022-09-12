@@ -16,6 +16,22 @@ sudo apt install -y libeigen3-dev
 # cmake ..
 # sudo make install
 
+
+# Pretty printing in VS Code
+if [ ! -d $HOME/software/eigen-gdb ] then
+    mkdir $HOME/software/eigen-gdb
+    wget -O $HOME/software/eigen-gdb/printers.py https://gitlab.com/libeigen/eigen/-/blob/master/debug/gdb/printers.py
+fi
+
+if [ ! -f $HOME/.gdbinit ] then
+    echo "python
+    import sys
+    sys.path.insert(0, '$HOME/software/eigen-gdb')
+    from printers import register_eigen_printers
+    register_eigen_printers(None)
+    end" > $HOME/.gdbinit
+fi
+
 # cd $CUR_DIR
 
 echo_green "eigen installed"
