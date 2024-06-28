@@ -28,7 +28,7 @@ alias jdrive='sudo mount -t cifs //fs-caedm.et.byu.edu/mhask94 ~/J -o username=m
 alias shutnow='systemctl poweroff'
 alias vi='vim'
 alias nb='jupyter-notebook'
-alias make='make -j8'
+alias make='make -j$(nproc --all)'
 alias lscam='ls -ltrh /dev/video*'
 alias valias='vim ~/.sh_aliases'
 alias salias='source ~/.sh_aliases'

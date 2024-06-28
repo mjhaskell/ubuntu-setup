@@ -1,12 +1,21 @@
 # How to Use
-## Clone Repo Into Home (~)
-git clone https://github.com/mhask94/scripts
+## Right after fresh install
+You want to do a few things first and power off in between to make sure they work, otherwise you might need to reinstall Ubuntu and try again.
+
+1. `sudo dpkg --remove-architecture i382`
+1. `sudo apt update && sudo apt upgrade`
+   - Check that all packages upgrade successfully, messages that some packages were held back happened to me until I removed the 32 bit architecture and then I manually ran `sudo apt install <pkg>` on all of the held packages to manually upgrade them.
+1. `reboot`
+1. Open Software Updater -> Additional Drivers and select the newest Nvidia driver
+   - Don't choose the kernel or open versions
+1. `reboot`
+1. `git clone https://github.com/mjhaskell/ubuntu-setup`
 
 ## Run Setup Files
 Some of the install scripts require the computer to poweroff before continuing. The install files have been organized into 3 setup files. Run them in order. The computer will automatically power off after the 1st and 2nd setup scripts. If you want to use zsh rather than bash, then after the 3rd setup script run setup_zsh.sh.
 
 ### Can run any install file individually as needed
-Any of the setup files can be ran individually rather than using the setup scripts. 
+Any of the setup files can be ran individually rather than using the setup scripts.
 
 # Items Requiring Manual Setup
 ## Qt

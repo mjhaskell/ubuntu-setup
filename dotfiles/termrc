@@ -57,9 +57,9 @@ if [ -f ~/.sh_aliases ]; then
 fi
 
 # source ros config
-if [ -f ~/.rosrc ]; then
-    . ~/.rosrc
-fi
+#if [ -f ~/.rosrc ]; then
+#    . ~/.rosrc
+#fi
 
 # add gradle to path if not already
 if [ -d /opt/gradle ]; then

@@ -8,6 +8,10 @@ echo_blue "installing common"
 sudo apt update
 sudo apt upgrade -y
 
+# sudo dpkg --remove-architecture i386
+# sudo apt update
+# sudo apt upgrade
+
 # create my common folder structure
 if [ ! -d ~/software ]; then mkdir ~/software; fi
 if [ ! -d ~/bin ]; then mkdir ~/bin; fi
