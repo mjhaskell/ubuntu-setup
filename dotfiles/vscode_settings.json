@@ -1,9 +1,11 @@
 {
     "editor.wordWrap": "wordWrapColumn",
-    "editor.wordWrapColumn": 90,
-    "editor.rulers": [80, 90],
+    "editor.wordWrapColumn": 120,
+    "editor.rulers": [80, 90, 120],
     "editor.tabSize": 2,
     "editor.minimap.maxColumn": 90,
+    "editor.minimap.enabled": false,
+    "editor.minimap.autohide": true,
     "editor.fontFamily": "'CodeNewRoman Nerd Font Mono','Droid Sans Mono', 'monospace'",
     "editor.fontSize": 12,
     "editor.insertSpaces": true,
@@ -14,8 +16,18 @@
     "editor.definitionLinkOpensInPeek": true,
     "editor.suggestSelection": "first",
     "editor.acceptSuggestionOnEnter": "smart",
+    "editor.bracketPairColorization.enabled": true,
+    // "editor.language.colorizedBracketPairs":
+    "editor.semanticTokenColorCustomizations": {
+        "[Default Dark Modern]": {
+            "rules": {
+                "selfParameter": "#569CD6",
+                "clsParameter": "#569CD6",
+            }
+        }
+    },
+
     "vsintellicode.modify.editor.suggestSelection": "automaticallyOverrodeDefaultValue",
-    "window.zoomLevel": 0,
 
     "extensions.autoUpdate": false,
 
@@ -29,17 +41,20 @@
         "**/devel": true
     },
     "files.associations": {
-        "*.tpp": "cpp"
+        "*.tpp": "cpp",
+        "*.sdf": "xml",
+        "*.urdf": "xml"
     },
 
     "terminal.integrated.defaultProfile.linux": "zsh",
-    "terminal.external.linuxExec": "termite",
+    // "terminal.external.linuxExec": "termite",
     "terminal.integrated.fontFamily": "CodeNewRoman Nerd Font",
     "terminal.integrated.fontSize": 12,
     "debug.console.fontSize": 12,
 
     "python.jediEnabled": false,
     "python.languageServer": "Pylance",
+<<<<<<< HEAD
     // don't source venv when opening vscode terminal
     "python.terminal.activateEnvironment": false,
     "python.terminal.activateEnvInCurrentTerminal": false,
@@ -47,6 +62,16 @@
     "terminal.integrated.env.linux": {
         "PYTHONPATH": "${workspaceFolder}"
     },
+=======
+    "python.venvPath": "~/.virtualenvs",
+    "python.defaultInterpreterPath": "/home/mat/.virtualenvs/default",
+    "terminal.integrated.env.linux": {
+        "PYTHONPATH": "${workspaceFolder}:${env:PYTHONPATH}"
+    },
+    // "python.analysis.inlayHints.callArgumentNames": "all",
+    // for pybind paths to get intellisense
+    // "python.analysis.extraPaths": [],
+>>>>>>> 75e649f (Updates to vs code config)
     "[python]": {
         "editor.tabSize": 4,
         "editor.formatOnType": true
@@ -59,6 +84,9 @@
         // "editor.wordWrap": "wordWrapColumn",
         "editor.wordWrapColumn": 120
     },
+    "[html]": {
+        "editor.wordWrapColumn": 120
+    },
 
     "C_Cpp.default.includePath": [
         "/usr/include/**",
@@ -69,13 +97,18 @@
     "C_Cpp.default.compilerPath": "/usr/bin/gcc",
     "C_Cpp.default.cppStandard": "c++14",
     "C_Cpp.default.cStandard": "c11",
+    "cmake.generator": "Ninja",
+    // "cmake.generator": "Unix Makefiles",
+    "cmake.configureOnOpen": true,
+    "cmake.configureOnEdit": true,
+    // "cmake.configureArgs": [],
 
     "liveshare.accountProvider": "",
     "liveshare.account": "",
     "liveshare.anonymousGuestApproval": "accept",
     "liveshare.audio.joinCallBehavior": "accept",
 
-    "vim.vimrc.enable": true,
+    "vim.vimrc.enable": false,
     "vim.useSystemClipboard": true,
     "vim.useCtrlKeys": true,
     "vim.sneak": true,
@@ -83,12 +116,13 @@
     "vim.whichwrap": "h,l,<,>,[,]",
     "vim.textwidth": 90,
     "vim.ignorecase": false,
-    "vim.foldfix": true,
+    // "vim.foldfix": true,
     "vim.timeout": 200,
     "vim.cursorStylePerMode.insert": "line",
     "vim.cursorStylePerMode.normal": "block",
     "vim.cursorStylePerMode.replace": "block-outline",
     "vim.leader": "\\",
+    "vim.surround": true,
     "vim.handleKeys": {
         "<C-d>": false,
         "<C-/>": false,
@@ -107,42 +141,59 @@
         {
             "before": ["<leader>", "c", "i"],
             "commands": ["editor.action.commentLine"]
+        },
+        {
+            "before": ["j", "k"],
+            "after": ["<esc>"]
         }
     ],
     "vim.normalModeKeyBindingsNonRecursive": [
+        // {
+        //     "before": ["k"],
+        //     "after": ["g", "k"]
+        // },
+        // {
+        //     "before": ["j"],
+        //     "after": ["g", "j"]
+        // },
+        // {
+        //     "before": ["<leader>", "c", "i"],
+        //     "commands": ["editor.action.commentLine"]
+        // },
+        // {
+        //     "before": ["m"],
+        //     "commands": ["editor.action.toggleMinimap"]
+        // }
         {
-            "before": ["k"],
-            "after": ["g", "k"]
-        },
-        {
-            "before": ["j"],
-            "after": ["g", "j"]
-        },
-        {
-            "before": ["<leader>", "c", "i"],
-            "commands": ["editor.action.commentLine"]
-        },
-        {
-            "before": ["m"],
-            "commands": ["editor.action.toggleMinimap"]
+            "before": ["J"],
+            "after": ["10j"]
         }
     ],
     "vim.visualModeKeyBindingsNonRecursive": [
-        {
-            "before": ["k"],
-            "after": ["g", "k"]
-        },
-        {
-            "before": ["j"],
-            "after": ["g", "j"]
-        }
+        // {
+        //     "before": ["k"],
+        //     "after": ["g", "k"]
+        // },
+        // {
+        //     "before": ["j"],
+        //     "after": ["g", "j"]
+        // }
     ],
     "latex-workshop.view.pdf.viewer": "tab",
     "workbench.editorAssociations": {
         "*.ipynb": "jupyter-notebook"
     },
+<<<<<<< HEAD
     // "cmake.preferredGenerators": [
     //     "UnixMakefiles"
     // ],
     "cmake.generator": "Unix Makefiles",
+=======
+    "window.zoomLevel": 1,
+    "cmake.pinnedCommands": [
+        "workbench.action.tasks.configureTaskRunner",
+        "workbench.action.tasks.runTask"
+    ],
+    "debug.inlineValues": "off",
+>>>>>>> 75e649f (Updates to vs code config)
 }
