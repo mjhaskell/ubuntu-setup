@@ -108,7 +108,7 @@
     "liveshare.anonymousGuestApproval": "accept",
     "liveshare.audio.joinCallBehavior": "accept",
 
-    "vim.vimrc.enable": false,
+    "vim.vimrc.enable": true,
     "vim.useSystemClipboard": true,
     "vim.useCtrlKeys": true,
     "vim.sneak": true,
@@ -164,10 +164,10 @@
         //     "before": ["m"],
         //     "commands": ["editor.action.toggleMinimap"]
         // }
-        {
-            "before": ["J"],
-            "after": ["10j"]
-        }
+        // {
+        //     "before": ["J"],
+        //     "after": ["10j"]
+        // }
     ],
     "vim.visualModeKeyBindingsNonRecursive": [
         // {
