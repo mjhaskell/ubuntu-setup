@@ -1,6 +1,6 @@
-[user]
-    name = Mat Haskell
-    email = mhaskell9@gmail.com
+;[user]
+;    name = Mat Haskell
+;    email = mhaskell9@gmail.com
 [core]
     editor = vi
 [push]
@@ -13,5 +13,14 @@
     co = checkout
     st = status
     cm = commit
+    df = diff --ws-error-highlight=all
     subup = submodule update --init --recursive
     graph = log --oneline --graph --decorate --all
+
+[includeIf "gitdir:~/repos/fj_fesq/"]
+    path = ~/repos/fj_fesq/.gitconfig
+[includeIf "gitdir:~/repos/magiccvs/"]
+    path = ~/repos/magiccvs/.gitconfig
+[includeIf "gitdir:~/repos/github/"]
+    path = ~/repos/github/.gitconfig
+
