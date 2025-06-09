@@ -22,6 +22,45 @@ githubLatestTag() { # $1=github_user/repo (ex: opencv/opencv)
     curl --silent "https://api.github.com/repos/$1/tags" | 
         grep -Po '"name": "\K.*?(?=")' | head -1
     }
+svenv() { # $1=virtual env
+    if [ -n "$VIRTUAL_ENV" ]; then deactivate; fi
+    source $HOME/.virtualenvs/$1/bin/activate
+}
+scanip() { nmap -sP $1; }
+
+# autocompletions
+if [ -n "$ZSH_NAME" ]; then
+    _svenv() {
+        for dir in $(ls $HOME/.virtualenvs); do
+            compadd $dir
+        done
+    }
+    compdef _svenv svenv 
+    _scanip() {
+        for ip in "${(@s: :)${ips% *}}"; do
+            cmd="${ip%.*}.*"
+            compadd $cmd
+        done
+    }
+    compdef _scanip scanip
+elif [ -n "$BASH" ]; then
+    #echo "in bash"
+    complete -W "$(ls $HOME/.virtualenvs)" svenv
+
+    ips=$(echo $(hostname -I) | tr " " "\n")
+    cmds=""
+    for ip in $(echo $ips | tr " " "\n"); do
+        cmd="$(echo "$ip" | sed 's/\.[0-9]*$/.*/')"
+        cmds="$cmds $cmd"
+    done
+    #echo $cmds
+    complete -W "$cmds" scanip
+else
+    echo "No autocompletions"
+fi
+
+# Override built-in commands
+alias lsblk='lsblk -o name,rm,ro,size,mountpoint,fstype,label | grep -v loop'
 
 # general aliases
 alias jdrive='sudo mount -t cifs //fs-caedm.et.byu.edu/mhask94 ~/J -o username=mhask94,rw,uid=$(id -u)'
@@ -32,7 +71,7 @@ alias make='make -j$(nproc --all)'
 alias lscam='ls -ltrh /dev/video*'
 alias valias='vim ~/.sh_aliases'
 alias salias='source ~/.sh_aliases'
-alias scanip='nmap -sP 192.168.0.*'
+#alias scanip='nmap -sP 192.168.0.*'
 alias untar='tar -xvzf'
 alias keybind='gsettings set org.gnome.desktop.wm.keybindings'
 alias myip='hostname -I'
@@ -41,6 +80,11 @@ alias me='echo_green $USER@$HOST'
 alias chterm='sudo update-alternatives --config x-terminal-emulator'
 alias cmaked='cmake -DCMAKE_BUILD_TYPE=Debug'
 alias cmaker='cmake -DCMAKE_BUILD_TYPE=Release'
+
+# Applications
+alias qgc='QGroundControl'
+alias srosrc='source ~/.rosrc'
+alias vrosrc='vim ~/.rosrc'
 
 # location specific aliases
 if [ -d ~/STM32CubeMX ]; then

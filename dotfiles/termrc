@@ -2,58 +2,55 @@
 
 ##################################  BASH  ######################################
 if [ $BASH ]; then
-    export GIT_PS1_SHOWDIRTYSTATE=1
-    PS1='${debian_chroot:+($debian_chroot)}';
-    PS1+='\[\033[00;92m\]\u@\h';          # print username@hostname
-    PS1+='\[\033[00m\]:';
-    PS1+='\[\033[01;34m\]\w';             # print working directory
-    PS1+='\[\033[00;33m\] $(__git_ps1)';  # print git branch when in git repo
-    PS1+='\n';                            # print new line before dollar sign
-    PS1+='\[\033[00;92m\]\$';             # print dollar sign
-    PS1+='\[\033[00m\] ';                 # reset color to white
+  export GIT_PS1_SHOWDIRTYSTATE=1
+  PS1='${debian_chroot:+($debian_chroot)}'
+  PS1+='\[\033[00;92m\]\u@\h' # print username@hostname
+  PS1+='\[\033[00m\]:'
+  PS1+='\[\033[01;34m\]\w'            # print working directory
+  PS1+='\[\033[00;33m\] $(__git_ps1)' # print git branch when in git repo
+  PS1+='\n'                           # print new line before dollar sign
+  PS1+='\[\033[00;92m\]\$'            # print dollar sign
+  PS1+='\[\033[00m\] '                # reset color to white
 
-    alias sbashrc='source ~/.bashrc'
-    alias vbashrc='vim ~/.bashrc'
+  alias sbashrc='source ~/.bashrc'
+  alias vbashrc='vim ~/.bashrc'
 
 ##################################  ZSH  ######################################
 elif [ $ZSH_NAME ]; then
-    alias szshrc='source ~/.zshrc'
-    alias vzshrc='vim ~/.zshrc'
+  alias szshrc='source ~/.zshrc'
+  alias vzshrc='vim ~/.zshrc'
 fi
 
 ##################################  BOTH  ######################################
 alias stermrc='source ~/.termrc'
 alias vtermrc='vi ~/.termrc'
 
-# Python virtual environments
-#if [ -d $HOME/.pyvenv ]; then
-    #export PYVENV_DIR=$HOME/.pyvenv
-    #export PATH=$PYVENV_DIR/bin:$PATH
-#fi
-if [ -d $HOME/.virtualenvs ]; then
-    source $HOME/.virtualenvs/default/bin/activate
-fi
-
 # add ~/.local/bin to path if not already
 if ! echo $PATH | grep -q /.local/bin; then
-    export PATH=$HOME/.local/bin:$PATH
+  export PATH=$HOME/.local/bin:$PATH
 fi
 
 # add ~/bin to path if not already
 if ! echo $PATH | grep -q ${HOME}/bin; then
-    export PATH=$HOME/bin:$PATH
+  export PATH=$HOME/bin:$PATH
 fi
 
 # add CUDA to path if not already
 if [ -d /usr/local/cuda/bin ]; then
-    if ! echo $PATH | grep -q /usr/local/cuda/bin; then
-        export PATH=/usr/local/cuda/bin:$PATH
-    fi
+  if ! echo $PATH | grep -q /usr/local/cuda/bin; then
+    export PATH=/usr/local/cuda/bin:$PATH
+  fi
 fi
 
 # source aliases
 if [ -f ~/.sh_aliases ]; then
-    . ~/.sh_aliases
+  . ~/.sh_aliases
+fi
+
+if [ -d /opt/nvim-linux-x86_64 ]; then
+  if ! echo $PATH | grep -q /opt/nvim; then
+    export PATH="$PATH:/opt/nvim-linux-x86_64/bin"
+  fi
 fi
 
 # source ros config
@@ -63,17 +60,41 @@ fi
 
 # add gradle to path if not already
 if [ -d /opt/gradle ]; then
-    if ! echo $PATH | grep -q /opt/gradle; then
-        export PATH=/opt/gradle/gradle-6.3/bin:$PATH
-    fi
+  if ! echo $PATH | grep -q /opt/gradle; then
+    export PATH=$PATH:/opt/gradle/gradle-6.3/bin
+  fi
 fi
 
 # add OpenCV to path if not already
 if [ -d /usr/local/opencv ]; then
-    if ! echo $PATH | grep -q /usr/local/opencv/bin; then
-        export PATH=/usr/local/opencv/bin:$PATH
-    fi
-    if ! echo $PYTHONPATH | grep -q opencv; then
-        export PYTHONPATH=/usr/local/opencv/lib/python3.8/dist-packages:$PYTHONPATH
-    fi
+  if ! echo $PATH | grep -q /usr/local/opencv/bin; then
+    export PATH=$PATH:/usr/local/opencv/bin
+  fi
+  if ! echo $PYTHONPATH | grep -q opencv; then
+    export PYTHONPATH=$PYTHONPATH:/usr/local/opencv/lib/python3.8/dist-packages
+  fi
 fi
+
+# add NUTTX arm-none-eabi-gcc to path if not already
+if [ -d /opt/gcc-arm-none-eabi-9-2020-q2-update ]; then
+  if ! echo $PATH | grep -q /opt/gcc-arm-none-eabi-9-2020-q2-update; then
+    export PATH=$PATH:/opt/gcc-arm-none-eabi-9-2020-q2-update/bin
+  fi
+fi
+
+# Python virtual environments
+#if [ -d $HOME/.pyvenv ]; then
+#export PYVENV_DIR=$HOME/.pyvenv
+#export PATH=$PYVENV_DIR/bin:$PATH
+#fi
+if [ "$TERM_PROGRAM" != "vscode" ]; then
+  if [ -d $HOME/.virtualenvs ]; then
+    source $HOME/.virtualenvs/default/bin/activate
+  #    PYPATH=$HOME/.virtualenvs/default/lib/python3.10/site-packages
+  #    export PYTHONPATH=$PYPATH:$PYTHONPATH
+  fi
+fi
+
+# Install Ruby Gems to ~/gems
+export GEM_HOME="$HOME/software/gems"
+export PATH="$GEM_HOME/bin:$PATH"
