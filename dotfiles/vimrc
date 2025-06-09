@@ -41,6 +41,9 @@ filetype on
 filetype plugin on
 filetype indent on
 
+" Allow mouse to move cursor
+set mouse=a
+
 " Always copy and paste to clipboard
 set clipboard=unnamedplus
 
@@ -53,11 +56,11 @@ let g:clipboard = {
   \   'name': 'xclip-xfce4-clipman',
   \   'copy': {
   \      '+': 'xclip -selection clipboard',
-  \      '*': 'xclip -selection clipboard',
+  "\      '*': 'xclip -selection clipboard',
   \    },
   \   'paste': {
   \      '+': 'xclip -selection clipboard -o',
-  \      '*': 'xclip -selection clipboard -o',
+  "\      '*': 'xclip -selection clipboard -o',
   \   },
   \   'cache_enabled': 1,
   \ }
@@ -67,7 +70,7 @@ let g:clipboard = {
 set background=dark
 
 " Relative line numbering with absolute line number on current line
-set relativenumber
+"set relativenumber
 set number
   
 " Always display status bar
@@ -102,6 +105,34 @@ autocmd FileType make set noexpandtab softtabstop=0
 autocmd FileType c setlocal ts=2 sw=2 expandtab
 autocmd FileType cpp setlocal ts=2 sw=2 expandtab
 autocmd FileType py setlocal ts=4 sw=4 expandtab
+
+" these add a horizontal line below current line when in insert mode
+"autocmd InsertEnter * set cursorline
+"autocmd InsertLeave * set nocursorline
+
+" these didn't work
+"let &t_SI = "\<Esc>]50;CursorShape=1\x7"
+"let &t_SR = "\<Esc>]50;CursorShape=2\x7"
+"let &t_EI = "\<Esc>]50;CursorShape=0\x7"
+
+"Mode Settings
+
+let &t_SI.="\e[5 q" "SI = INSERT mode
+let &t_SR.="\e[4 q" "SR = REPLACE mode
+let &t_EI.="\e[1 q" "EI = NORMAL mode (ELSE)
+
+let &t_ti.="\e[1 q" "ti = entering vim from terminal
+let &t_te.="\e[  q" "te = leaving vim (set back to terminal default)
+
+"Cursor settings:
+
+"  1 -> blinking block
+"  2 -> solid block 
+"  3 -> blinking underscore
+"  4 -> solid underscore
+"  5 -> blinking vertical bar
+"  6 -> solid vertical bar
+
 
 """""""" Custom Keys """"""""""""""
 " Set space for the leader
@@ -161,7 +192,7 @@ let g:airline#extensions#ale#enabled = 1
 "" Scroll through autocomplete options with Tab
 inoremap <expr><TAB> pumvisible() ? "\<C-n>" : "\<TAB>"
 
-" Use Ale to jumpy to definition, etc.
+" Use Ale to jump to definition, etc.
 nnoremap <silent> gh :ALEHover<CR>
 nnoremap <silent> gd :ALEGoToDefinition<CR>
 nnoremap <silent> gr :ALEFindReferences<CR>
