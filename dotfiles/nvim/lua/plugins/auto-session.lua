@@ -1,20 +1,32 @@
 return {
-	"rmagatti/auto-session",
+  "rmagatti/auto-session",
+  lazy = false,
 
-	config = function()
-		local as = require("auto-session")
+  ---enables autocomplete for opts
+  ---@module "auto-session"
+  ---@type AutoSession.Config
+  opts = {
+    suppressed_dirs = { "~/", "~/tmp", "~/Downloads", "/" },
+    auto_save = false,
 
-		as.setup({
-			auto_restore_enabled = false,
-			auto_session_suppress_dirs = { "~/" },
-		})
+    ---set directory where sessions are saved
+    -- root_dir = vim.fn.stdpath("data") .. "/sessions/", -- default
+    -- vim.fn.stdpath('data') is "~/.local/share/nvim"
+  },
 
-		local km = vim.keymap
+  setup = function()
+    local as = require("auto-session").setup({
+      -- don't save save session when in dashboard
+      bypass_save_filetypes = { "alpha", "dashboard" },
+    })
+  end,
 
-		-- restore last workspace session for current directory
-		km.set("n", "<leader>wr", "<cmd>SessionRestore<CR>", { desc = "Restore session for cwd" })
-
-		-- save workspace session for current working directory
-		km.set("n", "<leader>ws", "<cmd>SessionSave<CR>", { desc = "Save session for auto session root dir" })
-	end,
+  keys = {
+    -- Will use Telescope if installed or a vim.ui.select picker otherwise
+    { "<leader>w", "", desc = "Sessions" },
+    { "<leader>wf", "<cmd>SessionSearch<CR>", desc = "Find and load session" },
+    { "<leader>wr", "<cmd>SessionRestore<CR>", desc = "Restore session" },
+    { "<leader>ws", "<cmd>SessionSave<CR>", desc = "Save session" },
+    { "<leader>wa", "<cmd>SessionToggleAutoSave<CR>", desc = "Toggle autosave" },
+  },
 }
