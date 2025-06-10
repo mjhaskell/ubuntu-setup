@@ -189,26 +189,27 @@ return {
 
     -- custom keymaps
     vim.keymap.set("n", "<leader>dv", vtext.toggle, { desc = "Debug: toggle virtual text (current values)" })
-    vim.keymap.set("n", "<leader>dt", ui.toggle, { desc = "Dap UI toggle" })
+    vim.keymap.set("n", "<leader>du", ui.toggle, { desc = "Dap UI toggle" })
     vim.keymap.set("n", "<leader>d?", ui.eval, { desc = "Debug: Evaluate under cursor or visually selected" })
     vim.keymap.set("n", "<leader>dk", ui.eval, { desc = "Debug: Evaluate under cursor or visually selected" })
     vim.keymap.set("n", "<leader>dh", dap.run_to_cursor, { desc = "Debug: run to cursor (here)" })
     vim.keymap.set("n", "<leader>dl", dap.run_last, { desc = "Debug: run last session" })
 
     vim.keymap.set("n", "<leader>db", dap.toggle_breakpoint, { desc = "Toggle breakpoint" })
-    vim.keymap.set("n", "<leader>d<bs>", dap.clear_breakpoints, { desc = "Remove all breakpoint" })
+    vim.keymap.set("n", "<leader>d<CR>", dap.toggle_breakpoint, { desc = "Toggle breakpoint" })
+    vim.keymap.set("n", "<leader>d<BS>", dap.clear_breakpoints, { desc = "Remove all breakpoint" })
 
     vim.keymap.set("n", "<F5>", dap.continue, { desc = "Debug: continue" })
     vim.keymap.set("n", "<leader>dc", dap.continue, { desc = "Debug: continue" })
 
-    vim.keymap.set("n", "<F10>", dap.step_over, { desc = "Debug: step over" })
-    vim.keymap.set("n", "<leader>do", dap.step_over, { desc = "Debug: step over" })
+    vim.keymap.set("n", "<F4>", dap.step_over, { desc = "Debug: step over" })
+    vim.keymap.set("n", "<leader>ds", dap.step_over, { desc = "Debug: step over" })
 
-    vim.keymap.set("n", "<F11>", dap.step_into, { desc = "Debug: step into" })
+    vim.keymap.set("n", "<F6>", dap.step_into, { desc = "Debug: step into" })
     vim.keymap.set("n", "<leader>di", dap.step_into, { desc = "Debug: step into" })
 
     vim.keymap.set("n", "<F9>", dap.step_out, { desc = "Debug: step out" })
-    vim.keymap.set("n", "<leader>du", dap.step_out, { desc = "Debug: step out" })
+    vim.keymap.set("n", "<leader>do", dap.step_out, { desc = "Debug: step out" })
 
     vim.keymap.set("n", "<leader>dp", dap.step_back, { desc = "Debug: step back (previous)" })
 
