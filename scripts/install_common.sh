@@ -1,7 +1,7 @@
 #!/bin/sh
 
-SCRIPT_DIR="$( cd "$( dirname $0 )" && pwd )"
-SETUP_DIR="$( cd $SCRIPT_DIR/.. && pwd )"
+SCRIPT_DIR="$(cd "$(dirname $0)" && pwd)"
+SETUP_DIR="$(cd $SCRIPT_DIR/.. && pwd)"
 
 echo_blue "installing common"
 
@@ -54,6 +54,7 @@ sudo apt install -y cifs-utils
 
 # C++
 sudo apt install -y build-essential gcc g++ gcc-12 g++-12 gdb
+sudo apt install -y clang-15 lldb-15
 sudo apt install -y cmake ccache make cmake-curses-gui
 # set up compiler versions (last # is priority - highest is default)
 # change compilers with `sudo update-alternatives --config <g++>`
@@ -64,14 +65,20 @@ sudo update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-12 12
 echo_yellow "G++ compiler information:"
 sudo update-alternatives --display g++
 
+sudo update-alternatives --install /usr/bin/clang clang /usr/bin/clang-15 15
+sudo update-alternatives --install /usr/bin/clang++ clang++ /usr/bin/clang++-15 15
+sudo update-alternatives --install /usr/bin/lldb lldb /usr/bin/lldb-15 15
+echo_yellow "G++ compiler information:"
+sudo update-alternatives --display clang++
+
 # python deps
 sudo apt install -y python3-dev python3-venv python3-tk
 sudo apt install -y pybind11-dev libtool libffi-dev
 # create default virtual environment
 if [ ! -d ~/.virtualenvs ]; then
-    echo_blue "creating python global venv"
-    mkdir ~/.virtualenvs
-    python3 -m venv ${HOME}/.virtualenvs/default
+  echo_blue "creating python global venv"
+  mkdir ~/.virtualenvs
+  python3 -m venv ${HOME}/.virtualenvs/default
 fi
 
 # pdf, image, and video viewers
