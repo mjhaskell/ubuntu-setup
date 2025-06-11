@@ -11,6 +11,7 @@ return {
       typescriptreact = { "eslint_d" },
       svelte = { "eslint_d" },
       -- python = { "pylint" },
+      cmake = { "cmakelint" },
     }
 
     -- lint.linters.pylint.cmd = "python"

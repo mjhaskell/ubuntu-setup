@@ -28,5 +28,7 @@ return {
     { "<leader>wr", "<cmd>SessionRestore<CR>", desc = "Restore session" },
     { "<leader>ws", "<cmd>SessionSave<CR>", desc = "Save session" },
     { "<leader>wa", "<cmd>SessionToggleAutoSave<CR>", desc = "Toggle autosave" },
+    -- TODO: write custom funtion that populates a telescope picker of sessions to save
+    { "<leader>wS", ":SessionSave ", desc = "Save named session" },
   },
 }

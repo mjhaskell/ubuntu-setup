@@ -54,8 +54,32 @@ return {
         .. "/.vscode/extensions/ms-vscode.cpptools-1.25.3-linux-x64"
         .. "/debugAdapters/bin/OpenDebugAD7",
     }
+    dap.adapters.codelldb = { -- C/C++/Rust
+      id = "codelldb",
+      type = "executable",
+      -- command = "codelldb",
+      command = os.getenv("HOME")
+        .. "/.vscode/extensions/vadimcn.vscode-lldb-1.11.5/adapter/codelldb",
+    }
 
     dap.configurations.c = {
+      {
+        name = "Debug executable (codelldb)",
+        type = "codelldb",
+        request = "launch",
+        program = function()
+          return vim.fn.input("Path to executable: ", vim.fn.getcwd() .. "/", "file")
+        end,
+        cwd = "${workspaceFolder}",
+        stopAtEntry = false,
+        setupCommands = {
+          {
+            text = "-enable-pretty-printing",
+            desc = "enable pretty printing",
+            ignoreFailures = false,
+          },
+        },
+      },
       {
         name = "Debug executable (cpptools)",
         type = "cppdbg",

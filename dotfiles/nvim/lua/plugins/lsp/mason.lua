@@ -92,6 +92,8 @@ return {
         "clang-format",
         "cpplint",
         "cpptools",
+        "cmakelang",
+        "cmakelint",
 
         "prettier",
         -- "markdown_toc",
