@@ -1,6 +1,6 @@
 #!/bin/sh
 
-echo_blue "installing eigen tag 3.3.7"
+echo_blue "installing eigen"
 
 # Ubuntu 20.04 is on 3.3.7
 sudo apt install -y libeigen3-dev
@@ -16,20 +16,34 @@ sudo apt install -y libeigen3-dev
 # cmake ..
 # sudo make install
 
-# Pretty printing in VS Code
-if [ ! -d $HOME/software/eigen_gdb ]; then
-  mkdir $HOME/software/eigen_gdb
-  wget -O $HOME/software/eigen_gdb/printers.py https://gitlab.com/libeigen/eigen/-/raw/master/debug/gdb/printers.py
+## Pretty printing in VS Code
+DIR=$HOME/software/eigen_printing
+REPO="https://gitlab.com/libeigen/eigen/-/raw/master/debug"
+if [ ! -d $DIR ]; then
+  mkdir $DIR
+  echo_blue "Created $DIR"
 fi
+wget -O $DIR/printers.py $REPO/gdb/printers.py
+wget -O $DIR/eigenlldb.py $REPO/lldb/eigenlldb.py
 
-if [ ! -f $HOME/.gdbinit ]; then
-  echo "python
-    import sys
-    sys.path.insert(0, '$HOME/software/eigen_gdb')
-    from printers import register_eigen_printers
-    register_eigen_printers(None)
-    end" >$HOME/.gdbinit
+# GDB
+if [ -f $HOME/.gdbinit ]; then
+  mv $HOME/.gdbinit $HOME/.gdbinit.bak
+  echo_blue "Moved old gdbinit to $HOME/.gdbinit.bak"
 fi
+echo "python
+import sys
+sys.path.insert(0, '$DIR')
+from printers import register_eigen_printers
+register_eigen_printers(None)
+end" >$HOME/.gdbinit
+
+# LLDB
+if [ -f $HOME/.lldbinit ]; then
+  mv $HOME/.lldbinit $HOME/.lldbinit.bak
+  echo_blue "Moved old lldbinit to $HOME/.lldbinit.bak"
+fi
+echo "command script import $DIR/eigenlldb.py" >$HOME/.lldbinit
 
 # cd $CUR_DIR
 
