@@ -8,7 +8,7 @@ SETUP_DIR="$( cd $SCRIPT_DIR/.. && pwd )"
 
 # install vim
 sudo apt remove -y vim
-sudo apt install -y vim-gtk
+sudo apt install -y vim-gtk3
 
 # install vim-plug package manager
 curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
@@ -19,13 +19,19 @@ ln -s $SETUP_DIR/UltiSnips ~/.vim/UltiSnips
 
 # Need a Nerd Font to use some plugins
 # Also might need to manually change terminal profile to use a nerd-font
-cd ~/software
-git clone --depth 1 https://github.com/ryanoasis/nerd-fonts.git
-cd nerd-fonts
-./install.sh CodeNewRoman
-sudo fc-cache -f -v
-cd ~/software
+# cd ~/software
+# git clone --depth 1 https://github.com/ryanoasis/nerd-fonts.git
+# cd nerd-fonts
+# ./install.sh CodeNewRoman
+# sudo fc-cache -f -v
+# cd ~/software
 #rm -rf nerd-fonts
+
+# NEW INSTRUCTIONS: just go to nerd fonts downloads, download one, extract the
+# zip file into a folder named like the font, move to /usr/local/share/fonts/.
+# run: sudo fc-cache -f -v
+# logout and back in
+# TODO: add script to download and install desired font
 
 # install vim pluggins
 vim -c 'PlugInstall | quit | quit'
