@@ -88,10 +88,8 @@ fi
 #export PATH=$PYVENV_DIR/bin:$PATH
 #fi
 if [ "$TERM_PROGRAM" != "vscode" ]; then
-  if [ -d $HOME/.virtualenvs ]; then
-    source $HOME/.virtualenvs/default/bin/activate
-  #    PYPATH=$HOME/.virtualenvs/default/lib/python3.10/site-packages
-  #    export PYTHONPATH=$PYPATH:$PYTHONPATH
+  if [ -d $HOME/.pyvenvs ]; then
+    source $HOME/.pyvenvs/default/bin/activate
   fi
 fi
 

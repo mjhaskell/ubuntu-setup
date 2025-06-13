@@ -75,10 +75,10 @@ sudo update-alternatives --display clang++
 sudo apt install -y python3-dev python3-venv python3-tk
 sudo apt install -y pybind11-dev libtool libffi-dev
 # create default virtual environment
-if [ ! -d ~/.virtualenvs ]; then
+if [ ! -d ~/.pyvenvs ]; then
   echo_blue "creating python global venv"
-  mkdir ~/.virtualenvs
-  python3 -m venv ${HOME}/.virtualenvs/default
+  mkdir ~/.pyvenvs
+  python3 -m venv ${HOME}/.pyvenvs/default
 fi
 
 # pdf, image, and video viewers

@@ -8,8 +8,8 @@ sudo apt install -y libsdl1.2-dev libsdl-ttf2.0-dev libportmidi-dev
 # pytesseract/tesserocr deps
 sudo apt install -y libtesseract-dev libleptonica-dev tesseract-ocr
 
-if [ -d $HOME/.virtualenvs/default ]; then
-    PIP=$HOME/.virtualenvs/default/bin/pip
+if [ -d $HOME/.pyvenvs/default ]; then
+    PIP=$HOME/.pyvenvs/default/bin/pip
     echo_purple "upgrading pip"
     $PIP install --upgrade pip setuptools wheel
 
@@ -20,7 +20,7 @@ if [ -d $HOME/.virtualenvs/default ]; then
     $PIP install pyopencl pytesseract tesserocr jupyter control
     $PIP install pylint autopep8
 else
-    echo_red "$HOME/.virtualenv/default does not exist"
+    echo_red "$HOME/.pyvenvs/default does not exist"
 fi
 
 echo_green "python libs installed"

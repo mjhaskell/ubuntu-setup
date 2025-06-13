@@ -24,14 +24,14 @@ githubLatestTag() { # $1=github_user/repo (ex: opencv/opencv)
     }
 svenv() { # $1=virtual env
     if [ -n "$VIRTUAL_ENV" ]; then deactivate; fi
-    source $HOME/.virtualenvs/$1/bin/activate
+    source $HOME/.pyvenvs/$1/bin/activate
 }
 scanip() { nmap -sP $1; }
 
 # autocompletions
 if [ -n "$ZSH_NAME" ]; then
     _svenv() {
-        for dir in $(ls $HOME/.virtualenvs); do
+        for dir in $(ls $HOME/.pyvenvs); do
             compadd $dir
         done
     }
@@ -45,7 +45,7 @@ if [ -n "$ZSH_NAME" ]; then
     compdef _scanip scanip
 elif [ -n "$BASH" ]; then
     #echo "in bash"
-    complete -W "$(ls $HOME/.virtualenvs)" svenv
+    complete -W "$(ls $HOME/.pyvenvs)" svenv
 
     ips=$(echo $(hostname -I) | tr " " "\n")
     cmds=""
