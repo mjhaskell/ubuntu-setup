@@ -60,6 +60,7 @@ return {
         "cmake",
         -- others
         "bash", --"zsh",
+        "regex",
         "yaml",
         "json",
         "xml",
