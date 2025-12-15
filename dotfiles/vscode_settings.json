@@ -5,8 +5,8 @@
   "editor.tabSize": 2,
   "editor.minimap.maxColumn": 90,
   "editor.minimap.enabled": false,
-  "editor.minimap.autohide": true,
-  "editor.fontFamily": "'CodeNewRoman Nerd Font Mono','Droid Sans Mono', 'monospace'",
+  "editor.minimap.autohide": "mouseover",
+  "editor.fontFamily": "'SauceCodePro Nerd Font Mono','CodeNewRoman Nerd Font Mono','Droid Sans Mono', 'monospace'",
   "editor.fontSize": 12,
   "editor.insertSpaces": true,
   "editor.renderWhitespace": "all",
@@ -32,7 +32,6 @@
   "extensions.autoUpdate": false,
 
   "files.trimFinalNewlines": true,
-  "files.insertFinalNewline": true,
   "files.trimTrailingWhitespace": true,
   "files.autoSave": "afterDelay",
   "files.autoSaveDelay": 1000,
@@ -48,14 +47,14 @@
 
   "terminal.integrated.defaultProfile.linux": "zsh",
   // "terminal.external.linuxExec": "termite",
-  "terminal.integrated.fontFamily": "CodeNewRoman Nerd Font",
+  // "terminal.integrated.fontFamily": "SauceCodePro Nerd Font Mono Regular",
   "terminal.integrated.fontSize": 12,
   "debug.console.fontSize": 12,
 
   "python.jediEnabled": false,
   "python.languageServer": "Pylance",
-  "python.venvPath": "~/.virtualenvs",
-  "python.defaultInterpreterPath": "/home/mat/.virtualenvs/default",
+  "python.venvPath": "~/.pyvenvs",
+  "python.defaultInterpreterPath": "/home/mat/.pyvenvs/default",
   "python.analysis.typeCheckingMode": "basic",
   "debugpy.debugJustMyCode": false,
   "jupyter.debugJustMyCode": false,
@@ -181,5 +180,8 @@
     "workbench.action.tasks.configureTaskRunner",
     "workbench.action.tasks.runTask"
   ],
-  "debug.inlineValues": "off"
+  "debug.inlineValues": "off",
+  "github.copilot.nextEditSuggestions.enabled": true,
+  "workbench.startupEditor": "none",
+  "workbench.colorTheme": "Visual Studio Dark",
 }

@@ -17,7 +17,7 @@ if [ -d $HOME/.pyvenvs/default ]; then
     $PIP install ipython numpy scipy pygame matplotlib pybind11 vtk
     # $PIP install pyqt5 pyqtgraph pyopengl pyopengl_accelerate gnupg
     # pyqt6 or pyside6
-    $PIP install pyqt6 pyqtgraph pyopengl gnupg empy
+    $PIP install pyqt6 pyqtgraph pyopengl gnupg empy tqdm
     $PIP install pyopencl pytesseract tesserocr jupyter control
     $PIP install pylint autopep8
 else

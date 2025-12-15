@@ -1,0 +1,31 @@
+#!/bin/sh
+
+if [ ! -f /usr/bin/ssh ]; then
+    echo_red "Need to install ssh first"
+    exit
+fi
+
+echo_blue "Creating new ed25519 ssh key: ~/.ssh/<user>.<hostname>"
+echo "Enter remote hostname: \c"
+read REMOTE_HOST
+echo "Enter name of remote user: \c"
+read REMOTE_USER
+HOST=$(uname -n)
+# NAME="${USR}_${REMOTE}_${USER}_$HOST"
+NAME="${REMOTE_USER}.${REMOTE_HOST}"
+ssh-keygen -t ed25519 -f ~/.ssh/$NAME -C "${USER}.$HOST"
+eval "$(ssh-agent -s)"
+ssh-add ~/.ssh/$NAME
+echo_green "ssh key ~/.ssh/$NAME created and added to ssh-agent"
+
+if [ -f /usr/bin/xclip ]; then
+    xclip -sel clip < ~/.ssh/$NAME.pub
+    echo_blue "Public key has been copied to clipboard"
+    MSG="Go add public key"
+else
+    MSG="Copy ~/.ssh/$NAME.pub contents"
+fi
+
+echo_purple "$MSG to remote ($REMOTE_HOST): to ssh keys on a git server or to
+~/.ssh/authorized_keys on another computer"
+

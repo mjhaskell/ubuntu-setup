@@ -145,10 +145,10 @@ inoremap jk <esc>
 "vnoremap jk <esc>
 
 " Mappings to move up and down faster
-nnoremap J 10j
-nnoremap K 10k
-vnoremap J 10j
-vnoremap K 10k
+" nnoremap J 10j
+" nnoremap K 10k
+" vnoremap J 10j
+" vnoremap K 10k
 
 " Don't yank after paste
 vnoremap p "_dP

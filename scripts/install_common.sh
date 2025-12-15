@@ -58,9 +58,12 @@ sudo apt install -y ntfs-3g # already installed
 sudo apt install -y cifs-utils
 
 # C++
-sudo apt install -y build-essential gcc g++ gcc-14 g++-14 gdb # already installed
-sudo apt install -y clang-19 lldb-19 # clang (default) gives v18
-sudo apt install -y cmake ccache make cmake-curses-gui
+sudo apt install -y build-essential gcc g++ gcc-14 g++-14 gdb libstdc++-14 # already installed
+# clang (default) gives v18
+sudo apt install -y clang-19 lldb-19 lld-19
+sudo apt install -y libc++-19-dev libclang-19-dev libllvm-19-ocaml-dev
+sudo apt install -y libomp-19-dev python3-clang-19
+sudo apt install -y cmake ccache make cmake-curses-gui ninja-build
 # set up compiler versions (last # is priority - highest is default)
 # change compilers with `sudo update-alternatives --config <g++>`
 sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-13 13
@@ -92,9 +95,6 @@ fi
 # rust
 curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
  
-# Node.js
-sudo apt install npm
-
 # pdf, image, and video viewers
 # sudo apt install -y qpdfview
 # sudo apt install -y zathura
