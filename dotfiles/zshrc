@@ -1,0 +1,33 @@
+autoload -Uz compinit
+# compinit
+
+# highlights current selection when tab completing
+zstyle ':completion:*' menu select
+
+HISTFILE=${HOME}/.zsh_history
+HISTSIZE=40000
+SAVEHIST=20000
+
+# zsh uses EDITOR env var by default, but it can be manually set here
+bindkey -e  # set mode to emacs
+# bindkey -v  # set mode to vim
+
+# for file in $HOME/.zshconf/*; do
+#   source $file
+# done
+source $HOME/.zshconf/opts.zsh
+source $HOME/.zshconf/keybinds.zsh
+source $HOME/.zshconf/plugins.zsh
+source $HOME/.zshconf/prompt.zsh
+
+compinit
+
+source $HOME/.sh_aliases
+source $HOME/.termrc
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+# source ~/.fzf.zsh
+
+# export NVM_DIR="$HOME/.nvm"
+# [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+# [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion

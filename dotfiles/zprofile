@@ -1,3 +1,6 @@
+# define non-word-break characters
+# export WORDCHARS='*?.[]~&;!#$%^(){}<>'
+
 export blt_dir=intel_backlight
 export bnessf=/sys/class/backlight/$blt_dir/brightness
 export max_bnessf=/sys/class/backlight/$blt_dir/max_brightness

@@ -1,0 +1,10 @@
+export WORDCHARS='*?.[]~&;!#$%^(){}<>'
+
+source "$HOME/.cargo/env"
+
+# export JAVA_HOME="/usr/lib/jvm/java-21-openjdk-amd64"
+
+export NVM_DIR="$HOME/.nvm"
+export NVM_BIN="$NVM_DIR/versions/node/v22.16.0/bin"
+export NVM_INC="$NVM_DIR/versions/node/v22.16.0/include/node"
+export NVM_CD_FLAGS="-q"
