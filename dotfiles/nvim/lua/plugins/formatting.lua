@@ -21,6 +21,9 @@ return {
         lua = { "stylua" },
         -- python = { "isort", "black" },
         python = { "black" },
+        c = { "clang_format" },
+        cpp = { "clang_format" },
+        rust = { "clang_format" },
       },
 
       format_on_save = function(bufnr)
@@ -35,6 +38,12 @@ return {
       --   async = false,
       --   timeout_ms = 1000,
       -- },
+      formatters = {
+        clang_format = {
+          -- prepend_args = { "--style=file", '--fallback-style=LLVM'}
+          prepend_args = { "--style=file" },
+        },
+      },
     })
 
     vim.api.nvim_create_user_command("FormatDisable", function(args)
@@ -67,7 +76,7 @@ return {
     vim.keymap.set("n", "<leader>ce", ":FormatEnable<CR>", { desc = "Enable format-on-save" })
     vim.keymap.set("n", "<leader>cd", ":FormatDisable!<CR>", { desc = "Disable format-on-save for this file" })
     vim.keymap.set("n", "<leader>cD", ":FormatDisable<CR>", { desc = "Disable format-on-save globally" })
-    vim.keymap.set("n", "<leader>ci", ":PrintFormatEnabled<CR>", { desc = "Disable format-on-save" })
+    vim.keymap.set("n", "<leader>ci", ":PrintFormatEnabled<CR>", { desc = "Print format-on-save info" })
 
     vim.keymap.set({ "n", "v" }, "<leader>cf", function()
       conform.format({

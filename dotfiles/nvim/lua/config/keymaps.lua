@@ -1,11 +1,12 @@
--- Set leader key
-vim.g.mapleader = " "
-vim.g.maplocalleader = "\\"
-
 local km = vim.keymap
 local cmd = vim.cmd
 
 km.set("i", "jk", "<ESC>", { desc = "Exit insert mode with jk" })
+km.set("i", "<C-H>", "<C-W>", { noremap = true, silent = true, desc = "Delete word" })
+km.set("i", "<C-Del>", "<C-O>de", { noremap = true, silent = true, desc = "Delete end" })
+-- km.set("i", "<C-H>", "<c-o>diw", { noremap = true, silent = true, desc = "Delete word" })
+-- I don't think "<C-BS>" worked
+-- km.set("i", "<C-BS>", "<c-o>daW", { noremap = true, silent = true, desc = "Delete word" })
 km.set("n", "<C-s>", ":w<CR>", { desc = "Save file" })
 km.set("n", "<leader>W", ":wa<CR>", { desc = "Save all files" })
 km.set("n", "<leader>q", ":q<CR>", { desc = "Close file" })
@@ -20,6 +21,11 @@ km.set("n", "<leader>+", "<C-a>", { desc = "Increment number" })
 km.set("n", "<leader>-", "<C-x>", { desc = "Decrement number" })
 
 -- window management
+km.set("n", "<C-h>", "<C-w>h", { desc = "Move to window left" })
+km.set("n", "<C-j>", "<C-w>j", { desc = "Move to window down" })
+km.set("n", "<C-k>", "<C-w>k", { desc = "Move to window up" })
+km.set("n", "<C-l>", "<C-w>l", { desc = "Move to window right" })
+
 km.set("n", "<leader>sv", "<C-w>v", { desc = "Split window vertically" })
 km.set("n", "<leader>sh", "<C-w>s", { desc = "Split window horizontally" })
 km.set("n", "<leader>se", "<C-w>=", { desc = "Make splits equal size" })

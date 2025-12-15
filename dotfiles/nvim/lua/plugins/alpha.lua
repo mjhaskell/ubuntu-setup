@@ -22,7 +22,7 @@ return {
       dashboard.button("n", "  > New file", "<cmd>ene<CR>"),
       --dashboard.button("SPC ee", "  > Toggle file explorer", "<cmd>NvimTreeToggle<CR>"),
       -- dashboard.button("s", "  > Open session", "<cmd>SessionSearch<CR>"),
-      dashboard.button("r", "󰁯  > Restore session", "<cmd>SessionSearch<CR>"),
+      dashboard.button("s", "󰁯  > Open session", "<cmd>SessionSearch<CR>"),
       dashboard.button("e", "  > Toggle file explorer", "<cmd>Neotree toggle<CR>"),
       dashboard.button("f", "󰱼  > Find file", "<cmd>Telescope find_files<CR>"),
       dashboard.button("g", "󰍉  > Grep", "<cmd>Telescope live_grep<CR>"),

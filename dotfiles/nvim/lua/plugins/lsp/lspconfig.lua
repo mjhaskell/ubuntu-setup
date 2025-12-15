@@ -34,7 +34,12 @@ return {
     { -- optional blink completion source for require statements and module annotations
       "saghen/blink.cmp",
       build = "cargo build --release",
+      -- enabled = vim.g.blink_enabled,
       opts = {
+        keymap = { preset = "default" },
+        appearance = { nerd_font_variant = "mono" },
+        completion = { documentation = { auto_show = true } },
+        signature = { enabled = true },
         sources = {
           -- add lazydev to your completion providers
           default = { "lazydev", "lsp", "path", "snippets", "buffer" },
@@ -47,13 +52,27 @@ return {
             },
           },
         },
+        fuzzy = { implementation = "prefer_rust_with_warning" },
       },
+      opts_extend = { "sources.default" },
     },
   },
 
-  config = function()
+  opts = {
+    servers = {
+      lua_ls = {},
+      clangd = {},
+      pyright = { cmd = { vim.env.HOME .. "/.pyvenvs/default/bin/pyright-langserver", "--stdio" } },
+      ltex = {},
+    },
+  },
+
+  config = function(_, opts)
     -- import lspconfig plugin
-    local lspconfig = require("lspconfig")
+    -- local lspconfig = require("lspconfig")  -- DEPRECATED
+    -- lspconfig.pyright.setup({
+    --   cmd = { "pyright-langserver", "--stdio" },
+    -- })
 
     -- import mason_lspconfig plugin
     local mason_lspconfig = require("mason-lspconfig")
@@ -68,47 +87,53 @@ return {
       callback = function(ev)
         -- Buffer local mappings.
         -- See `:help vim.lsp.*` for documentation on any of the below functions
-        local opts = { buffer = ev.buf, silent = true }
+        local km_opts = { buffer = ev.buf, silent = true }
 
         -- set keybinds
-        opts.desc = "Show LSP references"
-        keymap.set("n", "gR", "<cmd>Telescope lsp_references<CR>", opts) -- show definition, references
+        km_opts.desc = "Show LSP references"
+        keymap.set("n", "gR", "<cmd>Telescope lsp_references<CR>", km_opts) -- show definition, references
 
-        opts.desc = "Go to declaration"
-        keymap.set("n", "gD", vim.lsp.buf.declaration, opts) -- go to declaration
+        km_opts.desc = "Go to declaration"
+        keymap.set("n", "gD", vim.lsp.buf.declaration, km_opts)
 
-        opts.desc = "Show LSP definitions"
-        keymap.set("n", "gd", "<cmd>Telescope lsp_definitions<CR>", opts) -- show lsp definitions
+        km_opts.desc = "Show LSP definitions"
+        keymap.set("n", "gd", "<cmd>Telescope lsp_definitions<CR>", km_opts)
 
-        opts.desc = "Show LSP implementations"
-        keymap.set("n", "gi", "<cmd>Telescope lsp_implementations<CR>", opts) -- show lsp implementations
+        km_opts.desc = "Show LSP implementations"
+        keymap.set("n", "gi", "<cmd>Telescope lsp_implementations<CR>", km_opts)
 
-        opts.desc = "Show LSP type definitions"
-        keymap.set("n", "gl", "<cmd>Telescope lsp_type_definitions<CR>", opts) -- show lsp type definitions
+        km_opts.desc = "Show LSP type definitions"
+        keymap.set("n", "gl", "<cmd>Telescope lsp_type_definitions<CR>", km_opts)
 
-        opts.desc = "See available code actions"
-        keymap.set({ "n", "v" }, "<leader>ca", vim.lsp.buf.code_action, opts) -- see available code actions, in visual mode will apply to selection
+        km_opts.desc = "See available code actions"
+        keymap.set({ "n", "v" }, "<leader>ca", vim.lsp.buf.code_action, km_opts) -- in visual mode will apply to selection
 
-        opts.desc = "Smart rename"
-        keymap.set("n", "<leader>cr", vim.lsp.buf.rename, opts) -- smart rename
+        km_opts.desc = "Smart rename"
+        keymap.set("n", "<leader>cr", vim.lsp.buf.rename, km_opts)
 
-        opts.desc = "Show buffer diagnostics"
-        keymap.set("n", "<leader>xD", "<cmd>Telescope diagnostics bufnr=0<CR>", opts) -- show  diagnostics for file
+        km_opts.desc = "Show buffer diagnostics"
+        keymap.set("n", "<leader>xD", "<cmd>Telescope diagnostics bufnr=0<CR>", km_opts)
 
-        opts.desc = "Show line diagnostics"
-        keymap.set("n", "<leader>xd", vim.diagnostic.open_float, opts) -- show diagnostics for line
+        km_opts.desc = "Show line diagnostics"
+        keymap.set("n", "<leader>xd", vim.diagnostic.open_float, km_opts)
 
-        opts.desc = "Go to previous diagnostic"
-        keymap.set("n", "[d", vim.diagnostic.goto_prev, opts) -- jump to previous diagnostic in buffer
+        km_opts.desc = "Go to previous diagnostic"
+        -- keymap.set("n", "[d", vim.diagnostic.goto_prev, km_opts)  -- DEPRECATED
+        keymap.set("n", "[d", function()
+          vim.diagnostic.jump({ count = -1, float = true })
+        end, km_opts)
 
-        opts.desc = "Go to next diagnostic"
-        keymap.set("n", "]d", vim.diagnostic.goto_next, opts) -- jump to next diagnostic in buffer
+        km_opts.desc = "Go to next diagnostic"
+        -- keymap.set("n", "]d", vim.diagnostic.goto_next, km_opts) -- DEPRECATED
+        keymap.set("n", "]d", function()
+          vim.diagnostic.jump({ count = 1, float = true })
+        end, km_opts)
 
-        opts.desc = "Show documentation for what is under cursor"
-        keymap.set("n", "K", vim.lsp.buf.hover, opts) -- show documentation for what is under cursor
+        km_opts.desc = "Show documentation for what is under cursor"
+        keymap.set("n", "K", vim.lsp.buf.hover, km_opts)
 
-        opts.desc = "Restart LSP"
-        keymap.set("n", "<leader>cL", ":LspRestart<CR>", opts) -- mapping to restart lsp if necessary
+        km_opts.desc = "Restart LSP"
+        keymap.set("n", "<leader>cl", ":LspRestart<CR>", km_opts)
       end,
     })
 
@@ -140,6 +165,12 @@ return {
 
     -- used to enable autocompletion (assign to every lsp server config)
     local capabilities = cmp_nvim_lsp.default_capabilities()
+
+    for server, config in pairs(opts.servers) do
+      config.capabilities = require("blink.cmp").get_lsp_capabilities(config.capabilities)
+      vim.lsp.config(server, config)
+      -- lspconfig[server].setup(config)  -- DEPRECATED
+    end
 
     -- mason_lspconfig.setup_handlers({
     --   -- default handler for installed servers

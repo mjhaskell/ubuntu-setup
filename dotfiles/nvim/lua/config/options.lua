@@ -2,7 +2,9 @@ vim.cmd("let g:netrw_liststyle = 3") -- tree structure
 vim.cmd("colorscheme vscode")
 
 vim.o.list = true
-vim.o.listchars = "space:·,tab:|->,trail:•,extends:»,precedes:«"
+-- vim.o.listchars = "space:·,tab:|->,trail:•,extends:»,precedes:«"
+vim.o.listchars = "space: ,multispace:·,lead:·,trail:•,tab:|->,extends:»,precedes:«,nbsp:‿"
+-- vim.o.listchars = "nbsp:_,tab:|->,trail:•,extends:»,precedes:«"
 
 vim.o.sessionoptions = "blank,buffers,curdir,folds,help,tabpages,winsize,winpos,terminal,localoptions"
 
@@ -15,7 +17,7 @@ opt.conceallevel = 2 -- hide * markup for bold/italic, but not markers with subs
 
 opt.textwidth = 120
 opt.wrap = true -- wrap text after textwidth
-opt.colorcolumn = "81,91"
+opt.colorcolumn = "81,91,121"
 
 opt.mouse = "a" -- Allow mouse to move cursor
 

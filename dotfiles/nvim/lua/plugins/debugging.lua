@@ -59,7 +59,8 @@ return {
       type = "executable",
       -- command = "codelldb",
       command = os.getenv("HOME")
-        .. "/.vscode/extensions/vadimcn.vscode-lldb-1.11.5/adapter/codelldb",
+        -- .. "/.vscode/extensions/vadimcn.vscode-lldb-1.11.5/adapter/codelldb",
+        .. "/software/codelldb/build/adapter/codelldb",
     }
 
     dap.configurations.c = {

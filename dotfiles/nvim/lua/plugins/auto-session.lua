@@ -23,12 +23,14 @@ return {
 
   keys = {
     -- Will use Telescope if installed or a vim.ui.select picker otherwise
-    { "<leader>w", "", desc = "Sessions" },
-    { "<leader>wf", "<cmd>SessionSearch<CR>", desc = "Find and load session" },
-    { "<leader>wr", "<cmd>SessionRestore<CR>", desc = "Restore session" },
-    { "<leader>ws", "<cmd>SessionSave<CR>", desc = "Save session" },
-    { "<leader>wa", "<cmd>SessionToggleAutoSave<CR>", desc = "Toggle autosave" },
+    { "<leader>S", "", desc = "Sessions" },
+    { "<leader>Sf", "<cmd>AutoSession search<CR>", desc = "Find and load session" },
+    { "<leader>Sr", "<cmd>AutoSession restore<CR>", desc = "Restore session" },
+    { "<leader>Sw", "<cmd>AutoSession save<CR>", desc = "Save session" },
+    { "<leader>Sd", "<cmd>AutoSession deletePicker<CR>", desc = "Open picker to delete session" },
+    { "<leader>Sa", "<cmd>AutoSession toggle<CR>", desc = "Toggle autosave" },
     -- TODO: write custom funtion that populates a telescope picker of sessions to save
-    { "<leader>wS", ":SessionSave ", desc = "Save named session" },
+    { "<leader>SW", ":AutoSession save ", desc = "Save named session manually" },
+    { "<leader>SD", ":AutoSession delete ", desc = "Delete named session manually" },
   },
 }
