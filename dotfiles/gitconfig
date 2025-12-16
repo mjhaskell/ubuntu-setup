@@ -1,8 +1,8 @@
-;[user]
-;    name = Mat Haskell
-;    email = mhaskell9@gmail.com
+[user]
+    name = Mat Haskell
+    email = mhaskell9@gmail.com
 [core]
-    editor = vi
+    editor = vim
 [push]
     default = simple
 [pull]
@@ -23,4 +23,6 @@
     path = ~/repos/magiccvs/.gitconfig
 [includeIf "gitdir:~/repos/github/"]
     path = ~/repos/github/.gitconfig
+[includeIf "gitdir:~/repos/test/"]
+    path = ~/repos/test/.gitconfig
 
