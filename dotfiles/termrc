@@ -35,22 +35,22 @@ if ! echo $PATH | grep -q ${HOME}/bin; then
 fi
 
 # add CUDA to path if not already
-if [ -d /usr/local/cuda/bin ]; then
-  if ! echo $PATH | grep -q /usr/local/cuda/bin; then
-    export PATH=$PATH:/usr/local/cuda/bin
-  fi
-fi
+# if [ -d /usr/local/cuda/bin ]; then
+#   if ! echo $PATH | grep -q /usr/local/cuda/bin; then
+#     export PATH=$PATH:/usr/local/cuda/bin
+#   fi
+# fi
 
 # source aliases
 # if [ -f ~/.sh_aliases ]; then
 source ~/.sh_aliases
 # fi
 
-# if [ -d /opt/nvim-linux-x86_64 ]; then
-#   if ! echo $PATH | grep -q /opt/nvim; then
-export PATH="$PATH:/opt/nvim-linux-x86_64/bin"
-#   fi
-# fi
+if [ -d /opt/nvim-linux-x86_64 ]; then
+  if ! echo $PATH | grep -q /opt/nvim; then
+    export PATH="$PATH:/opt/nvim-linux-x86_64/bin"
+  fi
+fi
 
 # source ros config
 #if [ -f ~/.rosrc ]; then
@@ -82,15 +82,17 @@ export PATH="$PATH:/opt/nvim-linux-x86_64/bin"
 # fi
 
 # Install Ruby Gems to ~/gems
-export GEM_HOME="$HOME/software/gems"
-export PATH="$PATH:$GEM_HOME/bin"
+# export GEM_HOME="$HOME/software/gems"
+# export PATH="$PATH:$GEM_HOME/bin"
 
 # Node.js (npm)
 # export NVM_DIR="$HOME/.nvm"
 #[ -s "$NVM_DIR/nvm.sh" ] && source "$NVM_DIR/nvm.sh"
-if ! echo $PATH | grep -q $NVM_BIN; then
-  export PATH=$PATH:$NVM_BIN
-fi
+
+# if ! echo $PATH | grep -q $NVM_BIN; then
+#   export PATH=$PATH:$NVM_BIN
+# fi
+
 # if [ $BASH ]; then
 #   [ -s "$NVM_DIR/bash_completion.sh" ] && source "$NVM_DIR/bash_completion.sh"
 # fi
@@ -104,8 +106,8 @@ fi
 
 # Python virtual environments
 if [ "$TERM_PROGRAM" != "vscode" ]; then
-#   if [ -d $HOME/.pyvenvs ]; then
-  source $HOME/.pyvenvs/default/bin/activate
-#   fi
+  if [ -d $HOME/.pyvenvs/default ]; then
+    source $HOME/.pyvenvs/default/bin/activate
+  fi
 fi
 

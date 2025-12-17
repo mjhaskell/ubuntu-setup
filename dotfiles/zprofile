@@ -1,21 +1,60 @@
 # define non-word-break characters
 # export WORDCHARS='*?.[]~&;!#$%^(){}<>'
 
-export blt_dir=intel_backlight
-export bnessf=/sys/class/backlight/$blt_dir/brightness
-export max_bnessf=/sys/class/backlight/$blt_dir/max_brightness
-export max_bness=`cat $max_bnessf`
-export p20_bness=$(( max_bness / 20 ))
-export p15_low=$(( p20_bness / 15 ))
-export p20_s1=$(( p20_bness - p15_low ))
+#export blt_dir=intel_backlight
+#export bnessf=/sys/class/backlight/$blt_dir/brightness
+#export max_bnessf=/sys/class/backlight/$blt_dir/max_brightness
+#export max_bness=`cat $max_bnessf`
+#export p20_bness=$(( max_bness / 20 ))
+#export p15_low=$(( p20_bness / 15 ))
+#export p20_s1=$(( p20_bness - p15_low ))
+
+
+## PATH alterations ##
+
+# PATH=$HOME/bin:$PATH
+# If
+# - user ID is greater than or equal to 1000 & if
+# - ~/bin exists and is a directory & if
+# - ~/bin is not already in your $PATH
+# then export ~/bin to your $PATH.
+if [[ $UID -ge 1000 && -d $HOME/bin && -z $(echo $PATH | grep -o $HOME/bin) ]]
+then
+    # export PATH="$HOME/bin:${PATH}"
+    typeset -U PATH path
+    path=("$HOME/bin" "$path[@]")
+    export PATH
+fi
+
 
 ## autostart X at LOGIN ##
 # if systemctl -q is-active graphical.target && [[ ! $DISPLAY && $XDG_VTNR -le 3 ]]; then
-if systemctl -q is-active graphical.target && [[ ! $DISPLAY && $XDG_VTNR && $XDG_VTNR -eq 2 ]]; then
-    startx
+# if systemctl -q is-active graphical.target && [[ ! $DISPLAY && $XDG_VTNR && $XDG_VTNR -eq 2 ]]; then
+#     startx
+# fi
+# 
+# if systemctl -q is-active graphical.target && [[ ! $DISPLAY && $XDG_VTNR && $XDG_VTNR -eq 1 ]]; then
+#     startx ~/.xinitrc budgie
+# fi
+
+if [ -z "$WAYLAND_DISPLAY" ] && [ -n "$XDG_VTNR" ]; then
+  if [ "$XDG_VTNR" -le 3 ]; then
+    export XDG_CURRENT_DESKTOP=sway
+    export XDG_SESSION_DESKTOP=sway
+    exec sway --unsupported-gpu
+  elif [ "$XDG_VTNR" -eq 4  ]; then
+    tmux
+  fi
 fi
 
-if systemctl -q is-active graphical.target && [[ ! $DISPLAY && $XDG_VTNR && $XDG_VTNR -eq 1 ]]; then
-    startx ~/.xinitrc budgie
-fi
+
+# if [ -z "$WAYLAND_DISPLAY" ] && [ -n "$XDG_VTNR" ] && [ "$XDG_VTNR" -eq 1 ]; then
+    # exec sway --unsupported-gpu
+# elif [ -z "$WAYLAND_DISPLAY" ] && [ -n "$XDG_VTNR" ] && [ "$XDG_VTNR" -eq 2 ]; then
+#     exec sway --unsupported-gpu
+# elif [ -z "$WAYLAND_DISPLAY" ] && [ -n "$XDG_VTNR" ] && [ "$XDG_VTNR" -eq 3 ]; then
+#     exec tmux
+# elif [ -z "$WAYLAND_DISPLAY" ] && [ -n "$XDG_VTNR" ] && [ "$XDG_VTNR" -eq 4 ]; then
+#     exec tmux
+# fi
 
