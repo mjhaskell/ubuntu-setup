@@ -32,9 +32,18 @@ sudo pacman -S --needed duf  # disk utility
 if [ ! -d $HOME/.config/lazygit ]; then
   ln -s $SETUP_DIR/dotfiles/config/lazygit $HOME/.config/.
 fi
+if [ ! -f $HOME/.ssh/config ]; then
+  touch $HOME/.ssh/config
+  echo "Host github" >> $HOME/.ssh/config
+  echo "  Hostame github.com" >> $HOME/.ssh/config
+  echo "  User <username>" >> $HOME/.ssh/config
+  echo "  IdentityFile ~/.ssh/<private_key>" >> $HOME/.ssh/config
+  echo "" >> $HOME/.ssh/config
+fi
+echo_purple "You may want to disable ssh passwd authentication in /etc/ssh/..."
 
 # vim
-sudo pacman -S --needed gvim
+sudo pacman -S --needed gvim  # gvim has system +clipboard
 if [ ! -f $HOME/.vimrc ]; then
   ln -s $SETUP_DIR/dotfiles/vimrc $HOME/.vimrc
 
