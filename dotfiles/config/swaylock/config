@@ -1,0 +1,70 @@
+# swaylock config
+
+ignore-empty-password
+show-failed-attempts
+daemonize
+
+# ready-fd=
+
+# no-unlock-indicator
+
+# image=[[output]:]path
+# image=/home/brady/.config/swaylock/bg_black.png
+# image=/home/brady/.config/swaylock/bg_black_slim.svg
+
+# show-keyboard-layout
+# hide-keyboard-layout
+
+#disable-caps-lock-text
+indicator-caps-lock
+
+# scaling=stretch | fill | fit | center | tile | solid_color
+
+color=000000
+
+# bs-hl-color=187d75
+# caps-lock-bs-hl-color=
+# caps-lock-key-hl-color
+
+font=SauceCodePro NFM
+font-size=10
+
+# indicator-idle-visible
+indicator-radius=50
+indicator-thickness=10
+indicator-x-position=960
+indicator-y-position=540
+
+# inside-color=
+# inside-clear-color=
+# inside-caps-lock-color=
+# inside-ver-color=
+# inside-wrong-color=
+# key-hl-color=
+
+# layout-bg-color=
+# layout-border-color=
+# layout-text-color=
+
+# line-color=
+# line-clear-color=
+# line-caps-lock-color=
+# line-ver-color=
+# line-wrong-color=
+
+# line-uses-inside
+# line-uses-ring
+
+# ring-color=
+# ring-clear-color=
+# ring-caps-lock-color=
+# ring-ver-color=
+# ring-wrong-color=
+
+# separator-color=
+
+# text-color=
+# text-clear-color=
+# text-caps-lock-color=
+# text-ver-color=
+# text-wrong-color
