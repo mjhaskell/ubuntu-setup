@@ -15,9 +15,16 @@ bindkey -e  # set mode to emacs
 # for file in $HOME/.zshconf/*; do
 #   source $file
 # done
+
+# OS_ID is set in ~/.zshenv
+if [[ "$OS_ID" == "arch" ]]; then
+  source $HOME/.zshconf/plugins_arch.zsh
+elif [[ "$OS_ID" == "ubuntu" ]]; then
+  source $HOME/.zshconf/plugins_ubuntu.zsh
+fi
+
 source $HOME/.zshconf/opts.zsh
 source $HOME/.zshconf/keybinds.zsh
-source $HOME/.zshconf/plugins.zsh
 source $HOME/.zshconf/prompt.zsh
 
 compinit

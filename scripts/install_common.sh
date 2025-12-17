@@ -13,10 +13,10 @@ sudo apt upgrade -y
 # sudo apt upgrade
 
 # create my common folder structure
-if [ ! -d ~/software ]; then mkdir ~/software; fi
-if [ ! -d ~/bin ]; then mkdir ~/bin; fi
-if [ ! -d ~/tmp ]; then mkdir ~/tmp; fi
-if [ ! -d ~/scratch ]; then mkdir ~/scratch; fi
+if [ ! -d $HOME/software ]; then mkdir $HOME/software; fi
+if [ ! -d $HOME/bin ]; then mkdir $HOME/bin; fi
+if [ ! -d $HOME/tmp ]; then mkdir $HOME/tmp; fi
+if [ ! -d $HOME/scratch ]; then mkdir $HOME/scratch; fi
 
 # install color functions
 sudo cp $SETUP_DIR/bin/color_functions/echo_* /usr/local/bin/
@@ -86,9 +86,9 @@ sudo update-alternatives --display clang++
 sudo apt install -y python3-dev python3-venv # python3-tk
 sudo apt install -y pybind11-dev libtool libffi-dev
 # create default virtual environment
-if [ ! -d ~/.pyvenvs ]; then
+if [ ! -d $HOME/.pyvenvs ]; then
   echo_blue "creating python global venv"
-  mkdir ~/.pyvenvs
+  mkdir $HOME/.pyvenvs
   python3 -m venv ${HOME}/.pyvenvs/default
 fi
 

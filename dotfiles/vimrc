@@ -4,34 +4,34 @@
 " date: Oct 17 2018
 
 """""""" vim-plug plugin manager"""""""
-call plug#begin('~/.vim/plugged')
-
-""""""""" Typing
-Plug 'dense-analysis/ale'
-"Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-Plug 'SirVer/ultisnips'
-Plug 'honza/vim-snippets'
-Plug 'scrooloose/nerdcommenter'
-Plug 'Raimondi/delimitMate'
-
-""""""""" Multi-entry selection UI. FZF
-Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
-Plug 'junegunn/fzf.vim'
-
-""""""""" Utils
-Plug 'scrooloose/nerdtree'
-Plug 'ryanoasis/vim-devicons'
-Plug 'mhask94/vim-nerdtree-syntax-highlight'
-" Must manually change terminal profile to use a NERD FONT for icons to work
-Plug 'vim-scripts/a.vim'
-Plug 'airblade/vim-gitgutter'
-Plug 'junegunn/vim-easy-align'
-
-""""""""" Style
-Plug 'vim-airline/vim-airline'
-Plug 'edkolev/tmuxline.vim'
-
-call plug#end()
+" call plug#begin('~/.vim/plugged')
+" 
+" """"""""" Typing
+" Plug 'dense-analysis/ale'
+" "Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+" Plug 'SirVer/ultisnips'
+" Plug 'honza/vim-snippets'
+" Plug 'scrooloose/nerdcommenter'
+" Plug 'Raimondi/delimitMate'
+" 
+" """"""""" Multi-entry selection UI. FZF
+" Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+" Plug 'junegunn/fzf.vim'
+" 
+" """"""""" Utils
+" Plug 'scrooloose/nerdtree'
+" Plug 'ryanoasis/vim-devicons'
+" Plug 'mhask94/vim-nerdtree-syntax-highlight'
+" " Must manually change terminal profile to use a NERD FONT for icons to work
+" Plug 'vim-scripts/a.vim'
+" Plug 'airblade/vim-gitgutter'
+" Plug 'junegunn/vim-easy-align'
+" 
+" """"""""" Style
+" Plug 'vim-airline/vim-airline'
+" Plug 'edkolev/tmuxline.vim'
+" 
+" call plug#end()
 """""""""""""""""""""""""""""""""""""""
 
 """""""" Custom Settings """"""""""""""
@@ -52,15 +52,27 @@ set encoding=UTF-8
 
 " Use xclip for clipboard
 " sudo apt install xclip
+" let g:clipboard = {
+"   \   'name': 'xclip-xfce4-clipman',
+"   \   'copy': {
+"   \      '+': 'xclip -selection clipboard',
+"   "\      '*': 'xclip -selection clipboard',
+"   \    },
+"   \   'paste': {
+"   \      '+': 'xclip -selection clipboard -o',
+"   "\      '*': 'xclip -selection clipboard -o',
+"   \   },
+"   \   'cache_enabled': 1,
+"   \ }
 let g:clipboard = {
-  \   'name': 'xclip-xfce4-clipman',
+  \   'name': 'wl-clipboard',
   \   'copy': {
-  \      '+': 'xclip -selection clipboard',
-  "\      '*': 'xclip -selection clipboard',
+  \      '+': ['wl-copy', '--trim-newline'],
+  \      '*': ['wl-copy', '--trim-newline'],
   \    },
   \   'paste': {
-  \      '+': 'xclip -selection clipboard -o',
-  "\      '*': 'xclip -selection clipboard -o',
+  \      '+': ['wl-paste', '--no-newline'],
+  \      '*': ['wl-paste', '--no-newline'],
   \   },
   \   'cache_enabled': 1,
   \ }
@@ -165,101 +177,101 @@ inoremap {<CR> {<CR>}<Esc>ko
 "imap <C-K> <c-o>:pyf /usr/share/clang/clang-format-3.8/clang-format.py<cr>
 
 """"""""""" Plugins """"""""""""""""""
-"""""""" ALE
-" Use LSP linters
-" Install cquery https://github.com/cquery-project/cquery
-" Install pyls https://github.com/palantir/python-language-server
-let g:ale_linters = {'cpp': ['ccls', 'cquery', 'gcc'], 'python':['pyls'], 'cmake': ['cmakelint']}
-let g:ale_fixers = {'cpp': ['clang-format'], 'python':['autopep8']}
-let g:ale_fix_on_save = 1
-let g:ale_completion_enabled = 1
-let g:ale_sign_column_always = 1
-let g:ale_sign_error = '✖'
-let g:ale_sign_warning = '⚠'
-let g:ale_echo_msg_error_str = '✖'
-let g:ale_echo_msg_warning_str = '⚠'
-let g:ale_echo_msg_format = '%severity% %s% [%linter%% code%]'
-let g:ale_c_parse_compile_commands=1
-let g:ale_lint_on_text_changed = 'never'
-let g:ale_lint_on_insert_leave = 1
-let g:ale_lint_on_save = 1
-let g:ale_lint_on_enter = 0
-let g:ale_echo_cursor = 0
-
-" Show errors in airline status bar
-let g:airline#extensions#ale#enabled = 1
-
-"" Scroll through autocomplete options with Tab
-inoremap <expr><TAB> pumvisible() ? "\<C-n>" : "\<TAB>"
-
-" Use Ale to jump to definition, etc.
-nnoremap <silent> gh :ALEHover<CR>
-nnoremap <silent> gd :ALEGoToDefinition<CR>
-nnoremap <silent> gr :ALEFindReferences<CR>
-nnoremap <silent> ge :ALEDetail<CR>
-nnoremap <leader>aj :ALENext<CR>
-nnoremap <leader>ak :ALEPrevious<CR>
-
-"""""""""" Deoplete
-let g:deoplete#enable_at_startup = 1
-" Scroll through autocomplete options with Tab
-inoremap <expr><TAB> pumvisible() ? "\<C-n>" : "\<TAB>"
-
-"""""""""" UltiSnips
-" Trigger configuration. Do not use <tab> if you use https://github.com/Valloric/YouCompleteMe.
-" tab to expand snippets and Ctrl+j/Ctrl+k to move forward/backward"
-let g:UltiSnipsExpandTrigger="<tab>"
-let g:UltiSnipsJumpForwardTrigger="<c-j>"
-let g:UltiSnipsJumpBackwardTrigger="<c-k>"
-
-" Allow :UltiSnipsEdit command to split your window.
-let g:UltiSnipsEditSplit="vertical"
-
-"""""""""" NerdCommenter
-" Align line-wise comment delimiters flush left instead of following code indentation
-let g:NERDDefaultAlign = 'left'
-
-"""""""""" NerdTree """"""""""""""""""
-" Start nerdtree if start vim with no file specified
-autocmd StdinReadPre * let s:std_in=1
-autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
-
-" Start nerdtree if start vim with a directory
-autocmd VimEnter * if argc() == 1 && isdirectory(argv()[0]) && !exists("s:std_in") | exe 'NERDTree' argv()[0] | wincmd p | ene | endif
-" Open/Close NerdTree with Ctrl + N
-map <C-n> :NERDTreeToggle<CR>
-
-" NERDTress File highlighting
-function! NERDTreeHighlightFile(extension, fg, bg, guifg, guibg)
- exec 'autocmd filetype nerdtree highlight ' . a:extension .' ctermbg='. a:bg .' ctermfg='. a:fg .' guibg='. a:guibg .' guifg='. a:guifg
- exec 'autocmd filetype nerdtree syn match ' . a:extension .' #^\s\+.*'. a:extension .'$#'
-endfunction
-
-call NERDTreeHighlightFile('py', 'green', 'none', 'green', '#151515')
-call NERDTreeHighlightFile('cpp', 'yellow', 'none', 'yellow', '#151515')
-call NERDTreeHighlightFile('hpp', 'yellow', 'none', 'yellow', '#151515')
-call NERDTreeHighlightFile('h', 'yellow', 'none', 'yellow', '#151515')
-call NERDTreeHighlightFile('ui', 'blue', 'none', 'blue', '#151515')
-call NERDTreeHighlightFile('yaml', 'blue', 'none', 'blue', '#151515')
-call NERDTreeHighlightFile('sh', 'Magenta', 'none', '#ff00ff', '#151515')
-
-""""""""" Vim Easy Align
-" Align GFM tables
-au FileType markdown vmap <Leader><Bslash> :EasyAlign*<Bar><Enter>
-
-""""""""" VimAirline
-" Note: If symbols don't appear install them with
-" `sudo apt install fonts-powerline` Ubuntu
-let g:airline_powerline_fonts = 1
-let g:airline_theme = "dark"
-
-""""""""" Tmuxline
-" Note: this plugin is used to generate pretty formats for tmux that are saved
-" and then loaded by tmux on startup. That way your tmux always looks nice, not
-" just after you start vim.
-let g:airline#extensions#tmuxline#enabled = 0
-"""""""""""""""""""""""""""""""""""""
-
-" Load all plugins now, generate help tags, errors and messages ignored
-packloadall
-silent! helptags ALL
+" """""""" ALE
+" " Use LSP linters
+" " Install cquery https://github.com/cquery-project/cquery
+" " Install pyls https://github.com/palantir/python-language-server
+" let g:ale_linters = {'cpp': ['ccls', 'cquery', 'gcc'], 'python':['pyls'], 'cmake': ['cmakelint']}
+" let g:ale_fixers = {'cpp': ['clang-format'], 'python':['autopep8']}
+" let g:ale_fix_on_save = 1
+" let g:ale_completion_enabled = 1
+" let g:ale_sign_column_always = 1
+" let g:ale_sign_error = '✖'
+" let g:ale_sign_warning = '⚠'
+" let g:ale_echo_msg_error_str = '✖'
+" let g:ale_echo_msg_warning_str = '⚠'
+" let g:ale_echo_msg_format = '%severity% %s% [%linter%% code%]'
+" let g:ale_c_parse_compile_commands=1
+" let g:ale_lint_on_text_changed = 'never'
+" let g:ale_lint_on_insert_leave = 1
+" let g:ale_lint_on_save = 1
+" let g:ale_lint_on_enter = 0
+" let g:ale_echo_cursor = 0
+" 
+" " Show errors in airline status bar
+" let g:airline#extensions#ale#enabled = 1
+" 
+" "" Scroll through autocomplete options with Tab
+" inoremap <expr><TAB> pumvisible() ? "\<C-n>" : "\<TAB>"
+" 
+" " Use Ale to jump to definition, etc.
+" nnoremap <silent> gh :ALEHover<CR>
+" nnoremap <silent> gd :ALEGoToDefinition<CR>
+" nnoremap <silent> gr :ALEFindReferences<CR>
+" nnoremap <silent> ge :ALEDetail<CR>
+" nnoremap <leader>aj :ALENext<CR>
+" nnoremap <leader>ak :ALEPrevious<CR>
+" 
+" """""""""" Deoplete
+" let g:deoplete#enable_at_startup = 1
+" " Scroll through autocomplete options with Tab
+" inoremap <expr><TAB> pumvisible() ? "\<C-n>" : "\<TAB>"
+" 
+" """""""""" UltiSnips
+" " Trigger configuration. Do not use <tab> if you use https://github.com/Valloric/YouCompleteMe.
+" " tab to expand snippets and Ctrl+j/Ctrl+k to move forward/backward"
+" let g:UltiSnipsExpandTrigger="<tab>"
+" let g:UltiSnipsJumpForwardTrigger="<c-j>"
+" let g:UltiSnipsJumpBackwardTrigger="<c-k>"
+" 
+" " Allow :UltiSnipsEdit command to split your window.
+" let g:UltiSnipsEditSplit="vertical"
+" 
+" """""""""" NerdCommenter
+" " Align line-wise comment delimiters flush left instead of following code indentation
+" let g:NERDDefaultAlign = 'left'
+" 
+" """""""""" NerdTree """"""""""""""""""
+" " Start nerdtree if start vim with no file specified
+" autocmd StdinReadPre * let s:std_in=1
+" autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
+" 
+" " Start nerdtree if start vim with a directory
+" autocmd VimEnter * if argc() == 1 && isdirectory(argv()[0]) && !exists("s:std_in") | exe 'NERDTree' argv()[0] | wincmd p | ene | endif
+" " Open/Close NerdTree with Ctrl + N
+" map <C-n> :NERDTreeToggle<CR>
+" 
+" " NERDTress File highlighting
+" function! NERDTreeHighlightFile(extension, fg, bg, guifg, guibg)
+"  exec 'autocmd filetype nerdtree highlight ' . a:extension .' ctermbg='. a:bg .' ctermfg='. a:fg .' guibg='. a:guibg .' guifg='. a:guifg
+"  exec 'autocmd filetype nerdtree syn match ' . a:extension .' #^\s\+.*'. a:extension .'$#'
+" endfunction
+" 
+" call NERDTreeHighlightFile('py', 'green', 'none', 'green', '#151515')
+" call NERDTreeHighlightFile('cpp', 'yellow', 'none', 'yellow', '#151515')
+" call NERDTreeHighlightFile('hpp', 'yellow', 'none', 'yellow', '#151515')
+" call NERDTreeHighlightFile('h', 'yellow', 'none', 'yellow', '#151515')
+" call NERDTreeHighlightFile('ui', 'blue', 'none', 'blue', '#151515')
+" call NERDTreeHighlightFile('yaml', 'blue', 'none', 'blue', '#151515')
+" call NERDTreeHighlightFile('sh', 'Magenta', 'none', '#ff00ff', '#151515')
+" 
+" """"""""" Vim Easy Align
+" " Align GFM tables
+" au FileType markdown vmap <Leader><Bslash> :EasyAlign*<Bar><Enter>
+" 
+" """"""""" VimAirline
+" " Note: If symbols don't appear install them with
+" " `sudo apt install fonts-powerline` Ubuntu
+" let g:airline_powerline_fonts = 1
+" let g:airline_theme = "dark"
+" 
+" """"""""" Tmuxline
+" " Note: this plugin is used to generate pretty formats for tmux that are saved
+" " and then loaded by tmux on startup. That way your tmux always looks nice, not
+" " just after you start vim.
+" let g:airline#extensions#tmuxline#enabled = 0
+" """""""""""""""""""""""""""""""""""""
+" 
+" " Load all plugins now, generate help tags, errors and messages ignored
+" packloadall
+" silent! helptags ALL

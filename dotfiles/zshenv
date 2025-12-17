@@ -1,5 +1,7 @@
 export WORDCHARS='*?.[]~&;!#$%^(){}<>'
 
+export OS_ID=$(grep -E '^ID=' /etc/os-release | cut -d'=' -f2)
+
 # source "$HOME/.cargo/env"
 
 # export JAVA_HOME="/usr/lib/jvm/java-21-openjdk-amd64"
