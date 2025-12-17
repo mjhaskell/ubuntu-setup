@@ -31,7 +31,7 @@ set $refresh_i3status killall -USR1 i3status
 # set $term_named   --no-startup-id termite --name
 # set $term_samedir --no-startup-id $HOME/bin/termite/samedir.sh
 set $term foot
-set $term_named   --no-startup-id $term -T
+set $term_named $term -a
 
 # menu
 set $menu fuzzel
@@ -94,15 +94,6 @@ hide_edge_borders smart
 
 
 ### Idle configuration
-# exec swayidle -w \
-#          timeout 450 'swaymsg "output * dpms off"' resume 'swaymsg "output * dpms on"'
-#          timeout 300 'swaylock -f -c 000000' \
-#          before-sleep 'swaylock -f -c 000000'
-exec swayidle -w \
-         timeout 3 'exec foot -a "lock_asciiquarium" -T "lock_asciiquarium" -e asiiquarium' \
-         timeout 300 'swaylock -f' \
-         timeout 600 'swaymsg "output * dpms off"' resume 'swaymsg "output * dpms on"' \
-         before-sleep 'swaylock -f'
 # Example configuration:
 # exec swayidle -w \
 #          timeout 300 'swaylock -f -c 000000' \
@@ -111,6 +102,22 @@ exec swayidle -w \
 # This will lock your screen after 300 seconds of inactivity, then turn off
 # your displays after another 300 seconds, and turn your screens back on when
 # resumed. It will also lock your screen before your computer goes to sleep.
+
+# asciiquarium screensaver at 90s, lock at 300s, shutoff monitors at 600s
+exec swayidle -w \
+         timeout 90 'exec foot -a "lock_asciiquarium" -T "lock_asciiquarium" -e asciiquarium &' \
+             resume 'swaymsg kill' \
+         timeout 300 'swaylock -f' \
+         timeout 600 'swaymsg "output * dpms off"' resume 'swaymsg "output * dpms on"' \
+         before-sleep 'swaylock -f'
+## test block
+# exec_always swayidle -w \
+#          timeout 5 'exec foot -a "lock_asciiquarium" -T "lock_asciiquarium" -e asciiquarium &' \
+#              resume 'swaymsg kill' \
+#          timeout 10 'swaylock -f' \
+#          timeout 15 'swaymsg "output * dpms off"' resume 'swaymsg "output * dpms on"' \
+#          before-sleep 'swaylock -f'
+
 
 # notifications
 # exec fnott
@@ -192,26 +199,13 @@ bar {
 # for_window [instance="spad_math"] resize set 750 300
 # for_window [instance="spad_*"] border pixel 5
 
-for_window [title="spad_*"] floating enable
-for_window [title="spad_normal"] move position center
-for_window [title="spad_math"] move position 1050px 700px
-for_window [title="spad_*"] move scratchpad
-for_window [title="spad_*"] sticky enable
-for_window [title="spad_normal"] resize set 625 400
-for_window [title="spad_math"] resize set 750 300
-for_window [title="spad_*"] border pixel 5
-
-for_window [app_id="lock_asciiquarium"] {
-  fullscreen global
-  # floating enable
-  # resize set 3840 2500
-  # move absolute position 0 0
-  # move absolute position center
-  # sticky enable
-  # border pixel 100
-}
+for_window [app_id="spad_*"] move to scratchpad, sticky enable, border pixel 5
+for_window [app_id="spad_normal"] resize set 625 400, move position center
+for_window [app_id="spad_math"] resize set 750 300, move position 1050px 700px
+for_window [app_id="lock_asciiquarium"] fullscreen global
 
 for_window [app_id="flameshot"] border pixel 0, floating enable, fullscreen disable, move absolute position 0 0
+for_window [app_id="signal"] move to scratchpad
 
 
 # --------- Execute Applications ---------- #
@@ -227,6 +221,7 @@ for_window [app_id="flameshot"] border pixel 0, floating enable, fullscreen disa
 # exec xmodmap -e 'clear Lock'
 
 # launch scratchpad windows when i3 starts up
+exec signal-desktop
 exec $term_named spad_normal
 # exec $term_named spad_math -e $HOME/.pyvenvs/default/bin/ipython3
 
@@ -339,10 +334,12 @@ bindsym $mod+Ctrl+P exec flameshot gui
 #bindsym $mod+Print exec gnome-screenshot -i
 
 # Messaging
-bindsym $mod+m exec signal-desktop
+bindsym $mod+m [app_id="signal"] scratchpad show
+bindsym $mod+Shift+m exec signal-desktop
 
 # Asciiquarium screen saver
-bindsym $mod+z exec $term -a "lock_asciiquarium" -T "lock_asciiquarium" -e asciiquarium && swaymsg fullscreen global
+# bindsym $mod+z exec $term -a "lock_asciiquarium" -T "lock_asciiquarium" -e asciiquarium && swaymsg fullscreen global
+bindsym $mod+z exec $term -a "lock_asciiquarium" -T "lock_asciiquarium" -e asciiquarium
 
 
 # ---------- Scratchpad ---------- #
@@ -350,9 +347,8 @@ bindsym $mod+z exec $term -a "lock_asciiquarium" -T "lock_asciiquarium" -e ascii
 # $mod+Shift+key     Move scratchpad window to startup location
 
 # Normal terminal
-bindsym $mod+n       [title="spad_normal"] scratchpad show
-bindsym $mod+Ctrl+n [instance="spad_normal"] scratchpad show, move position center
-# bindsym $mod+Shift+n [instance="spad_normal"] scratchpad show, move position center
+bindsym $mod+n      [app_id="spad_normal"] scratchpad show
+bindsym $mod+Shift+n exec $term_named "spad_normal"
 
 # Math terminal (ipython3)
 # bindsym $mod+m       [instance="spad_math"] scratchpad show
@@ -360,7 +356,7 @@ bindsym $mod+Ctrl+n [instance="spad_normal"] scratchpad show, move position cent
 # bindsym $mod+Shift+m [instance="spad_math"] scratchpad show, move position 1050 700 
 
 # Create and show scratpad windows
-bindsym $mod+minus move scratchpad
+bindsym $mod+minus move to scratchpad
 bindsym $mod+plus scratchpad show
 
 
@@ -453,20 +449,25 @@ bindsym $mod+Shift+7 move container to workspace $ws7; workspace $ws7
 bindsym $mod+Shift+8 move container to workspace $ws8; workspace $ws8
 bindsym $mod+Shift+9 move container to workspace $ws9; workspace $ws9
 bindsym $mod+Shift+0 move container to workspace $ws10; workspace $ws0
-bindsym $mod+Shift+p move container to workspace prev; workspace prev
-bindsym $mod+Shift+n move container to workspace next; workspace next
-# bindsym $alt+Ctrl+j move container to workspace prev; workspace prev
-# bindsym $alt+Ctrl+k move container to workspace next; workspace next
+# bindsym $mod+Shift+p move container to workspace prev; workspace prev
+# bindsym $mod+Shift+n move container to workspace next; workspace next
+bindsym $alt+Shift+p move container to workspace prev; workspace prev
+bindsym $alt+Shift+n move container to workspace next; workspace next
+
+bindsym $mod+Ctrl+h move workspace to output left; focus output left
+bindsym $mod+Ctrl+j move workspace to output down; focus output down
+bindsym $mod+Ctrl+k move workspace to output up; focus output up
+bindsym $mod+Ctrl+l move workspace to output right; focus output right
 
 # move focused window to output
-bindsym $mod+Ctrl+h move to output left
-bindsym $mod+Ctrl+j move to output down
-bindsym $mod+Ctrl+k move to output up
-bindsym $mod+Ctrl+l move to output right
-# bindsym $alt+Shift+h move to output left
-# bindsym $alt+Shift+j move to output down
-# bindsym $alt+Shift+k move to output up
-# bindsym $alt+Shift+l move to output right
+# bindsym $mod+Ctrl+h move to output left
+# bindsym $mod+Ctrl+j move to output down
+# bindsym $mod+Ctrl+k move to output up
+# bindsym $mod+Ctrl+l move to output right
+bindsym $alt+Shift+h move to output left
+bindsym $alt+Shift+j move to output down
+bindsym $alt+Shift+k move to output up
+bindsym $alt+Shift+l move to output right
 
 # move focused workspace to output
 # bindsym $alt+Ctrl+h move workspace to output left
