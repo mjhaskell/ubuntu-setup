@@ -62,7 +62,7 @@ sudo pacman -S --needed ttf-sourcecodepro-nerd ttf-nerd-fonts-symbols
 sudo pacman -S --needed noto-fonts-emoji
 
 ### network
-sudo pacman -S --needed ifplugd
+sudo pacman -S --needed ifplugd ldns
 sudo pacman -S --needed openresolv
 # sudo pacman -S --needed systemd-resolved  # this OR openresolv
 

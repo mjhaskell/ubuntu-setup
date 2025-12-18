@@ -12,6 +12,10 @@ ipscan() { ip_addr=$(hostname -I | cut -f1 -d' '); if [ -n "$ZSH_NAME" ]; then
     setopt shwordsplit; fi; saveIFS="$IFS"; IFS='.'; a=(${ip_addr}); 
     IFS="$saveIFS"; echo "${ip_addr%${a[-1]}}*"; nmap -sP "${ip_addr%${a[-1]}}*"
     }
+myip() { ip address | grep "inet [0-9\.]*" | awk '{print $2}' | cut -d'/' -f1; }
+mypublicip() {
+  drill TXT o-o.myaddr.l.google.com @ns1.google.com | grep -o '".*"' | sed 's/"//g'
+}
 code2pdf() { for var in "$@"; do vim "$var" -c ":hardcopy > temp.ps" -c ":q"; 
     ps2pdf temp.ps "${var%.*}".pdf; rm temp.ps; done; }
 githubLatestRelease() { # $1=github_user/repo (ex: opencv/opencv)
@@ -93,8 +97,8 @@ alias salias='source ~/.sh_aliases'
 #alias scanip='nmap -sP 192.168.0.*'
 alias untar='tar -xvzf'
 alias keybind='gsettings set org.gnome.desktop.wm.keybindings'
-alias myip='hostname -I'
-alias mypublicip='curl ifconfig.me'
+# alias myip='hostname -I'
+#alias mypublicip='curl ifconfig.me'
 alias me='echo_green $USER@$HOST'
 alias chterm='sudo update-alternatives --config x-terminal-emulator'
 alias cmaked='cmake -DCMAKE_BUILD_TYPE=Debug'
