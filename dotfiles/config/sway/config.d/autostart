@@ -52,6 +52,17 @@ exec $term_named spad_normal
 # Signal
 # exec signal-desktop
 
+
+### Chrome Apps
+# These come from installing a website as an app (click button at the end of the
+# search bar in chrome). This creates a desktop file in ~/.local/share/applications.
+# Look inside of the created desktop file for the Exec command and copy it here.
+# The app-id is determined by chrome and is in that Exec command.
+# --profile-directory is to specify with which profile to launch the app, but it
+# is NOT the profile name. Chrome refers to each profile by its own name:
+# "Default", "Profile  1", etc.
+# Find the profile name by running `my_chromium_profiles` from ~/bin
+
 # Teams
 exec $browser --profile-directory=Default --app-id=cifhbcnohmdccbgoicgdjpfamggdegmo %U
 
