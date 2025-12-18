@@ -1,0 +1,16 @@
+#!/usr/bin/bash
+
+if ! ps aux | grep "foot -a screensaver" | grep -q -v "grep"; then
+  # make asciiquarium most likely to show up
+  choices=("asciiquarium" "asciiquarium" "asciiquarium" "cmatrix -s" "ssh starwarstel.net")
+  num_choices=${#choices[@]}
+  idx=$(( RANDOM % num_choices ))
+  cmd="${choices[$idx]}"
+  echo $cmd
+  exec foot -a "screensaver" -T "screensaver" -e $cmd &
+else
+  swaymsg "[app_id=\"screensaver\"]" fullscreen global
+fi
+
+# LOCK_SCREEN_PID=$!
+# echo $LOCK_SCREEN_PID > ~/.screensaver_pid

@@ -1,0 +1,59 @@
+# vim: set filetype=swayconfig:
+
+
+# --------- Startup Applications ---------- #
+### Idle configuration
+
+## xss-lock
+# xss-lock grabs a logind suspend inhibit lock and will use i3lock to lock the
+# screen before suspend. Use loginctl lock-session to lock your screen.
+# exec --no-startup-id xss-lock --transfer-sleep-lock -- i3lock --nofork
+
+## swayidle
+# Example configuration:
+# exec swayidle -w \
+#          timeout 300 'swaylock -f -c 000000' \
+#          timeout 600 'swaymsg "output * power off"' resume 'swaymsg "output * power on"' \
+#          before-sleep 'swaylock -f -c 000000'
+# This will lock your screen after 300 seconds of inactivity, then turn off
+# your displays after another 300 seconds, and turn your screens back on when
+# resumed. It will also lock your screen before your computer goes to sleep.
+
+#          timeout 90 'exec foot -a "lock_asciiquarium" -T "lock_asciiquarium" -e asciiquarium &' \
+# asciiquarium screensaver at 90s, lock at 300s, shutoff monitors at 600s
+exec swayidle -w \
+   timeout 90 'bash /home/mat/bin/screensaver_start' \
+     resume 'swaymsg kill' \
+   timeout 300 'swaylock -f' \
+   timeout 600 'swaymsg "output * dpms off"' resume 'swaymsg "output * dpms on"' \
+   before-sleep 'swaylock -f'
+## test block
+# exec_always swayidle -w \
+#          timeout 5 'exec foot -a "lock_asciiquarium" -T "lock_asciiquarium" -e asciiquarium &' \
+#              resume 'swaymsg kill' \
+#          timeout 10 'swaylock -f' \
+#          timeout 15 'swaymsg "output * dpms off"' resume 'swaymsg "output * dpms on"' \
+#          before-sleep 'swaylock -f'
+
+### Notifications
+exec fnott
+# exec swaync
+
+### Network
+# NetworkManager is the most popular way to manage wireless networks on Linux,
+# and nm-applet is a desktop environment-independent system tray GUI for it.
+# exec --no-startup-id nm-applet
+
+### Scratchpads
+# launch scratchpad windows when i3 starts up
+exec $term_named spad_normal
+# exec $term_named spad_math -e $HOME/.pyvenvs/default/bin/ipython3
+
+# Signal
+# exec signal-desktop
+
+# Teams
+exec $browser --profile-directory=Default --app-id=cifhbcnohmdccbgoicgdjpfamggdegmo %U
+
+# Outlook (BYU)
+exec $browser --profile-directory=Default --app-id=pkooggnaalmfkidjmlhoelhdllpphaga %U

@@ -1,0 +1,31 @@
+# vim: set filetype=swayconfig:
+
+# status bar: configured in ~/.config/i3status/config
+bar {
+    status_command i3status
+    position bottom
+  
+    # mode dock
+    mode hide
+
+    modifier $mod
+    hidden_state hide
+    separator_symbol "■"
+  
+    # font -misc-fixed-medium-r-normal--13-120-75-75-C-70-iso10646-1
+    # font pango:monospace 8
+    # font pango:DejaVu Sans 9
+    font pango:SauceCodePro NFM 8
+
+    colors {
+        statusline              #ffffff
+        background              #000000
+        separator               #666666
+  
+        focused_workspace       #4c7899 #285577 #ffffff
+        active_workspace        #333333 #5f676a #ffffff
+        inactive_workspace      #333333 #222222 #888888
+        urgent_workspace        #2f343a #900000 #ffffff
+        binding_mode            #2f343a #900000 #ffffff
+    }
+}

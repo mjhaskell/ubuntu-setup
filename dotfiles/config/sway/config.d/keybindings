@@ -1,0 +1,148 @@
+# vim: set filetype=swayconfig:
+
+
+# ---------- General ---------- #
+# reload the configuration file
+bindsym $mod+Shift+r reload
+# restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
+# bindsym $mod+Shift+r restart  # doesn't seem to work with sway
+# Exit sway (logs you out of your Wayland session)
+bindsym $mod+Shift+e exec swaynag -t warning -m 'Exit swaywm and end Wayland session?' -b 'Yes, exit sway' 'swaymsg exit'
+
+# TTY (it seems proprietary NVIDIA drivers don't register these commands)
+# (I had to edit /etc/sudoers to give myself permission to run chvt w/0 passwd)
+# bindsym $alt+Ctrl+2 exec swaynag -t warning -m 'Switch to TTY 2?' -b 'Yes, switch' 'exec sudo chvt 2'
+
+# lock screen
+bindsym $alt+Ctrl+l exec swaylock
+
+# hide/show bar
+bindsym $mod+b bar mode dock
+bindsym $mod+Shift+b bar mode hide
+
+# kill focused window
+bindsym $mod+Shift+q kill
+bindsym $mod+Shift+button2 --whole-window kill
+# bindsym $mod+Shift+button10 --whole-window kill
+
+# Application launcher (replaced drun)
+bindsym $mod+d   exec $menu
+# bindsym $mod+d   exec rofi -show combi
+# bindsym $mod+Tab exec rofi -show window -location 0
+# bindsym $mod+F2  exec rofi -show run
+
+# Change modes
+bindsym $mod+r mode "resize"
+
+# Brightness
+bindsym --locked XF86MonBrightnessUp   exec --no-startup-id bness $p20_bness  1
+bindsym --locked XF86MonBrightnessDown exec --no-startup-id bness $p20_bness -1
+
+# Keyboard volume buttons
+#bindsym XF86AudioRaiseVolume exec $volume   +10%   && $refresh_i3status
+#bindsym XF86AudioLowerVolume exec $volume   -10%   && $refresh_i3status
+#bindsym XF86AudioMute        exec $mute     toggle && $refresh_i3status
+#bindsym XF86AudioMicMute     exec $mic_mute toggle && $refresh_i3status
+#bindsym $mod+XF86AudioMute   exec $mic_mute toggle && $refresh_i3status
+bindsym --locked XF86AudioRaiseVolume exec $sound Master  5%+    && $refresh_i3status
+bindsym --locked XF86AudioLowerVolume exec $sound Master  5%-    && $refresh_i3status
+bindsym --locked XF86AudioMute        exec $sound Master  toggle && $refresh_i3status
+bindsym --locked XF86AudioMicMute     exec $sound Capture toggle && $refresh_i3status
+bindsym --locked $mod+XF86AudioMute   exec $sound Capture toggle && $refresh_i3status
+
+# Keyboard music buttons
+#bindsym XF86AudioPlay exec playerctl play-pause
+#bindsym XF86AudioStop exec playerctl stop
+#bindsym XF86AudioNext exec playerctl next
+#bindsym XF86AudioPrev exec playerctl previous
+
+# Remap CapsLock to Escape
+# bindsym $mod+Escape       exec xmodmap -e 'keycode 0x42=Caps_Lock'
+# bindsym $mod+Shift+Escape exec xmodmap -e 'keycode 0x42=Escape'
+
+# Allow Caps Lock to be remapped
+# exec xmodmap -e 'clear Lock'
+
+
+# ---------- Floating Windows ---------- #
+# Drag floating windows with $mod+Mouse
+# floating_modifier $mod
+floating_modifier $mod normal
+
+# toggle tiling / floating
+bindsym $mod+Shift+space floating toggle
+bindsym $mod+Shift+button3 --whole-window floating toggle
+
+# change focus between tiling / floating windows
+bindsym $mod+space focus mode_toggle
+bindsym $mod+button3 --whole-window focus mode_toggle
+
+
+# ---------- Layout ---------- #
+bindsym $mod+s layout stacking
+bindsym $mod+w layout tabbed
+bindsym $mod+e layout toggle split
+
+# split horizontal and vertical
+bindsym $mod+semicolon split h
+bindsym $mod+v split v
+
+# enter fullscreen mode for the focused container
+bindsym $mod+f fullscreen toggle
+bindsym $mod+Shift+f fullscreen global
+
+
+# ---------- Application Shortcuts ---------- #
+# Terminal
+bindsym $mod+Return       exec $term -d none
+# bindsym $mod+Shift+Return exec $term_samedir
+# bindsym $mod+BackSpace    exec $term_day
+bindsym $mod+BackSpace    exec $term -d none -c ${HOME}/.config/foot/foot_day.ini
+
+# Internet Browser 
+bindsym $mod+g       exec $browser
+bindsym $mod+Shift+g exec $browser --incognito
+
+# Screenshot
+bindsym $mod+Print exec flameshot gui
+bindsym $mod+Ctrl+P exec flameshot gui
+#bindsym $mod+Print exec gnome-screenshot -i
+
+# Messaging
+bindsym $mod+m [app_id="signal"] scratchpad show
+bindsym $mod+Shift+m exec signal-desktop
+
+bindsym $mod+o [app_id="pkooggnaal.*"] scratchpad show, resize set 1600 1000, move position center
+bindsym $mod+Shift+o exec $browser --profile-directory=Default --app-id=pkooggnaalmfkidjmlhoelhdllpphaga %U
+
+bindsym $mod+t [app_id="cifhbcnohmdccbgoicgdjpfamggdegmo"] scratchpad show, resize set 1500 1000, move position center
+# bindsym $mod+t [app_id=".*teams\.microsoft\.com.*"] scratchpad show, resize set 1500 1000, move position center
+# bindsym $mod+t [class="spad_teams"] scratchpad show
+# bindsym $mod+Shift+t exec $browser --profile-directory=Default --app=https://teams.microsoft.com/v2/
+bindsym $mod+Shift+t exec $browser --profile-directory=Default --app-id=cifhbcnohmdccbgoicgdjpfamggdegmo %U
+# get profile directories with the following (it is not the same as the profile name)
+# jq -r '.profile.info_cache | to_entries[] | "\(.key): \(.value.name)"' \
+#   ~/.config/chromium/Local\ State
+
+# Custom screensaver
+# bindsym $mod+z exec $term -a "lock_asciiquarium" -T "lock_asciiquarium" -e asciiquarium && swaymsg fullscreen global
+# bindsym $mod+z exec $term -a "lock_asciiquarium" -T "lock_asciiquarium" -e asciiquarium
+bindsym $alt+Ctrl+z exec bash /home/mat/bin/screensaver_start
+
+
+### Scratchpad Apps
+# $mod+key           Toggle scratchpad window
+# $mod+Shift+key     Move scratchpad window to startup location
+
+# Normal terminal
+bindsym $mod+n      [app_id="spad_normal"] scratchpad show
+bindsym $mod+Shift+n exec $term_named "spad_normal"
+
+# Math terminal (ipython3)
+# bindsym $mod+m       [instance="spad_math"] scratchpad show
+# bindsym $mod+Ctrl+m [instance="spad_math"] scratchpad show, move position 1050 700 
+# bindsym $mod+Shift+m [instance="spad_math"] scratchpad show, move position 1050 700 
+
+# Create and show scratpad windows
+bindsym $mod+minus move to scratchpad
+bindsym $mod+plus scratchpad show

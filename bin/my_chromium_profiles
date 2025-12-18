@@ -1,0 +1,4 @@
+#!/usr/bin/bash
+
+jq -r '.profile.info_cache | to_entries[] | "\(.key): \(.value.name)"' \
+  ~/.config/chromium/Local\ State
