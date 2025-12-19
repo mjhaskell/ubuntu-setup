@@ -97,7 +97,7 @@ bindsym $mod+Shift+f fullscreen global
 bindsym $mod+Return       exec $term -d none
 # bindsym $mod+Shift+Return exec $term_samedir
 # bindsym $mod+BackSpace    exec $term_day
-bindsym $mod+BackSpace    exec $term -d none -c ${HOME}/.config/foot/foot_day.ini
+# bindsym $mod+BackSpace    exec $term -d none -c ${HOME}/.config/foot/foot_day.ini
 
 # Internet Browser 
 bindsym $mod+g       exec $browser
@@ -115,14 +115,13 @@ bindsym $mod+Shift+m exec signal-desktop
 bindsym $mod+o [app_id="pkooggnaal.*"] scratchpad show, resize set 1600 1000, move position center
 bindsym $mod+Shift+o exec $browser --profile-directory=Default --app-id=pkooggnaalmfkidjmlhoelhdllpphaga %U
 
+# chrome app for Teams
 bindsym $mod+t [app_id="cifhbcnohmdccbgoicgdjpfamggdegmo"] scratchpad show, resize set 1500 1000, move position center
-# bindsym $mod+t [app_id=".*teams\.microsoft\.com.*"] scratchpad show, resize set 1500 1000, move position center
-# bindsym $mod+t [class="spad_teams"] scratchpad show
-# bindsym $mod+Shift+t exec $browser --profile-directory=Default --app=https://teams.microsoft.com/v2/
 bindsym $mod+Shift+t exec $browser --profile-directory=Default --app-id=cifhbcnohmdccbgoicgdjpfamggdegmo %U
-# get profile directories with the following (it is not the same as the profile name)
-# jq -r '.profile.info_cache | to_entries[] | "\(.key): \(.value.name)"' \
-#   ~/.config/chromium/Local\ State
+
+# "app" I manually made for Teams
+# bindsym $mod+t [app_id=".*teams\.microsoft\.com.*"] scratchpad show, resize set 1500 1000, move position center
+# bindsym $mod+Shift+t exec $browser --profile-directory=Default --app=https://teams.microsoft.com/v2/
 
 # Custom screensaver
 # bindsym $mod+z exec $term -a "lock_asciiquarium" -T "lock_asciiquarium" -e asciiquarium && swaymsg fullscreen global
