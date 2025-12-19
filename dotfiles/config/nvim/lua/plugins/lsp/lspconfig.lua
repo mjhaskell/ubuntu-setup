@@ -62,7 +62,8 @@ return {
     servers = {
       lua_ls = {},
       clangd = {},
-      pyright = { cmd = { vim.env.HOME .. "/.pyvenvs/default/bin/pyright-langserver", "--stdio" } },
+      -- pyright = { cmd = { vim.env.HOME .. "/.pyvenvs/default/bin/pyright-langserver", "--stdio" } },
+      pyright = {},
       ltex = {},
     },
   },

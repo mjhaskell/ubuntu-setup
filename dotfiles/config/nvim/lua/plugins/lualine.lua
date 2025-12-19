@@ -15,8 +15,8 @@ return {
         ft = "python",
         search = {
           my_venvs = {
-            -- command = "fd /bin/python$ ~/.pyvenvs --full-path", -- some systems may use `fd` instead of `fdfind`
-            command = "fdfind /bin/python$ ~/.pyvenvs --full-path", -- my system requires `fdfind`
+            command = "fd /bin/python$ ~/.pyvenvs --full-path", -- some systems may use `fd` instead of `fdfind`
+            -- command = "fdfind /bin/python$ ~/.pyvenvs --full-path", -- my system requires `fdfind`
             on_telescope_result_callback = function(selected_venv)
               if selected_venv and #selected_venv > 0 then
                 local version = vim.fn.system(selected_venv .. " --version"):gsub("Python ", ""):gsub("%s+", "")
