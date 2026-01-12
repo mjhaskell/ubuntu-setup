@@ -18,6 +18,7 @@ opt.conceallevel = 2 -- hide * markup for bold/italic, but not markers with subs
 opt.textwidth = 120
 opt.wrap = true -- wrap text after textwidth
 opt.colorcolumn = "81,91,121"
+opt.winborder = "rounded" -- rounded borders around floating windows
 
 opt.mouse = "a" -- Allow mouse to move cursor
 
