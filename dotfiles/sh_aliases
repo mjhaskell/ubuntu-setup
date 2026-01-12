@@ -26,9 +26,20 @@ githubLatestTag() { # $1=github_user/repo (ex: opencv/opencv)
     curl --silent "https://api.github.com/repos/$1/tags" | 
         grep -Po '"name": "\K.*?(?=")' | head -1
     }
+get_git_root() {
+    git rev-parse --show-toplevel 2> /dev/null
+}
 svenv() { # $1=virtual env
+    # deactivate current venv if active
     if [ -n "$VIRTUAL_ENV" ]; then deactivate; fi
-    source $HOME/.pyvenvs/$1/bin/activate
+
+    if [ "$1" = ".venv" ]; then
+        source .venv/bin/activate
+    elif [ "$1" = "repo:.venv" ]; then
+        source "$(get_git_root)/.venv/bin/activate"
+    else
+        source $HOME/.pyvenvs/$1/bin/activate
+    fi
 }
 snvm() {
      export NVM_DIR="$HOME/.nvm"
@@ -40,6 +51,12 @@ scanip() { nmap -sP $1; }
 # autocompletions
 if [ -n "$ZSH_NAME" ]; then
     _svenv() {
+        if [[ -d ".venv" ]]; then
+            compadd .venv
+        elif [[ -d "$(get_git_root)/.venv" ]]; then
+            compadd "repo:.venv"
+        fi
+
         for dir in $(ls $HOME/.pyvenvs); do
             compadd $dir
         done
