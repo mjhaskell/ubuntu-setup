@@ -70,4 +70,10 @@ fi
 # signal
 sudo pacman -S --needed signal-desktop
 
+# set system theme to dark
+# see https://wiki.archlinux.org/title/Dark_mode_switching
+gsettings set org.gnome.desktop.interface color-scheme "prefer-dark"
+gsettings set org.gnome.desktop.interface gtk-theme "Adwaita-dark"
+# gsettings set org.gnome.desktop.wm.preferences theme "Adwaita-dark"
+
 echo_green "sway installed"
