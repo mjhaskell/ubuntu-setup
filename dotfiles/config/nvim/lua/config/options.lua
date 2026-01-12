@@ -31,8 +31,8 @@ vim.opt.splitright = true
 vim.opt.splitbelow = true
 
 opt.tabstop = 6 -- set spacing of literal tab "\t" characters
-opt.softtabstop = 2 -- set spacing when I hit tab
-opt.shiftwidth = 2 -- set indent spacing to 4
+opt.softtabstop = 4 -- set spacing when I hit tab
+opt.shiftwidth = 4 -- set indent spacing to 4
 opt.expandtab = true -- change tab to spaces
 opt.smarttab = true
 --opt.autoindent = true -- indent newline like current line
