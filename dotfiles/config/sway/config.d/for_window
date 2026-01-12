@@ -20,6 +20,11 @@ for_window [app_id="spad_math"] resize set 750 300, move position 1050px 700px
 # for_window [app_id="screensaver"] fullscreen
 
 
+# ---------- Open/Save files ----------- #
+# for_window [app_id="GTK Application"] border pixel 0, floating enable
+for_window [app_id="GTK Application"] floating enable
+
+
 # ---------- Chromium Apps ----------- #
 # Teams
 for_window [app_id="cifhbcnohmdccbgoicgdjpfamggdegmo"] move to scratchpad, resize set 1500 1000, move position center
