@@ -37,9 +37,19 @@ return {
       -- enabled = vim.g.blink_enabled,
       opts = {
         keymap = { preset = "default" },
-        appearance = { nerd_font_variant = "mono" },
-        completion = { documentation = { auto_show = true } },
-        signature = { enabled = true },
+        appearance = {
+          use_nvim_cmp_as_default = true,
+          nerd_font_variant = "mono",
+        },
+        completion = {
+          documentation = {
+            auto_show = true,
+          },
+          -- ghost_text = { enabled = true },
+        },
+        signature = {
+          enabled = true,
+        },
         sources = {
           -- add lazydev to your completion providers
           default = { "lazydev", "lsp", "path", "snippets", "buffer" },
