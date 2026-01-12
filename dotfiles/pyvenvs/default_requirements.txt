@@ -1,0 +1,18 @@
+# Development tools
+ipython
+ipykernel
+debugpy
+black
+
+# Scientific computing
+numpy
+sympy
+scipy
+pandas
+
+# Visualization
+matplotlib
+abracatabra
+pyside6
+pyqtgraph
+pyopengl
