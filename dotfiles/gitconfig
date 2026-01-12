@@ -9,11 +9,17 @@
     rebase = true
 [init]
     defaultBranch = main
+[diff]
+    ; change the default word regex to separate words with punctuation as well
+    ; as whitespace (default is whitespace only - [^[:space:]]+)
+    wordRegex = [[:alnum:]_]+|[^[:alnum:]_[:space:]]+
+    wsErrorHighlight = all
 [alias]
     co = checkout
     st = status
     cm = commit
-    df = diff --ws-error-highlight=all
+    ; df = diff --ws-error-highlight=all
+    dw = diff --color-words
     subup = submodule update --init --recursive
     graph = log --oneline --graph --decorate --all
 
