@@ -3,6 +3,7 @@
     email = mhaskell9@gmail.com
 [core]
     editor = vim
+    pager = delta
 [push]
     default = simple
 [pull]
@@ -14,6 +15,20 @@
     ; as whitespace (default is whitespace only - [^[:space:]]+)
     wordRegex = [[:alnum:]_]+|[^[:alnum:]_[:space:]]+
     wsErrorHighlight = all
+[interactive]
+    diffFilter = delta --color-only
+[delta]
+    ; show possible themes with:
+    ;   $ delta --list-syntax-themes
+    ;   $ delta --show-syntax-themes
+    ; syntax-theme = gruvbox-dark, TwoDark, Coldark-Dark
+    syntax-theme = Dracula
+    line-numbers = true
+    side-by-side = true
+    navigate = true
+    dark = true
+[merge]
+    conflictStyle = zdiff3
 [alias]
     co = checkout
     st = status
