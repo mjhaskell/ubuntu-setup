@@ -1,16 +1,88 @@
 #!/usr/bin/bash
 
-if ! ps aux | grep "foot -a screensaver" | grep -q -v "grep"; then
-  # make asciiquarium most likely to show up
-  choices=("asciiquarium" "asciiquarium" "asciiquarium" "cmatrix -s" "ssh starwarstel.net")
-  num_choices=${#choices[@]}
-  idx=$(( RANDOM % num_choices ))
-  cmd="${choices[$idx]}"
-  echo $cmd
-  exec foot -a "screensaver" -T "screensaver" -e $cmd &
-else
-  swaymsg "[app_id=\"screensaver\"]" fullscreen global
-fi
+# debug=true
+debug=false
+
+# if ! ps aux | grep "foot -a screensaver" | grep -q -v "grep"; then
+#   # make asciiquarium most likely to show up
+#   # choices=("asciiquarium" "asciiquarium" "sleep 0.01; cmatrix -s" "sleep 0.01; cmatrix -s")  # "cmatrix -s" "ssh starwarstel.net")
+#   # choices=("sleep 0.1; cmatrix -s")
+#   
+#   choices=("asciiquarium" "sleep 0.1; cmatrix -s")
+#   num_choices=${#choices[@]}
+#   idx=$(( RANDOM % num_choices ))
+#   cmd="${choices[$idx]}"
+#
+#   # echo $cmd
+#   # exec foot --window-size-pixels=1900x1200 -a "screensaver" -T "screensaver" "$cmd" &
+#   
+#   foot -a "screensaver" -T "screensaver" sh -c "$cmd" &
+# else
+#   swaymsg "[app_id=\"screensaver\"]" fullscreen global
+# fi
 
 # LOCK_SCREEN_PID=$!
 # echo $LOCK_SCREEN_PID > ~/.screensaver_pid
+
+
+if [ "$debug" = true ]; then
+  echo "Starting screensaver..." > ~/.screensaver_debug.log
+fi
+
+# screensaver_stop
+
+## randomly choose a screensaver command (asciiquarium 2x more likely)
+choices=("asciiquarium" "asciiquarium" "sleep 0.05; cmatrix -s" "ssh starwarstel.net")
+num_choices=${#choices[@]}
+idx=$(( RANDOM % num_choices ))
+cmd="${choices[$idx]}"
+# cmd="sleep 0.1; cmatrix -s"
+
+## create a screensaver terminal for each active output
+for o in $(swaymsg -t get_outputs | jq -r '.[] | select(.active) | .name'); do
+
+  if pgrep -f "foot -F -a screensaver $o" > /dev/null; then
+    # make already-running screensaver fullscreen on that output
+    if [ "$debug" = true ]; then
+      echo "Screensaver already running on $o, making fullscreen" >> ~/.screensaver_debug.log
+    fi
+    # swaymsg "[app_id=\"screensaver $o\"]" move container to output $o
+    continue
+  fi
+
+  if [ "$debug" = true ]; then
+    echo "Creating screensaver for $o: $cmd" >> ~/.screensaver_debug.log
+  fi
+
+  swaymsg focus output $o
+  # sleep 0.01
+  foot -F -a "screensaver $o" -T "screensaver $o" sh -c "$cmd" &
+  # sleep 0.02
+  # swaymsg "[app_id=\"screensaver $o\"]" move container to output $o, fullscreen enable
+  swaymsg "[app_id=\"screensaver $o\"]" move container to output $o
+done
+
+## it seems to be helpful to create all windows first, then move them to outputs
+for o in $(swaymsg -t get_outputs | jq -r '.[] | select(.active) | .name'); do
+
+  if swaymsg -t get_tree | jq -e '.. | select(.type=="$o") | select(.app_id=="screensaver '$o'")' > /dev/null; then
+    if [ "$debug" = true ]; then
+      echo "Screensaver already running on $o, skipping move" >> ~/.screensaver_debug.log
+    fi
+    continue
+  fi
+
+  swaymsg "[app_id=\"screensaver $o\"]" move container to output $o
+  sleep 0.01
+done
+
+## lastly, make all screensavers fullscreen
+sleep 0.05
+swaymsg "[app_id=\"screensaver\"]" fullscreen enable
+
+## could kill and restart swayidle to control timing better
+# swayidle -w \
+#    timeout 0 '' \
+#      resume 'swaylock && screensaver_stop' \
+#    timeout 400 'swaymsg "output * dpms off"' resume 'swaymsg "output * dpms on"' \
+#    before-sleep 'swaylock'

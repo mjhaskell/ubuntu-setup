@@ -22,18 +22,20 @@
 #          timeout 90 'exec foot -a "lock_asciiquarium" -T "lock_asciiquarium" -e asciiquarium &' \
 # asciiquarium screensaver at 90s, lock at 300s, shutoff monitors at 600s
 exec swayidle -w \
-   timeout 90 'bash /home/mat/bin/screensaver_start' \
-     resume 'swaymsg kill' \
-   timeout 300 'swaylock -f' \
-   timeout 600 'swaymsg "output * dpms off"' resume 'swaymsg "output * dpms on"' \
-   before-sleep 'swaylock -f'
+   timeout 200 'screensaver_start' \
+     resume 'screensaver_stop' \
+   timeout 300 'swaylock' \
+     resume 'screensaver_stop' \
+   timeout 400 'swaymsg "output * dpms off"' resume 'swaymsg "output * dpms on"' \
+   before-sleep 'swaylock'
 ## test block
 # exec_always swayidle -w \
-#          timeout 5 'exec foot -a "lock_asciiquarium" -T "lock_asciiquarium" -e asciiquarium &' \
-#              resume 'swaymsg kill' \
-#          timeout 10 'swaylock -f' \
+#          timeout 5 'screensaver_start' \
+#              resume 'screensaver_stop' \
+#          timeout 10 'swaylock' \
+#              resume 'screensaver_stop' \
 #          timeout 15 'swaymsg "output * dpms off"' resume 'swaymsg "output * dpms on"' \
-#          before-sleep 'swaylock -f'
+#          before-sleep 'swaylock'
 
 ### Notifications
 exec fnott

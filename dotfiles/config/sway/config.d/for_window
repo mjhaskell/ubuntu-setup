@@ -15,7 +15,9 @@
 for_window [app_id="spad_*"] move to scratchpad, sticky enable, border pixel 5
 for_window [app_id="spad_normal"] resize set 625 400, move position center
 for_window [app_id="spad_math"] resize set 750 300, move position 1050px 700px
-for_window [app_id="screensaver"] fullscreen global
+
+# for_window [app_id="screensaver"] fullscreen global
+# for_window [app_id="screensaver"] fullscreen
 
 
 # ---------- Chromium Apps ----------- #

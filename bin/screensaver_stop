@@ -1,0 +1,9 @@
+#!/usr/bin/bash
+
+
+for o in $(swaymsg -t get_outputs | jq -r '.[] | select(.active) | .name'); do
+  if swaymsg -t get_tree | jq -r '.. | select(.app_id?) | .app_id' | grep -q "^screensaver $o$"; then
+    # echo "Killing screensaver $o" >> ~/.screensaver_debug.log
+    swaymsg "[app_id=\"screensaver $o\"]" kill
+  fi
+done

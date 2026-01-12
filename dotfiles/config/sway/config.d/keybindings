@@ -126,7 +126,8 @@ bindsym $mod+Shift+t exec $browser --profile-directory=Default --app-id=cifhbcno
 # Custom screensaver
 # bindsym $mod+z exec $term -a "lock_asciiquarium" -T "lock_asciiquarium" -e asciiquarium && swaymsg fullscreen global
 # bindsym $mod+z exec $term -a "lock_asciiquarium" -T "lock_asciiquarium" -e asciiquarium
-bindsym $alt+Ctrl+z exec bash /home/mat/bin/screensaver_start
+bindsym $alt+Ctrl+z exec screensaver_start
+bindsym $alt+Ctrl+Delete exec screensaver_stop
 
 
 ### Scratchpad Apps
