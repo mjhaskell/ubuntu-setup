@@ -9,10 +9,6 @@ bindsym $mod+Shift+r reload
 # Exit sway (logs you out of your Wayland session)
 bindsym $mod+Shift+e exec swaynag -t warning -m 'Exit swaywm and end Wayland session?' -b 'Yes, exit sway' 'swaymsg exit'
 
-# TTY (it seems proprietary NVIDIA drivers don't register these commands)
-# (I had to edit /etc/sudoers to give myself permission to run chvt w/0 passwd)
-# bindsym $alt+Ctrl+2 exec swaynag -t warning -m 'Switch to TTY 2?' -b 'Yes, switch' 'exec sudo chvt 2'
-
 # lock screen
 bindsym $alt+Ctrl+l exec swaylock
 
@@ -129,6 +125,9 @@ bindsym $mod+Shift+t exec $browser --profile-directory=Default --app-id=cifhbcno
 bindsym $alt+Ctrl+z exec screensaver_start
 bindsym $alt+Ctrl+Delete exec screensaver_stop
 
+# Notifications
+bindsym $mod+x exec fnottctl dismiss
+bindsym $mod+Shift+x exec fnottctl dismiss all
 
 ### Scratchpad Apps
 # $mod+key           Toggle scratchpad window
