@@ -132,10 +132,19 @@ prompt_custom_theme_setup() {
   newline=$'\n'
 
   PROMPT="${line1}${newline}${line2}"
-  RPS1="${return_code}"
+  RPROMPT="${return_code}"
 }
 
 precmd_functions+=(prompt_custom_theme_setup)
+
+## TODO: change to use prompt themes
+## may need to change " to ' in prompt function
+
+## add my custom theme function to list of themes
+# prompt_themes+=(custom_theme)
+
+## set the prompt to use my custom theme
+# prompt custom_theme
 
 ## can also use zsh hook to add to list of precmds
 # autoload -Uz add-zsh-hook
