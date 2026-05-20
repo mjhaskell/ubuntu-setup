@@ -20,7 +20,7 @@ sudo pacman -S --needed archlinux-keyring dkms
 
 # general utility
 sudo pacman -S --needed curl wget openssh rsync unzip
-sudo pacman -S --needed git lazygit
+sudo pacman -S --needed git lazygit git-delta
 sudo pacman -S --needed bat ripgrep fd fzf eza
 sudo pacman -S --needed htop bottom powertop
 sudo pacman -S --needed usbutils
@@ -72,3 +72,4 @@ sudo pacman -S --needed ethtool dhcpcd
 sudo pacman -S --needed iwd
 
 
+echo_green "Common packages installed"
