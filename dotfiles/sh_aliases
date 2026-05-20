@@ -29,6 +29,27 @@ githubLatestTag() { # $1=github_user/repo (ex: opencv/opencv)
 get_git_root() {
     git rev-parse --show-toplevel 2> /dev/null
 }
+mkvenv() {
+    if [ -d "$HOME/.pyvenvs/$1" ]; then
+        echo "$1 venv already exists"
+    else
+        python -m venv $HOME/.pyvenvs/$1
+    fi
+}
+rmvenv() {
+    if [ "$VIRTUAL_ENV" = "$HOME/.pyvenvs/$1" ]; then
+        echo "$1 is activated. Deactivate it first, then you can delete it"
+    fi
+    if [ -d "$HOME/.pyvenvs/$1" ]; then
+        echo "Will delete $HOME/.pyvenvs/$1"
+        read -q "yn?Continue? (y/n): "
+        echo ""
+        case $yn in
+            [Yy]* ) rm -rf $HOME/.pyvenvs/$1;;
+            * ) echo "Not removing venv.";;
+        esac
+    fi
+}
 svenv() { # $1=virtual env
     # deactivate current venv if active
     if [ -n "$VIRTUAL_ENV" ]; then deactivate; fi
@@ -47,9 +68,31 @@ snvm() {
      # [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 }
 scanip() { nmap -sP $1; }
+use_gcc() {
+    export CC=/usr/bin/gcc
+    export CXX=/usr/bin/g++
+    echo_purple "Using gcc and g++"
+}
+use_clang() {
+    export CC=/usr/bin/clang
+    export CXX=/usr/bin/clang++
+    echo_purple "Using CC=clang and CXX=clang++"
+}
 
 # autocompletions
 if [ -n "$ZSH_NAME" ]; then
+    _rmvenv() {
+        if [[ -d ".venv" ]]; then
+            compadd .venv
+        elif [[ -d "$(get_git_root)/.venv" ]]; then
+            compadd "repo:.venv"
+        fi
+
+        for dir in $(ls $HOME/.pyvenvs); do
+            compadd $dir
+        done
+    }
+    compdef _rmvenv rmvenv
     _svenv() {
         if [[ -d ".venv" ]]; then
             compadd .venv
@@ -90,7 +133,8 @@ alias lsblk='lsblk -o name,rm,ro,size,mountpoint,fstype,label | grep -v loop'
 if command -v eza > /dev/null 2>&1; then
     alias ls='eza  --group-directories-first'
     alias la='eza -alhg --group-directories-first'
-    alias lt='eza -alhT --git-ignore --group-directories-first'
+    alias lt='eza -ahT -L 3 --group-directories-first'
+    alias lti='eza -ahT --git-ignore --group-directories-first'
 else
     alias ls='ls --color=auto --group-directories-first'
     alias la='ls -alh --color=auto --group-directories-first'
