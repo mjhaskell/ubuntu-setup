@@ -33,22 +33,21 @@ return {
         "lua_ls",
 
         -- Python
-        "pyright", -- LSP
+        -- "pyright", -- LSP
         -- "pylsp", -- LSP
         -- "autopep8", -- formatter
-        -- "black", -- formatter
         -- "debugpy",
         -- TODO: install plugins: nvim-dap and nvim-dap-python
 
         -- C++
-        "clangd", -- actual LSP
+        -- "clangd", -- actual LSP
         -- "clang-format", -- formats code
         -- "cpplint", -- linter following Google's style guide (doesn't change code)
         -- "cpptools", -- VS Code tool for debugging (DAP)
 
         -- Latex
         "texlab", -- LSP
-        "ltex", -- grammar and spell checking LSP
+        -- "ltex", -- grammar and spell checking LSP
 
         -- Bash
         "bashls", -- nothing specifically for zsh

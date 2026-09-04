@@ -1,3 +1,6 @@
+if false then
+  return {}
+end
 return {
   "neovim/nvim-lspconfig",
 
@@ -33,7 +36,11 @@ return {
 
     { -- optional blink completion source for require statements and module annotations
       "saghen/blink.cmp",
-      build = "cargo build --release",
+      -- dependencies = {
+      --   { "giuxtaposition/blink-cmp-copilot" },
+      -- },
+      -- build = "cargo build --release",
+      version = "1.*",
       -- enabled = vim.g.blink_enabled,
       opts = {
         keymap = { preset = "default" },
@@ -53,6 +60,7 @@ return {
         sources = {
           -- add lazydev to your completion providers
           default = { "lazydev", "lsp", "path", "snippets", "buffer" },
+          -- default = { "lazydev", "lsp", "path", "snippets", "buffer", "copilot" },
           providers = {
             lazydev = {
               name = "LazyDev",
@@ -60,6 +68,12 @@ return {
               -- make lazydev completions top priority (see `:h blink.cmp`)
               score_offset = 100,
             },
+            -- copilot = {
+            --   name = "Copilot",
+            --   module = "blink-cmp-copilot",
+            --   score_offset = 90,
+            --   async = true,
+            -- },
           },
         },
         fuzzy = { implementation = "prefer_rust_with_warning" },
@@ -74,7 +88,14 @@ return {
       clangd = {},
       -- pyright = { cmd = { vim.env.HOME .. "/.pyvenvs/default/bin/pyright-langserver", "--stdio" } },
       pyright = {},
-      ltex = {},
+      jedi_language_server = {},
+      -- ltex = {},
+      harper_ls = {
+        filetypes = { "markdown", "text", "tex", "latex" },
+        -- settings = {
+        --   ["harper-ls"] = {},
+        -- },
+      },
     },
   },
 
@@ -144,7 +165,12 @@ return {
         keymap.set("n", "K", vim.lsp.buf.hover, km_opts)
 
         km_opts.desc = "Restart LSP"
-        keymap.set("n", "<leader>cl", ":LspRestart<CR>", km_opts)
+        keymap.set("n", "<leader>cl", ":lsp restart<CR>", km_opts)
+
+        km_opts.desc = "Enable Jedi LSP"
+        keymap.set("n", "<leader>cJ", function()
+          vim.lsp.enable("jedi_language_server")
+        end, km_opts)
       end,
     })
 
@@ -180,8 +206,18 @@ return {
     for server, config in pairs(opts.servers) do
       config.capabilities = require("blink.cmp").get_lsp_capabilities(config.capabilities)
       vim.lsp.config(server, config)
+      vim.lsp.enable(server)
       -- lspconfig[server].setup(config)  -- DEPRECATED
     end
+
+    -- -- Attach both pyright and jedi_language_server for python files
+    -- vim.api.nvim_create_autocmd("FileType", {
+    --   pattern = "python",
+    --   callback = function()
+    --     vim.lsp.start({ name = "pyright" })
+    --     vim.lsp.start({ name = "jedi_language_server" })
+    --   end,
+    -- })
 
     -- mason_lspconfig.setup_handlers({
     --   -- default handler for installed servers

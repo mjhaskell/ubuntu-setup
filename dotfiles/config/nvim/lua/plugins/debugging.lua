@@ -11,10 +11,41 @@ return {
     "mfussenegger/nvim-dap-python",
   },
 
-  config = function()
+  opts = {},
+  config = function(_, opts)
     local dap = require("dap")
     local ui = require("dapui")
+    require("lazydev").setup({
+      library = { "nvim-dap-ui" },
+    })
     ui.setup()
+    vim.api.nvim_create_autocmd({ "BufEnter", "WinEnter" }, {
+      group = vim.api.nvim_create_augroup("ClearLeakedDapUIWinbar", { clear = true }),
+      callback = function()
+        local ft = vim.bo.filetype
+        if ft == "dap-repl" or vim.startswith(ft, "dapui_") then
+          return
+        end
+
+        if vim.wo.winbar:find("_dapui", 1, true) then
+          vim.wo.winbar = ""
+        end
+      end,
+    })
+
+    local uiwidgets = require("dap.ui.widgets")
+
+    -- require("mason").setup()
+    -- require("mason-nvim-dap").setup({
+    --   ensure_installed = {
+    --     "python",
+    --     "cppdbg",
+    --     "codelldb",
+    --     "gdb",
+    --   },
+    --   -- automatic_installation = true,
+    --   -- handlers = {},
+    -- })
 
     local vtext = require("nvim-dap-virtual-text")
     vtext.setup({
@@ -55,12 +86,27 @@ return {
         .. "/debugAdapters/bin/OpenDebugAD7",
     }
     dap.adapters.codelldb = { -- C/C++/Rust
-      id = "codelldb",
+      -- id = "codelldb",
       type = "executable",
       -- command = "codelldb",
       command = os.getenv("HOME")
-        -- .. "/.vscode/extensions/vadimcn.vscode-lldb-1.11.5/adapter/codelldb",
-        .. "/software/codelldb/build/adapter/codelldb",
+        --   -- .. "/.vscode/extensions/vadimcn.vscode-lldb-1.11.5/adapter/codelldb",
+        -- .. "/software/codelldb/build/adapter/codelldb",
+        .. "/bin/codelldb",
+
+      -- type = "server",
+      -- port = "${port}",
+      -- executable = {
+      --   command = function()
+      --     local mason_path = vim.fn.stdpath("data") .. "/mason/bin/codelldb"
+      --     if vim.fn.filereadable(mason_path) == 1 then
+      --       return mason_path
+      --     else
+      --       return "codelldb"
+      --     end
+      --   end,
+      --   args = { "--port", "${port}" },
+      -- },
     }
 
     dap.configurations.c = {
@@ -76,9 +122,16 @@ return {
         setupCommands = {
           {
             text = "-enable-pretty-printing",
+            -- text = "command script import ~/ubuntu-setup/dotfiles/apps/eigen/eigenlldb.py",
+            -- text = "command source ~/.lldbinit",
             desc = "enable pretty printing",
             ignoreFailures = false,
           },
+        },
+        initCommands = {
+          "command source ~/.lldbinit",
+          -- "command script import ~/ubuntu-setup/dotfiles/apps/eigen/eigenlldb.py",
+          -- "command script import ~/ubuntu-setup/dotfiles/apps/eigen/LLDB_Eigen_Pretty_Printer.py",
         },
       },
       {
@@ -217,30 +270,39 @@ return {
     vim.keymap.set("n", "<leader>du", ui.toggle, { desc = "Dap UI toggle" })
     vim.keymap.set("n", "<leader>d?", ui.eval, { desc = "Debug: Evaluate under cursor or visually selected" })
     vim.keymap.set("n", "<leader>dk", ui.eval, { desc = "Debug: Evaluate under cursor or visually selected" })
+    -- vim.keymap.set("n", "<leader>dk", uiwidgets.hover, { desc = "Debug: Evaluate under cursor or visually selected" })
+
+    vim.keymap.set("n", "<F2>", dap.run_to_cursor, { desc = "Debug: run to cursor (here)" })
     vim.keymap.set("n", "<leader>dh", dap.run_to_cursor, { desc = "Debug: run to cursor (here)" })
     vim.keymap.set("n", "<leader>dl", dap.run_last, { desc = "Debug: run last session" })
 
     vim.keymap.set("n", "<leader>db", dap.toggle_breakpoint, { desc = "Toggle breakpoint" })
+    vim.keymap.set("n", "<leader>dB", function()
+      require("dap").set_breakpoint(vim.fn.input("Breakpoint condition: "))
+    end, { desc = "Set conditional breakpoint" })
     vim.keymap.set("n", "<leader>d<CR>", dap.toggle_breakpoint, { desc = "Toggle breakpoint" })
     vim.keymap.set("n", "<leader>d<BS>", dap.clear_breakpoints, { desc = "Remove all breakpoint" })
 
     vim.keymap.set("n", "<F5>", dap.continue, { desc = "Debug: continue" })
     vim.keymap.set("n", "<leader>dc", dap.continue, { desc = "Debug: continue" })
 
-    vim.keymap.set("n", "<F4>", dap.step_over, { desc = "Debug: step over" })
+    vim.keymap.set("n", "<F8>", dap.step_over, { desc = "Debug: step over" })
     vim.keymap.set("n", "<leader>ds", dap.step_over, { desc = "Debug: step over" })
 
     vim.keymap.set("n", "<F6>", dap.step_into, { desc = "Debug: step into" })
     vim.keymap.set("n", "<leader>di", dap.step_into, { desc = "Debug: step into" })
 
-    vim.keymap.set("n", "<F9>", dap.step_out, { desc = "Debug: step out" })
+    vim.keymap.set("n", "<F4>", dap.step_out, { desc = "Debug: step out" })
     vim.keymap.set("n", "<leader>do", dap.step_out, { desc = "Debug: step out" })
 
     vim.keymap.set("n", "<leader>dp", dap.step_back, { desc = "Debug: step back (previous)" })
 
-    vim.keymap.set("n", "<F1>", dap.restart, { desc = "Debug: restart" })
+    vim.keymap.set("n", "<F9>", dap.restart, { desc = "Debug: restart" })
     vim.keymap.set("n", "<leader>dr", dap.restart, { desc = "Debug: restart" })
 
     vim.keymap.set("n", "<leader>dq", dap.terminate, { desc = "Debug: stop" })
+
+    vim.keymap.set("n", "<leader>dR", dap.repl.toggle, { desc = "Toggle REPL" })
+    vim.keymap.set("n", "<leader>dw", uiwidgets.hover, { desc = "Widgets" })
   end,
 }

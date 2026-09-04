@@ -130,7 +130,14 @@ return {
         --component_separators = { left = '', right = '' }
         disabled_filetypes = {
           statusline = {},
-          winbar = {},
+          winbar = {
+            "dap-repl",
+            "dapui_breakpoints",
+            "dapui_console",
+            "dapui_scopes",
+            "dapui_stacks",
+            "dapui_watches",
+          },
         },
         ignore_focus = {},
         always_divide_middle = true,
@@ -247,59 +254,61 @@ return {
         -- lualine_z = { "windows" },
       },
 
-      winbar = {
-        lualine_a = {},
-        lualine_b = {},
-        lualine_c = {},
-        lualine_x = {},
-        lualine_y = {},
-        lualine_z = {},
-        -- cond = function()
-        --   return false
-        -- end,
-        -- lualine_a = { "windows" },
-        -- lualine_c = {
-        --   {
-        --     "filename",
-        --     file_status = true,
-        --     symbols = {
-        --       modified = "[+]",
-        --       readonly = "[Read Only]",
-        --       unnamed = "[No Name]",
-        --       newfile = "[New]",
-        --     },
-        --   },
-        -- },
-        -- lualine_x = { "diff", "location" },
-        -- lualine_z = { "filename" },
-      },
+      winbar = {},
+      -- winbar = {
+      --   lualine_a = {},
+      --   lualine_b = {},
+      --   lualine_c = {},
+      --   lualine_x = {},
+      --   lualine_y = {},
+      --   lualine_z = {},
+      --   -- cond = function()
+      --   --   return false
+      --   -- end,
+      --   -- lualine_a = { "windows" },
+      --   -- lualine_c = {
+      --   --   {
+      --   --     "filename",
+      --   --     file_status = true,
+      --   --     symbols = {
+      --   --       modified = "[+]",
+      --   --       readonly = "[Read Only]",
+      --   --       unnamed = "[No Name]",
+      --   --       newfile = "[New]",
+      --   --     },
+      --   --   },
+      --   -- },
+      --   -- lualine_x = { "diff", "location" },
+      --   -- lualine_z = { "filename" },
+      -- },
 
-      inactive_winbar = {
-        lualine_a = {},
-        lualine_b = {},
-        lualine_c = {},
-        lualine_x = {},
-        lualine_y = {},
-        lualine_z = {},
-        -- cond = function()
-        --   return false
-        -- end,
-        -- lualine_a = { "windows" },
-        -- lualine_c = {
-        --   {
-        --     "filename",
-        --     file_status = true,
-        --     symbols = {
-        --       modified = "[+]",
-        --       readonly = "[Read Only]",
-        --       unnamed = "[No Name]",
-        --       newfile = "[New]",
-        --     },
-        --   },
-        -- },
-        -- lualine_x = { "diff", "location" },
-        -- lualine_z = { "filename" },
-      },
+      inactive_winbar = {},
+      -- inactive_winbar = {
+      --   lualine_a = {},
+      --   lualine_b = {},
+      --   lualine_c = {},
+      --   lualine_x = {},
+      --   lualine_y = {},
+      --   lualine_z = {},
+      --   -- cond = function()
+      --   --   return false
+      --   -- end,
+      --   -- lualine_a = { "windows" },
+      --   -- lualine_c = {
+      --   --   {
+      --   --     "filename",
+      --   --     file_status = true,
+      --   --     symbols = {
+      --   --       modified = "[+]",
+      --   --       readonly = "[Read Only]",
+      --   --       unnamed = "[No Name]",
+      --   --       newfile = "[New]",
+      --   --     },
+      --   --   },
+      --   -- },
+      --   -- lualine_x = { "diff", "location" },
+      --   -- lualine_z = { "filename" },
+      -- },
 
       extensions = {},
     })

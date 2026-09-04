@@ -38,6 +38,16 @@ return {
     window = {
       position = "float",
       width = 30,
+      mappings = {
+        ["s"] = "none", -- disable for flash to work
+        [";"] = "open_vsplit",
+        -- ["S"] = "open_vsplit", -- override split since I never use it
+        ["S"] = { "show_help", nowait = false, config = { title = "Open splits", prefix_key = "S" } },
+        ["Sl"] = "open_vsplit",
+        ["Sv"] = "open_vsplit",
+        ["Sh"] = "open_split",
+        ["Sj"] = "open_split",
+      },
     },
 
     filesystem = {

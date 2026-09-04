@@ -21,6 +21,7 @@ return {
         lua = { "stylua" },
         -- python = { "isort", "black" },
         python = { "black" },
+        -- python = { "ruff_organize_imports", "ruff_format" },
         c = { "clang_format" },
         cpp = { "clang_format" },
         rust = { "clang_format" },

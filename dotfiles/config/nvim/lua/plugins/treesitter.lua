@@ -1,7 +1,5 @@
 return {
   "nvim-treesitter/nvim-treesitter",
-  event = { "BufReadPre", "BufNewFile" },
-  build = ":TSUpdate",
   dependencies = {
     "nvim-treesitter/nvim-treesitter-context",
     -- "nvim-treesitter/nvim-treesitter-textobjects",
@@ -9,10 +7,12 @@ return {
     "windwp/nvim-ts-autotag",
     -- "p00f/nvim-ts-rainbow",
   },
+  -- branch = "master",
+  version = "0.2.x",
+  event = { "BufReadPre", "BufNewFile" },
+  build = ":TSUpdate",
   config = function()
-    local treesitter = require("nvim-treesitter.configs")
-
-    treesitter.setup({
+    require("nvim-treesitter.config").setup({
 
       highlight = {
         enable = true,
@@ -39,6 +39,9 @@ return {
       -- },
 
       autotag = { enable = true },
+
+      -- installs language when opening that filetype
+      -- auto_install = true,
 
       ensure_installed = {
         "lua",

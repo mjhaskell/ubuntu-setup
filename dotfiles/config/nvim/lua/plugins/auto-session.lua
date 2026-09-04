@@ -17,7 +17,16 @@ return {
   setup = function()
     local as = require("auto-session").setup({
       -- don't save save session when in dashboard
-      bypass_save_filetypes = { "alpha", "dashboard" },
+      bypass_save_filetypes = {
+        "alpha",
+        "dashboard",
+        "dap-repl",
+        "dapui_breakpoints",
+        "dapui_console",
+        "dapui_scopes",
+        "dapui_stacks",
+        "dapui_watches",
+      },
     })
   end,
 
