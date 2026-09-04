@@ -138,10 +138,13 @@ bindsym $mod+n      [app_id="spad_normal"] scratchpad show
 bindsym $mod+Shift+n exec $term_named "spad_normal"
 
 # Math terminal (ipython3)
-# bindsym $mod+m       [instance="spad_math"] scratchpad show
-# bindsym $mod+Ctrl+m [instance="spad_math"] scratchpad show, move position 1050 700 
-# bindsym $mod+Shift+m [instance="spad_math"] scratchpad show, move position 1050 700 
+# bindsym $mod+m [app_id="spad_math"] scratchpad show
+# bindsym $mod+Shift+m exec $term_named "spad_math" python -i -m IPython
 
 # Create and show scratpad windows
 bindsym $mod+minus move to scratchpad
 bindsym $mod+plus scratchpad show
+
+# Status panel (btm)
+bindsym $mod+i [app_id="spad_info"] scratchpad show
+bindsym $mod+Shift+i exec $term_named "spad_info" btm
