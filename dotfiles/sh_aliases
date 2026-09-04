@@ -112,6 +112,14 @@ if [ -n "$ZSH_NAME" ]; then
         done
     }
     compdef _scanip scanip
+    _db_enter() {
+        # Fetch only rows containing '|', skip the header row, and print the 3rd column
+        containers=($(distrobox list --no-color 2>/dev/null | grep -E '^(ID|([a-f0-9]+))' | awk 'NR>1 {print $3}'))
+        for c in $containers; do
+            compadd $c
+        done
+    }
+    compdef _db_enter db_enter
 elif [ -n "$BASH" ]; then
     #echo "in bash"
     complete -W "$(ls $HOME/.pyvenvs)" svenv

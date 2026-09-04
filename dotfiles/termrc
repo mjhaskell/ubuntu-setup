@@ -53,9 +53,9 @@ if [ -d /opt/nvim-linux-x86_64 ]; then
 fi
 
 # source ros config
-#if [ -f ~/.rosrc ]; then
-#    . ~/.rosrc
-#fi
+if [[ "$OS_ID" == "ubuntu" && -f ~/.rosrc ]]; then
+  . ~/.rosrc
+fi
 
 # add gradle to path if not already
 # if [ -d /opt/gradle ]; then
@@ -106,8 +106,28 @@ fi
 
 # Python virtual environments
 if [ "$TERM_PROGRAM" != "vscode" ]; then
-  if [ -d $HOME/.pyvenvs/default ]; then
-    source $HOME/.pyvenvs/default/bin/activate
+  if [[ "$OS_ID" == "arch" ]]; then
+    if [ -d $HOME/.pyvenvs/default ]; then
+      source $HOME/.pyvenvs/default/bin/activate
+    fi
+  elif [[ "$OS_ID" == "ubuntu" ]]; then
+    version_id=$(grep -E '^VERSION_ID=' /etc/os-release | cut -d'=' -f2 | tr -d '"')
+    if [[ "$version_id" == "26.04" ]]; then
+      echo_blue "Running Ubuntu 26.04"
+      if [ -d $HOME/.pyvenvs/ub26 ]; then
+        source $HOME/.pyvenvs/ub26/bin/activate
+      fi
+    elif [[ "$version_id" == "24.04" ]]; then
+      echo_blue "Running Ubuntu 24.04"
+      if [ -d $HOME/.pyvenvs/ub24 ]; then
+        source $HOME/.pyvenvs/ub24/bin/activate
+      fi
+    elif [[ "$version_id" == "22.04" ]]; then
+      echo_blue "Running Ubuntu 22.04"
+      if [ -d $HOME/.pyvenvs/ub22 ]; then
+        source $HOME/.pyvenvs/ub22/bin/activate
+      fi
+    fi  
   fi
 fi
 

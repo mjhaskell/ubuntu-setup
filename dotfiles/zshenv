@@ -1,6 +1,9 @@
 export WORDCHARS='*?.[]~&;!#$%^(){}<>'
 
 export OS_ID=$(grep -E '^ID=' /etc/os-release | cut -d'=' -f2)
+# if [[ "$OS_ID" == "ubuntu" ]]; then
+#   VERSION_ID=$(grep -E '^VERSION_ID=' /etc/os-release | cut -d'=' -f2)
+# fi
 
 # source "$HOME/.cargo/env"
 
