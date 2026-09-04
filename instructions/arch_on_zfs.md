@@ -42,9 +42,9 @@ ashift values:
 sudo zpool create \
     -o ashift=12 \ # verify ashift (see above)
     -o autotrim=on \ # automatically optimistically trim physical drive
-    -R /mnt \ # specify alternate root directory (if mounted at /mnt)
+    -R /mnt \ # specify alternate root directory (to temporarily mount at /mnt)
     -O xattr=sa \ # extended attributes set to sa
-    -O compression=lz4 \ # default compression type
+    -O compression=zstd-5 \ # default compression type (media: lz4, root pool: zstd-5, home pool: zstd-7 or higher)
     -O atime=off \ # access time
     -O relatime=off \ # relative access time
     -O recordsize=512K \ # default is 128K (Jim Salter says 1M for most things), datasets can change this later
@@ -57,6 +57,11 @@ sudo zpool create \
     /dev/disk/by-id/<disk or partition specifier> # ata-Samsung-990-Pro-<serial> (comes from /dev/disk/by-id)
 ```
 
+!!! note
+
+    If the drive is plugged in over USB, you will need to change the disk-id after installing it internally.
+    Use a global identifier, such as `wwn*` or `nvme-eui*`.
+
 ## Step 3: Create vdevs
 
 Can add more, but the creating the zpool with a device automatically adds it as a vdev.
@@ -65,7 +70,7 @@ Can add more, but the creating the zpool with a device automatically adds it as 
 
 Go to Bitwarden and create a secure password.
 Create a file and put the password in it.
-Note where you save the file `/path/<nem_pool0_root>.key`
+Note where you save the file `/path/<nem_pool0_root>.key` (perhaps `/zfs-keys/<name>.key`)
 
 ## Step 5: Create datasets
 
@@ -94,15 +99,21 @@ sudo zfs create \
     -o keylocation=file://<full path (start with another /) on active device where you saved a password>.key \
     -o keyformat=passphrase \
     -o mountpoint=/home \
+    -o recordsize=1M \
+    -o compression=zstd-5 \ # may want higher
     nempool0/nemhome
-sudo zfs set recordsize=1M nempool0/nemhome
-sudo zfs set compression=zstd nempool0/nemhome
+```
+
+#### Unmount all datasets
+
+```sh
+sudo zfs umount -a
 ```
 
 #### Test it
 
 ```sh
-sudo zpool export zroot
+sudo zpool export nemroot
 sudo zpool import -N -R /mnt nempool0
 sudo zfs list # should be unavailable
 sudo zfs load-key nempool0/nemroot
@@ -125,18 +136,48 @@ sudo mount /dev/<efi partition identifier> /mnt/efi
 #### Copy arch onto drive
 
 ```sh
-sudo pacstrap /mnt base base-devel linux-lts linux-firmware linux-lts-headers dkms vim openssh rsync man-pages man-db pacman-contrib git curl zsh zsh-autosuggestions zsh-syntax-highlighting zsh-completions tmux iwd openresolv # zfs-dkms zfs-utils zfsbootmenu
+sudo pacstrap /mnt base base-devel linux-lts linux-firmware linux-lts-headers dkms vim openssh rsync man-pages man-db pacman-contrib git curl zsh zsh-autosuggestions zsh-syntax-highlighting zsh-completions tmux iwd openresolv > pacstrap_<hostname>.log # zfs-dkms zfs-utils zfsbootmenu
 ```
+
+??? note "Note on linux-firmware"
+
+    Query missing firmware (not through live disk - on installed internal drive):
+
+    ```sh
+    sudo dmesg | grep -i firmware
+    ```
+
+    Can install all `linux-firmware` or individual components:
+
+    - linux-firmware-amdgpu
+    - linux-firmware-atheros
+    - linux-firmware-broadcom
+    - linux-firmware-cirrus
+    - linux-firmware-intel
+    - linux-firmware-mediatek
+    - linux-firmware-nvidia
+    - linux-firmware-other
+    - linux-firmware-radeon
+    - linux-firmware-realtek
+
+    Optional:
+
+    - linux-firmware-liquidio: Firmware for Cavium LiquidIO server adapters
+    - linux-firmware-marvell: Firmware for Marvell devices
+    - linux-firmware-mellanox: Firmware for Mellanox Spectrum switches
+    - linux-firmware-nfp: Firmware for Netronome Flow Processors
+    - linux-firmware-qcom: Firmware for Qualcomm SoCs
+    - linux-firmware-qlogic: Firmware for QLogic devices
 
 #### Watch the magic.
 
 ## Step 7: Copy files to new system
 
 ```sh
-cp /etc/hostid /mnt/etc
-cp /etc/resolv.conf /mnt/etc
-mkdir /mnt/etc/zfs # it may already exist, but this isn't a problem
-cp /etc/zfs/zroot.key /mnt/etc/zfs
+cp /etc/hostid /mnt/etc/.
+cp /etc/resolv.conf /mnt/etc/.
+mkdir /mnt/zfs-keys
+cp /zfs-keys/<name>.key /mnt/zfs-keys/.
 cp /etc/pacman.conf /mnt/etc/pacman.conf
 ```
 
@@ -164,7 +205,7 @@ hwclock --systohc
 #### Generate locales
 
 ```sh
-vim /etc/local.gen ## uncomment all locales you need, e.g., en_US.UTF-8 UTF-8
+vim /etc/locale.gen ## uncomment all locales you need, e.g., en_US.UTF-8 UTF-8
 locale-gen
 echo 'LANG=en_US.UTF-8' > /etc/locale.conf
 ```
@@ -173,14 +214,31 @@ echo 'LANG=en_US.UTF-8' > /etc/locale.conf
 
 ```sh
 echo '<hostname>' > /etc/hostname
-echo '127.0.0.1   <hostname>' >> /etc/hosts
+echo '127.0.0.1   localhost' >> /etc/hosts
+echo '::1         localhost' >> /etc/hosts
+echo '127.0.1.1   <hostname>.home.arpa <hostname>' >> /etc/hosts
 ```
 
 #### Install ZFS packages from AUR
 
-    - zfs-dkms
-    - zfs-utils
-    - zfsbootmenu
+- `zfs-utils`
+- `zfs-dkms`
+- `zfsbootmenu`
+
+```sh
+mkdir ~/aur_pkgs && cd ~/aur_pkgs
+git clone https://aur.archlinux.org/zfs-utils
+git clone https://aur.archlinux.org/zfs-dkms
+git clone https://aur.archlinux.org/zfsbootmenu
+cd zfs-utils
+mkpkg -s
+cd ../zfs-dkms
+mkpkg -s
+cd ..
+sudo pacman -U zfs-utils/<file>.tar zfs-dkms/<file>.tar
+cd zfsbootmenu
+mkpkg -si
+```
 
 ## Step 10: Install refind
 
@@ -216,14 +274,14 @@ echo 'FILES+=(/etc/zfs/keys/nem_pool0_root.key)' >> /etc/mkinitcpio.conf
 
 ```txt
 <!-- HOOKS=(base udev autodetect modconf block keyboard zfs filesystems) -->
-HOOKS=(base udev autodetect microcode modconf kms keyboard keymap consolefont block zfs filesystems fsck)
+HOOKS=(base udev keyboard autodetect microcode modconf kms keymap block zfs filesystems fsck)
 <!-- CAN NOT ADD "zfsbootmenu" -->
 ```
 
 #### Generate initramfs
 
 ```sh
-mkinitcpio -P
+sudo mkinitcpio -P
 ```
 
 ## Step 12: Setup users
@@ -237,7 +295,7 @@ passwd
 #### Create user and give it a password
 
 ```sh
-useradd -m -s /bin/zsh <username>
+useradd -m -s /usr/bin/zsh <username>
 passwd <username>
 ```
 
@@ -272,10 +330,10 @@ You can manually trigger updates to this file, but only if booted into the live 
 
 #### Create zroot keystore dataset mounted at /etc/zfs/keys (on host machine)
 
-See [ZFS Encription]
+See [ZFS Encryption]
 
 ```sh
-sudo zfs create -o mountpoint=/etc/zfs/keys nempool0/nemroot/keystore
+sudo zfs create -o mountpoint=/zfs-keys nempool0/nemroot/keystore
 sudo chmod 000 /etc/zfs/keys/nem_pool0_root.key
 sudo zfs set keylocation=file:///etc/zfs/keys/nem_pool0_root.key nempool0/nemroot
 sudo zfs set keylocation=file:///etc/zfs/keys/nem_pool0_root.key nempool0/nemhome
