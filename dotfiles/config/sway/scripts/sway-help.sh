@@ -229,65 +229,36 @@ MENU_ITEMS=$(awk '
         }
     }
 
-    # END {
-    #     for (i = 0; i < count; i++) {
-    #         cat_str = "[" raw_cat[i] "]";
-    #         # Formulate the layout format string cleanly with explicit column specifiers
-    #         format_str = "%%-%ds  %%-%ds  ➔    %%s \n"
-    #         final_fmt = sprintf(format_str, max_cat, max_desc)
-    #
-    #         # Print the visible text first, then end with a unique delimiter token and metadata
-    #         printf final_fmt, cat_str, raw_desc[i], raw_key[i]
-    #         # Store metadata lines paired up via an index pattern in a secondary format if needed,
-    #         # but printing it explicitly on the same line with a unique token is easiest:
-    #         printf " [EDIT_METADATA->%s:%s]\n", file_origin[i], line_origin[i]
-    #     }
-    # }
     END {
         for (i = 0; i < count; i++) {
             cat_str = "[" raw_cat[i] "]";
-            format_str = "%%-%ds  %%-%ds  ➔  « %%s »"
+            format_str = "%%-%ds  %%-%ds  ➔    %%s"
             final_fmt = sprintf(format_str, max_cat, max_desc)
 
-            # Print the visible columns first
+            # Print visible text first, then hidden metadata as a second tab-separated field.
+            # Fuzzel displays only field 1 and returns only field 2 via --with-nth/--accept-nth.
             printf final_fmt, cat_str, raw_desc[i], raw_key[i]
-
-            # Append a literal null-byte (\0) so Fuzzel strips everything after it
-            printf "\0[EDIT_METADATA->%s:%s]\n", file_origin[i], line_origin[i]
+            printf "\t%s:%s\n", file_origin[i], line_origin[i]
         }
     }
-    # END {
-    #     for (i = 0; i < count; i++) {
-    #         cat_str = "[" raw_cat[i] "]";
-    #         format_str = "%%-%ds  %%-%ds  ➔  « %%s »"
-    #         final_fmt = sprintf(format_str, max_cat, max_desc)
-    #
-    #         # Print File:Line first, followed by a hard Tab, then the visible columns
-    #         printf "%s:%s\t", file_origin[i], line_origin[i]
-    #         printf final_fmt, cat_str, raw_desc[i], raw_key[i]
-    #         printf "\n"
-    #     }
-    # }
 ' $CONFIG_FILES 2>/dev/null | sort)
-# ' $CONFIG_FILES 2>/dev/null | paste -d ' ' - - | sort)
-# Note: the 'paste' command above joins the text line and metadata line back into a single continuous string cleanly
 
-# Calculate dynamic width (ignoring the metadata tag entirely)
-MAX_LENGTH=$(echo "$MENU_ITEMS" | sed 's/ \[EDIT_METADATA->.*//' | wc -L)
+# Calculate dynamic width from the visible field only
+MAX_LENGTH=$(printf '%s\n' "$MENU_ITEMS" | cut -f1 | wc -L)
 FUZZEL_WIDTH=$((MAX_LENGTH + 4))
 
 # # Pipe the list into fuzzel
-SELECTION=$(echo "$MENU_ITEMS" | fuzzel --dmenu \
+SELECTION=$(printf '%s\n' "$MENU_ITEMS" | fuzzel --dmenu \
+    --with-nth=1 \
+    --accept-nth=2 \
     -p "Filter Shortcuts (Enter to Edit): " \
     --width "$FUZZEL_WIDTH" \
     --lines 15)
 
 # If a selection was made, extract coordinates cleanly
-if [ -n "$SELECTION" ] && [[ "$SELECTION" == *"[EDIT_METADATA->"* ]]; then
-    # Extract everything inside the metadata brackets cleanly
-    META=$(echo "$SELECTION" | sed -n 's/.*\[EDIT_METADATA->\(.*\)\]/\1/p')
-    FILE=$(echo "$META" | cut -d':' -f1)
-    LINE=$(echo "$META" | cut -d':' -f2)
+if [ -n "$SELECTION" ]; then
+    FILE=${SELECTION%:*}
+    LINE=${SELECTION##*:}
 
     # Spawn terminal into floating mode focusing precisely on the file and line
     swaymsg "for_window [app_id=\"foot\" title=\"Sway Config Editor\"] floating enable; exec foot --title='Sway Config Editor' -e nvim +$LINE $FILE"
