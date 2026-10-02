@@ -1,86 +1,148 @@
 # vim: set filetype=swayconfig:
 
 # ---------- Change Focus ---------- #
-# switch focused container on current workspace
-bindsym $mod+h focus left
-bindsym $mod+j focus down
-bindsym $mod+k focus up
-bindsym $mod+l focus right
+# DOC: Nav: Focus window left
+bindsym $mod+H focus left
+# DOC: Nav: Focus window down
+bindsym $mod+J focus down
+# DOC: Nav: Focus window up
+bindsym $mod+K focus up
+# DOC: Nav: Focus window right
+bindsym $mod+L focus right
 
+# DOC: Nav: Focus window left
 bindsym $mod+Left  focus left
+# DOC: Nav: Focus window down
 bindsym $mod+Down  focus down
+# DOC: Nav: Focus window up
 bindsym $mod+Up    focus up
+# DOC: Nav: Focus window right
 bindsym $mod+Right focus right
 
-bindsym $mod+a focus parent
-bindsym $mod+c focus child
+# DOC: Nav: Focus parent window
+bindsym $mod+A focus parent
+# DOC: Nav: Focus child window
+bindsym $mod+C focus child
+
+# fuzzy-search and jump to window using Fuzzel
+# DOC: Nav: Select from all windows
+bindsym $mod+Tab exec ~/.config/sway/scripts/fuzzel-windows.sh all
+# DOC: Nav: Select window from current workspace
+bindsym $alt+Tab exec ~/.config/sway/scripts/fuzzel-windows.sh current
+# DOC: Nav: Select window from scratchpad
+bindsym $mod+Shift+Tab exec ~/.config/sway/scripts/fuzzel-windows.sh scratchpad
+
+# DOC: Nav: Focus window 1 on current workspace
+bindsym $alt+1 exec ~/.config/sway/scripts/jump-to-window.sh 1
+# DOC: Nav: Focus window 2 on current workspace
+bindsym $alt+2 exec ~/.config/sway/scripts/jump-to-window.sh 2
+# DOC: Nav: Focus window 3 on current workspace
+bindsym $alt+3 exec ~/.config/sway/scripts/jump-to-window.sh 3
+# DOC: Nav: Focus window 4 on current workspace
+bindsym $alt+4 exec ~/.config/sway/scripts/jump-to-window.sh 4
+# DOC: Nav: Focus window 5 on current workspace
+bindsym $alt+5 exec ~/.config/sway/scripts/jump-to-window.sh 5
+# DOC: Nav: Focus window 6 on current workspace
+bindsym $alt+6 exec ~/.config/sway/scripts/jump-to-window.sh 6
 
 # switch to workspace
+# DOC: Nav: Focus workspace 1
 bindsym $mod+1 workspace number $ws1
+# DOC: Nav: Focus workspace 2
 bindsym $mod+2 workspace number $ws2
+# DOC: Nav: Focus workspace 3
 bindsym $mod+3 workspace number $ws3
+# DOC: Nav: Focus workspace 4
 bindsym $mod+4 workspace number $ws4
+# DOC: Nav: Focus workspace 5
 bindsym $mod+5 workspace number $ws5
+# DOC: Nav: Focus workspace 6
 bindsym $mod+6 workspace number $ws6
+# DOC: Nav: Focus workspace 7
 bindsym $mod+7 workspace number $ws7
+# DOC: Nav: Focus workspace 8
 bindsym $mod+8 workspace number $ws8
+# DOC: Nav: Focus workspace 9
 bindsym $mod+9 workspace number $ws9
+# DOC: Nav: Focus workspace 10
 bindsym $mod+0 workspace number $ws10
-bindsym $alt+j workspace prev
-bindsym $alt+k workspace next
+# DOC: Nav: Focus workspace prev
+bindsym $alt+J workspace prev
+# DOC: Nav: Focus workspace next
+bindsym $alt+K workspace next
 
-# switch to output
-bindsym $alt+h focus output left
-#bindsym $alt+j focus output down
-#bindsym $alt+k focus output up
-bindsym $alt+l focus output right
+# DOC: Nav: Focus monitor left
+bindsym $alt+H focus output left
+#bindsym $alt+J focus output down
+#bindsym $alt+K focus output up
+# DOC: Nav: Focus monitor right
+bindsym $alt+L focus output right
 
 
 # ---------- Move Windows ---------- #
-# move focused window on current workspace
-bindsym $mod+Shift+h move left
-bindsym $mod+Shift+j move down
-bindsym $mod+Shift+k move up
-bindsym $mod+Shift+l move right
+# DOC: Nav: Move window left
+bindsym $mod+Shift+H move left
+# DOC: Nav: Move window down
+bindsym $mod+Shift+J move down
+# DOC: Nav: Move window up
+bindsym $mod+Shift+K move up
+# DOC: Nav: Move window right
+bindsym $mod+Shift+L move right
 
+# DOC: Nav: Move window left
 bindsym $mod+Shift+Left  move left
+# DOC: Nav: Move window down
 bindsym $mod+Shift+Down  move down
+# DOC: Nav: Move window up
 bindsym $mod+Shift+Up    move up
+# DOC: Nav: Move window right
 bindsym $mod+Shift+Right move right
 
-# move focused window to workspace
+# DOC: Nav: Move window to workspace 1
 bindsym $mod+Shift+1 move container to workspace $ws1; workspace $ws1
+# DOC: Nav: Move window to workspace 2
 bindsym $mod+Shift+2 move container to workspace $ws2; workspace $ws2
+# DOC: Nav: Move window to workspace 3
 bindsym $mod+Shift+3 move container to workspace $ws3; workspace $ws3
+# DOC: Nav: Move window to workspace 4
 bindsym $mod+Shift+4 move container to workspace $ws4; workspace $ws4
+# DOC: Nav: Move window to workspace 5
 bindsym $mod+Shift+5 move container to workspace $ws5; workspace $ws5
+# DOC: Nav: Move window to workspace 6
 bindsym $mod+Shift+6 move container to workspace $ws6; workspace $ws6
+# DOC: Nav: Move window to workspace 7
 bindsym $mod+Shift+7 move container to workspace $ws7; workspace $ws7
+# DOC: Nav: Move window to workspace 8
 bindsym $mod+Shift+8 move container to workspace $ws8; workspace $ws8
+# DOC: Nav: Move window to workspace 9
 bindsym $mod+Shift+9 move container to workspace $ws9; workspace $ws9
+# DOC: Nav: Move window to workspace 10
 bindsym $mod+Shift+0 move container to workspace $ws10; workspace $ws10
-# bindsym $mod+Shift+p move container to workspace prev; workspace prev
-# bindsym $mod+Shift+n move container to workspace next; workspace next
-bindsym $alt+Shift+p move container to workspace prev; workspace prev
-bindsym $alt+Shift+n move container to workspace next; workspace next
+# DOC: Nav: Move window to workspace prev
+bindsym $alt+Shift+P move container to workspace prev; workspace prev
+# DOC: Nav: Move window to workspace next
+bindsym $alt+Shift+N move container to workspace next; workspace next
 
-bindsym $mod+Ctrl+h move workspace to output left; focus output left
-bindsym $mod+Ctrl+j move workspace to output down; focus output down
-bindsym $mod+Ctrl+k move workspace to output up; focus output up
-bindsym $mod+Ctrl+l move workspace to output right; focus output right
+# DOC: Nav: Move workspace to monitor left & focus
+bindsym $mod+Ctrl+H move workspace to output left; focus output left
+# DOC: Nav: Move workspace to monitor down & focus
+bindsym $mod+Ctrl+J move workspace to output down; focus output down
+# DOC: Nav: Move workspace to monitor up & focus
+bindsym $mod+Ctrl+K move workspace to output up; focus output up
+# DOC: Nav: Move workspace to monitor right & focus
+bindsym $mod+Ctrl+L move workspace to output right; focus output right
 
-# move focused window to output
-# bindsym $mod+Ctrl+h move to output left
-# bindsym $mod+Ctrl+j move to output down
-# bindsym $mod+Ctrl+k move to output up
-# bindsym $mod+Ctrl+l move to output right
-bindsym $alt+Shift+h move to output left
-bindsym $alt+Shift+j move to output down
-bindsym $alt+Shift+k move to output up
-bindsym $alt+Shift+l move to output right
+# DOC: Nav: Move window to monitor left & stay
+bindsym $alt+Shift+H move to output left
+# DOC: Nav: Move window to monitor down & stay
+bindsym $alt+Shift+J move to output down
+# DOC: Nav: Move window to monitor up & stay
+bindsym $alt+Shift+K move to output up
+# DOC: Nav: Move window to monitor right & stay
+bindsym $alt+Shift+L move to output right
 
 # move focused workspace to output
-# bindsym $alt+Ctrl+h move workspace to output left
-# bindsym $alt+Ctrl+j move workspace to output down
-# bindsym $alt+Ctrl+k move workspace to output up
-# bindsym $alt+Ctrl+l move workspace to output right
+# bindsym $alt+Ctrl+H move workspace to output left
+# bindsym $alt+Ctrl+J move workspace to output down
+# bindsym $alt+Ctrl+K move workspace to output up
+# bindsym $alt+Ctrl+L move workspace to output right
