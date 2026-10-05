@@ -94,14 +94,14 @@ bindsym $mod+W layout tabbed
 bindsym $mod+E layout toggle split
 
 # DOC: Nav: Set horizontal split
-bindsym $mod+semicolon split h
+bindsym $mod+Semicolon split h
 # DOC: Nav: Set vertical split
 bindsym $mod+V split v
 
 # DOC: Nav: Toggle fullscreen
 bindsym $mod+F fullscreen toggle
 # DOC: Nav: Toggle global fullscreen
-bindsym $mod+Shift+f fullscreen global
+bindsym $mod+Shift+F fullscreen global
 
 
 # ---------- Application Shortcuts ---------- #
@@ -114,34 +114,34 @@ bindsym $mod+Return       exec $term -d none
 # DOC: Apps: Internet browser
 bindsym $mod+G       exec $browser
 # DOC: Apps: Internet browser incognito
-bindsym $mod+Shift+G exec $browser --incognito
-
 # DOC: Apps: Screenshot
-bindsym $mod+Print exec flameshot gui
-# DOC: Apps: Screenshot
-bindsym $mod+Ctrl+P exec flameshot gui
 #bindsym $mod+Print exec gnome-screenshot -i
+
+bindsym $mod+Print exec flameshot gui
+bindsym $mod+Ctrl+P exec flameshot gui
+# DOC: Apps: Screenshot
+bindsym $mod+Shift+G exec $browser --incognito
 
 # DOC: Apps: Show Signal
 bindsym $mod+M [app_id="signal"] scratchpad show
-# DOC: Apps: Start Signal
+# DOC: Apps: Launch/start Signal
 bindsym $mod+Shift+M exec signal-desktop
 
 # DOC: Apps: Show Outlook mail
 bindsym $mod+O [app_id="pkooggnaal.*"] scratchpad show, resize set 1600 1000, move position center
-# DOC: Apps: Start Outlook mail
+# DOC: Apps: Launch/start Outlook mail
 bindsym $mod+Shift+O exec $browser --profile-directory=Default --app-id=pkooggnaalmfkidjmlhoelhdllpphaga %U
 
 # DOC: Apps: Show Teams
 bindsym $mod+T [app_id="cifhbcnohmdccbgoicgdjpfamggdegmo"] scratchpad show, resize set 1500 1000, move position center
-# DOC: Apps: Start Teams
+# DOC: Apps: Launch/start Teams
 bindsym $mod+Shift+T exec $browser --profile-directory=Default --app-id=cifhbcnohmdccbgoicgdjpfamggdegmo %U
 
 # "app" I manually made for Teams
 # bindsym $mod+t [app_id=".*teams\.microsoft\.com.*"] scratchpad show, resize set 1500 1000, move position center
 # bindsym $mod+Shift+t exec $browser --profile-directory=Default --app=https://teams.microsoft.com/v2/
 
-# DOC: System: Start screensaver
+# DOC: System: Launch/start screensaver
 bindsym $alt+Ctrl+Z exec screensaver_start
 # DOC: System: Stop screensaver
 bindsym $alt+Ctrl+Delete exec screensaver_stop
@@ -155,9 +155,9 @@ bindsym $mod+Shift+X exec fnottctl dismiss all
 # $mod+key           Toggle scratchpad window
 # $mod+Shift+key     Move scratchpad window to startup location
 
-# DOC: Apps: Show terminal scratchpad
+# DOC: Apps: Launch/start terminal scratchpad
 bindsym $mod+N      [app_id="spad_normal"] scratchpad show
-# DOC: Apps: Start terminal scratchpad
+# DOC: Apps: Launch/start terminal scratchpad
 bindsym $mod+Shift+N exec $term_named "spad_normal"
 
 # Math terminal (ipython3)
@@ -165,11 +165,11 @@ bindsym $mod+Shift+N exec $term_named "spad_normal"
 # bindsym $mod+Shift+m exec $term_named "spad_math" python -i -m IPython
 
 # DOC: Nav: Move to scratchpad
-bindsym $mod+minus move to scratchpad
+bindsym $mod+Minus move to scratchpad
 # DOC: Nav: Show scratchpad (cycle)
-bindsym $mod+plus scratchpad show
+bindsym $mod+Plus scratchpad show
 
 # DOC: Apps: Show status panel (btm)
 bindsym $mod+I [app_id="spad_info"] scratchpad show
-# DOC: Apps: Start status panel (btm)
+# DOC: Apps: Launch/start status panel (btm)
 bindsym $mod+Shift+I exec $term_named "spad_info" btm
