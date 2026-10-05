@@ -54,7 +54,7 @@ if [[ ! -f $HOME/.tmux.conf ]]; then
 fi
 
 # Arch
-sudo packman -S --needed paman-contrib
+sudo pacman -S --needed pacman-contrib
 
 # fonts
 sudo pacman -S --needed ttf-sourcecodepro-nerd ttf-nerd-fonts-symbols
