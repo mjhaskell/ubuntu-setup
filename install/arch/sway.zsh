@@ -34,7 +34,7 @@ sudo pacman -S --needed fuzzel
 link_dir $DOTFILES_DIR/config/fuzzel $HOME/.config/fuzzel
 
 # sway
-sudo pacman -S --needed sway jq
+sudo pacman -S --needed sway jq xdg-desktop-portal-wlr xdg-desktop-portal-gtk
 link_dir $DOTFILES_DIR/config/sway $HOME/.config/sway
 
 # status bar
