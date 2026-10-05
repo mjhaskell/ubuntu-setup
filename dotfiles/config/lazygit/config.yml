@@ -1,6 +1,6 @@
 nerdFontsVersion: "3"
 git:
-  pagers:
+  diffRenderers:
     - colorArg: always
       # pager: delta --dark --paging=never --hyperlinks --line-numbers
-      pager: delta --paging=never --hyperlinks --line-numbers
+      command: delta --paging=never --hyperlinks --line-numbers
