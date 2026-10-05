@@ -1,7 +1,8 @@
 #!/usr/bin/zsh
 
 SCRIPT_DIR="$(cd "$(dirname $0)" && pwd)"
-SETUP_DIR="$(cd $SCRIPT_DIR/.. && pwd)"
+SETUP_DIR="$(cd $SCRIPT_DIR/../.. && pwd)"
+DOTFILES_DIR="$SETUP_DIR/dotfiles"
 
 echo_blue "Installing common packages"
 
@@ -20,6 +21,7 @@ sudo pacman -S --needed archlinux-keyring dkms
 
 # general utility
 sudo pacman -S --needed curl wget openssh rsync unzip
+sudo pacman -S --needed zsh zsh-autocomplete zsh-autosuggestions zsh-syntax-highlighting zsh-completions
 sudo pacman -S --needed git lazygit git-delta
 sudo pacman -S --needed bat ripgrep fd fzf eza
 sudo pacman -S --needed htop bottom powertop
@@ -29,29 +31,50 @@ sudo pacman -S --needed man-pages man-db
 sudo pacman -S --needed lshw
 sudo pacman -S --needed duf  # disk utility
 
-if [ ! -d $HOME/.config/lazygit ]; then
-  ln -s $SETUP_DIR/dotfiles/config/lazygit $HOME/.config/.
-fi
+link_file() {
+  if [ ! -f $2 ]; then
+    ln -s $1 $2
+    echo_blue "Linked $2 -> $1"
+  else
+    echo_yellow "File already exists: $2"
+  fi
+}
+link_dir() {
+  if [ ! -d $2 ]; then
+    ln -s $1 $2
+    echo_blue "Linked $2 -> $1"
+  else
+    echo_yellow "Dir already exists: $2"
+  fi
+}
+
+link_file $DOTFILES_DIR/zshrc $HOME/.zshrc
+link_dir $DOTFILES_DIR/zshconf $HOME/.zshconf
+link_file $DOTFILES_DIR/zshenv $HOME/.zshenv
+link_file $DOTFILES_DIR/termrc $HOME/.termrc
+link_file $DOTFILES_DIR/sh_aliases $HOME/.sh_aliases
+link_file $DOTFILES_DIR/gitconfig $HOME/.gitconfig
+link_file $DOTFILES_DIR/apps/tmux/tmux.conf $HOME/.tmux.conf
+link_dir $DOTFILES_DIR/config/lazygit $HOME/.config/lazygit
+link_file $SETUP_DIR/bin/create_sshkey $HOME/bin/create_sshkey
+
 if [ ! -f $HOME/.ssh/config ]; then
   touch $HOME/.ssh/config
   echo "Host github" >> $HOME/.ssh/config
   echo "  Hostame github.com" >> $HOME/.ssh/config
-  echo "  User <username>" >> $HOME/.ssh/config
-  echo "  IdentityFile ~/.ssh/<private_key>" >> $HOME/.ssh/config
+  echo "  User git" >> $HOME/.ssh/config
+  echo "  IdentityFile ~/.ssh/git.github" >> $HOME/.ssh/config
   echo "" >> $HOME/.ssh/config
 fi
 echo_purple "You may want to disable ssh passwd authentication in /etc/ssh/..."
 
 # vim
 sudo pacman -S --needed gvim  # gvim has system +clipboard
-if [ ! -f $HOME/.vimrc ]; then
-  ln -s $SETUP_DIR/dotfiles/vimrc $HOME/.vimrc
+link_file $DOTFILES_DIR/vimrc $HOME/.vimrc
 
 # tmux
 sudo pacman -S --needed tmux
-if [[ ! -f $HOME/.tmux.conf ]]; then
-  ln -s $SETUP_DIR/dotfiles/apps/tmux/tmux.conf $HOME/.tmux.conf
-fi
+link_file $DOTFILES_DIR/apps/tmux/tmux.conf $HOME/.tmux.conf
 
 # Arch
 sudo pacman -S --needed pacman-contrib
@@ -73,3 +96,4 @@ sudo pacman -S --needed iwd
 
 
 echo_green "Common packages installed"
+

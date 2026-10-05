@@ -1,7 +1,7 @@
 #!/usr/bin/zsh
 
 SCRIPT_DIR="$(cd "$(dirname $0)" && pwd)"
-SETUP_DIR="$(cd $SCRIPT_DIR/.. && pwd)"
+SETUP_DIR="$(cd $SCRIPT_DIR/../.. && pwd)"
 
 echo_blue "Installing neovim"
 
@@ -13,7 +13,8 @@ sudo pacman -S --needed --asdeps rustup
 sudo pacman -S --needed --asdeps nodejs npm
 
 if [ ! -d $HOME/.config/nvim ]; then
-  ln -s $HOME/ubuntu-setup/dotfiles/config/nvim $HOME/.config.
+  ln -s $HOME/ubuntu-setup/dotfiles/config/nvim $HOME/.config/.
+  echo_blue "Linked $HOME/.config/nvim -> $HOME/ubuntu-setup/dotfiles/config/nvim"
 fi
 
 echo_green "neovim installed"

@@ -1,7 +1,18 @@
 #!/usr/bin/zsh
 
 SCRIPT_DIR="$(cd "$(dirname $0)" && pwd)"
-SETUP_DIR="$(cd $SCRIPT_DIR/.. && pwd)"
+SETUP_DIR="$(cd $SCRIPT_DIR/../.. && pwd)"
+DOTFILES_DIR="$SETUP_DIR/dotfiles"
+
+link_dir() {
+  if [ ! -d $2 ]; then
+    ln -s $1 $2
+    echo_blue "Linked $2 -> $1"
+  else
+    echo_yellow "Dir already exists: $2"
+  fi
+}
+
 
 echo_blue "Installing sway"
 
@@ -14,42 +25,25 @@ sudo pacman -S --needed wl-clipboard wev
 
 # terminal
 sudo pacman -S --needed foot foot-terminfo
-if [ ! -d $HOME/.config/foot ]; then
-  ln -s $SETUP_DIR/dotfiles/config/foot $HOME/.config/.
-fi
-if [ ! -d $HOME/.config/fontconfig ]; then
-  ln -s $SETUP_DIR/dotfiles/config/fontconfig $HOME/.config/.
-fi
+link_dir $DOTFILES_DIR/config/foot $HOME/.config/foot
+link_dir $DOTFILES_DIR/config/fontconfig $HOME/.config/fontconfig
 # sudo cp $HOME/linarch/etc/fonts_local.conf /etc/fonts/local.conf
 
 # application launcher
 sudo pacman -S --needed fuzzel
-if [ ! -d $HOME/.config/fuzzel ]; then
-  ln -s $SETUP_DIR/dotfiles/config/fuzzel $HOME/.config/.
-fi
+link_dir $DOTFILES_DIR/config/fuzzel $HOME/.config/fuzzel
 
 # sway
 sudo pacman -S --needed sway
-if [ ! -d $HOME/.config/sway ]; then
-  ln -s $SETUP_DIR/dotfiles/config/sway $HOME/.config/.
-fi
+link_dir $DOTFILES_DIR/config/sway $HOME/.config/sway
 
 # status bar
 sudo pacman -S --needed i3status
-if [ ! -d $HOME/.config/i3status ]; then
-  mkdir $HOME/.config/i3status
-  if hostnamectl | grep "Chassis" | grep -qi "laptop"; then
-    ln -s $SETUP_DIR/dotfiles/config/i3status/config_laptop $HOME/.config/.
-  else
-    ln -s $SETUP_DIR/dotfiles/config/i3status/config_desktop $HOME/.config/.
-  fi
-fi
+link_dir $DOTFILES_DIR/config/i3status $HOME/.config/i3status
 
 # screen lock
 sudo pacman -S --needed swayidle swaylock
-if [ ! -d $HOME/.config/swaylock ]; then
-  ln -s $SETUP_DIR/dotfiles/config/swaylock $HOME/.config/.
-fi
+link_dir $DOTFILES_DIR/config/swaylock $HOME/.config/swaylock
 
 # screen saver
 sudo pacman -S --needed asciiquarium
@@ -60,12 +54,8 @@ sudo pacman -S --needed chromium
 
 # screenshots
 sudo pacman -S --needed grim slurp flameshot
-if [ ! -d $HOME/.config/flameshot ]; then
-  ln -s $SETUP_DIR/dotfiles/config/flameshot $HOME/.config/.
-fi
-if [ ! -d $HOME/.config/xdg-desktop-portal ]; then
-  ln -s $SETUP_DIR/dotfiles/config/xdg-desktop-portal $HOME/.config/.
-fi
+# link_dir $DOTFILES_DIR/config/flameshot $HOME/.config/flameshot
+link_dir $DOTFILES_DIR/config/xdg-desktop-portal $HOME/.config/xdg-desktop-portal
 
 # signal
 sudo pacman -S --needed signal-desktop

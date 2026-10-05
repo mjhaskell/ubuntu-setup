@@ -6,7 +6,7 @@
 #   https://wiki.archlinux.org/title/Vulkan
 
 SCRIPT_DIR="$(cd "$(dirname $0)" && pwd)"
-SETUP_DIR="$(cd $SCRIPT_DIR/.. && pwd)"
+SETUP_DIR="$(cd $SCRIPT_DIR/../.. && pwd)"
 
 echo_blue "Installing nvidia"
 
