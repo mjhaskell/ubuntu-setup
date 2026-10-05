@@ -14,8 +14,8 @@ HOST=$(uname -n)
 # NAME="${USR}_${REMOTE}_${USER}_$HOST"
 NAME="${REMOTE_USER}.${REMOTE_HOST}"
 ssh-keygen -t ed25519 -f ~/.ssh/$NAME -C "${USER}.$HOST"
-eval "$(ssh-agent -s)"
-ssh-add ~/.ssh/$NAME
+# eval "$(ssh-agent -s)"
+# ssh-add ~/.ssh/$NAME
 echo_green "ssh key ~/.ssh/$NAME created and added to ssh-agent"
 
 if [ -f /usr/bin/xclip ]; then
