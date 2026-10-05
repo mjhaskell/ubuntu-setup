@@ -23,6 +23,8 @@ pip install --upgrade matplotlib pyside6 abracatabra pyopengl pyqtgraph
 pip install --upgrade control
 
 if [ ! -d $HOME/.ipython/profile_default/startup ]; then
+  # start ipython to create config folder
+  ipython -c exit
   ln -s $SETUP_DIR/dotfiles/apps/ipython/00_imports.py $HOME/.ipython/profile_default/startup/.
 fi
 
