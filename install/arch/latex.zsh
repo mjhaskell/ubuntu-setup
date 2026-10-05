@@ -9,6 +9,7 @@ sudo pacman -S --needed \
     texlive-latex \
     texlive-latexextra \
     texlive-latexrecommended \
+    texlive-bibtexextra \
     texlive-binextra \
     texlive-mathscience \
     texlive-luatex \
