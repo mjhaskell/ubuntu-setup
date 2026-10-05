@@ -142,9 +142,9 @@ bindsym $mod+Shift+T exec $browser --profile-directory=Default --app-id=cifhbcno
 # bindsym $mod+Shift+t exec $browser --profile-directory=Default --app=https://teams.microsoft.com/v2/
 
 # DOC: System: Launch/start screensaver
-bindsym $alt+Ctrl+Z exec screensaver_start
+bindsym $alt+Ctrl+Z exec ~/ubuntu-setup/dotfiles/config/sway/scripts/screensaver_start
 # DOC: System: Stop screensaver
-bindsym $alt+Ctrl+Delete exec screensaver_stop
+bindsym $alt+Ctrl+Delete exec ~/ubuntu-setup/dotfiles/config/sway/scripts/screensaver_stop
 
 # DOC: Apps: Dismiss notification
 bindsym $mod+X exec fnottctl dismiss

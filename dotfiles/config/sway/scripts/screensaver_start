@@ -32,7 +32,8 @@ fi
 # screensaver_stop
 
 ## randomly choose a screensaver command (asciiquarium 2x more likely)
-choices=("asciiquarium" "asciiquarium" "sleep 0.05; cmatrix -s" "ssh starwarstel.net")
+# choices=("asciiquarium" "asciiquarium" "sleep 0.05; cmatrix -s" "ssh starwarstel.net")
+choices=("asciiquarium")
 num_choices=${#choices[@]}
 idx=$(( RANDOM % num_choices ))
 cmd="${choices[$idx]}"
