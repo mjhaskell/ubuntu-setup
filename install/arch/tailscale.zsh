@@ -10,4 +10,4 @@ sudo systemctl enable --now tailscaled.service
 # sudo tailscale up  # log into tailnet for first time
 
 echo_green "Tailscale installed and service enabled"
-echo_purple "use `sudo tailscale up` to log into tailnet"
+echo_purple "use \`sudo tailscale up\` to log into tailnet"
