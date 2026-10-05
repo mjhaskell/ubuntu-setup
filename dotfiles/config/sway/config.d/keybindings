@@ -105,22 +105,23 @@ bindsym $mod+Shift+F fullscreen global
 
 
 # ---------- Application Shortcuts ---------- #
-# DOC: Apps: Terminal
+# DOC: Apps: Launch terminal
 bindsym $mod+Return       exec $term -d none
 # bindsym $mod+Shift+Return exec $term_samedir
 # bindsym $mod+BackSpace    exec $term_day
 # bindsym $mod+BackSpace    exec $term -d none -c ${HOME}/.config/foot/foot_day.ini
 
-# DOC: Apps: Internet browser
+# DOC: Apps: Launch internet browser (chromium)
 bindsym $mod+G       exec $browser
-# DOC: Apps: Internet browser incognito
-# DOC: Apps: Screenshot
-#bindsym $mod+Print exec gnome-screenshot -i
-
-bindsym $mod+Print exec flameshot gui
-bindsym $mod+Ctrl+P exec flameshot gui
-# DOC: Apps: Screenshot
+# DOC: Apps: Launch internet browser incognito
 bindsym $mod+Shift+G exec $browser --incognito
+
+# DOC: Apps: Take screenshot
+bindsym $mod+Print exec flameshot gui
+# DOC: Apps: Take screenshot
+bindsym Print exec flameshot gui
+# DOC: Apps: Take screenshot
+bindsym $mod+Ctrl+P exec flameshot gui
 
 # DOC: Apps: Show Signal
 bindsym $mod+M [app_id="signal"] scratchpad show
