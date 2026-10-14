@@ -1,0 +1,4 @@
+set termguicolors
+set background=dark
+set guifont=Sauce\ Code\ Pro\ Nerd\ Font\ Mono:h12
+colorscheme elflord
