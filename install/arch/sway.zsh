@@ -52,10 +52,24 @@ sudo pacman -S --needed asciiquarium
 sudo pacman -S --needed chromium
 # TODO: figure out how to save and transfer profiles/extensions
 
+# media
+sudo pacman -S --needed pipewire pipewire-alsa wireplumber playerctl bluez bluez-utils
+if systemctl --user status pipewire | grep -q disabled; then
+  systemctl --user enable --now pipewire
+fi
+if systemctl --user status wireplumber | grep -q disabled; then
+  systemctl --user enable --now wireplumber
+fi
+
 # screenshots
+sudo pacman -S --needed --asdeps qt6-multimedia qt6-multimedia-ffmpeg qt6-3d qt6-quick3d qt6-websockets pipewire-jack
 sudo pacman -S --needed grim slurp flameshot
 # link_dir $DOTFILES_DIR/config/flameshot $HOME/.config/flameshot
 link_dir $DOTFILES_DIR/config/xdg-desktop-portal $HOME/.config/xdg-desktop-portal
+
+# notifications
+sudo pacman -S --needed fnott
+link_dir $DOTFILES_DIR/config/fnott $HOME/.config/fnott
 
 # signal
 sudo pacman -S --needed signal-desktop
