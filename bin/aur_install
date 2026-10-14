@@ -1,0 +1,107 @@
+#!/usr/bin/env bash
+# aur_install — clone an AUR package, build it in a clean chroot, and add it
+# to a local pacman repository.
+#
+# Usage: aur_install <pkgname>
+#
+# Dependencies:
+#   - devtools   (provides mkarchroot, makechrootpkg)
+#   - git
+#   - repo-add   (part of pacman)
+#
+# Configuration — edit these to match your setup:
+AUR_DIR="${HOME}/aur"                          # where AUR repos are cloned
+CHROOT_DIR="/var/lib/aurbuild"                 # clean-chroot root (needs root to create)
+REPO_DIR="/srv/http/aur"                       # directory containing your repo db
+REPO_DB="custom.db.tar.gz"                     # repo database filename
+
+set -euo pipefail
+
+# ── helpers ──────────────────────────────────────────────────────────────────
+
+die()  { echo "error: $*" >&2; exit 1; }
+info() { echo "==> $*"; }
+
+# ── argument handling ─────────────────────────────────────────────────────────
+
+[[ $# -eq 1 ]] || die "usage: aur_install <pkgname>"
+PKG="$1"
+AUR_URL="https://aur.archlinux.org/${PKG}.git"
+PKG_DIR="${AUR_DIR}/${PKG}"
+
+# ── preflight checks ──────────────────────────────────────────────────────────
+
+for cmd in git makechrootpkg mkarchroot repo-add; do
+    command -v "$cmd" &>/dev/null || die "'${cmd}' not found — install devtools/pacman"
+done
+
+[[ -d "$REPO_DIR" ]] || die "repo directory '${REPO_DIR}' does not exist"
+[[ -w "$REPO_DIR" ]] || die "repo directory '${REPO_DIR}' is not writable by ${USER}"
+
+# ── clone or update ───────────────────────────────────────────────────────────
+
+mkdir -p "$AUR_DIR"
+
+if [[ -d "${PKG_DIR}/.git" ]]; then
+    info "Updating existing clone of '${PKG}'…"
+    git -C "$PKG_DIR" pull
+else
+    info "Cloning '${PKG}' from AUR…"
+    git clone "$AUR_URL" "$PKG_DIR" || die "could not clone '${AUR_URL}' — does the package exist?"
+fi
+
+# ── review PKGBUILD (optional safety pause) ───────────────────────────────────
+
+echo
+echo "--- PKGBUILD preview (first 40 lines) ---"
+head -n 40 "${PKG_DIR}/PKGBUILD"
+echo "-----------------------------------------"
+echo
+read -r -p "Continue with the build? [y/N] " answer
+[[ "${answer,,}" == "y" ]] || { echo "Aborted."; exit 0; }
+
+# ── set up the clean chroot (once) ───────────────────────────────────────────
+# The base chroot only needs to be created once; subsequent builds reuse it.
+# mkarchroot requires root — we use sudo only for this step.
+
+CHROOT_ROOT="${CHROOT_DIR}/root"
+
+if [[ ! -d "$CHROOT_ROOT" ]]; then
+    info "Creating clean chroot at '${CHROOT_DIR}' (requires sudo)…"
+    sudo mkdir -p "$CHROOT_DIR"
+    sudo mkarchroot "${CHROOT_ROOT}" base-devel
+fi
+
+# ── build in clean chroot ─────────────────────────────────────────────────────
+# makechrootpkg copies the chroot root to a user-named working copy,
+# builds inside it, then discards it — keeping the chroot pristine.
+# The -r flag points to the chroot directory (parent of 'root').
+
+info "Building '${PKG}' in a clean chroot…"
+cd "$PKG_DIR"
+
+# Built packages land in the current directory (PKG_DIR).
+makechrootpkg -c -r "$CHROOT_DIR"
+
+# ── collect built packages ────────────────────────────────────────────────────
+
+# makechrootpkg writes packages next to the PKGBUILD
+mapfile -t PKGS < <(find "$PKG_DIR" -maxdepth 1 -name "*.pkg.tar*" ! -name "*.sig")
+
+[[ ${#PKGS[@]} -gt 0 ]] || die "no built packages found in '${PKG_DIR}'"
+
+# ── copy into repo and update database ───────────────────────────────────────
+
+info "Copying package(s) to '${REPO_DIR}'…"
+DEST_PKGS=()
+for pkg_file in "${PKGS[@]}"; do
+    cp -v "$pkg_file" "${REPO_DIR}/"
+    DEST_PKGS+=("${REPO_DIR}/$(basename "$pkg_file")")
+done
+
+info "Updating repo database '${REPO_DB}'…"
+repo-add "${REPO_DIR}/${REPO_DB}" "${DEST_PKGS[@]}" 
+
+echo
+info "Done! '${PKG}' is now available in your local repo."
+info "Run:  sudo pacman -Syu && sudo pacman -S ${PKG}"
