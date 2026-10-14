@@ -177,6 +177,8 @@ alias cmaker='cmake -DCMAKE_BUILD_TYPE=Release'
 alias qgc='QGroundControl'
 alias srosrc='source ~/.rosrc'
 alias vrosrc='nvim ~/.rosrc'
+alias claude-personal='CLAUDE_CONFIG_DIR=$HOME/.claude-personal claude'
+alias claude-work='CLAUDE_CONFIG_DIR=$HOME/.claude-work claude'
 
 # location specific aliases
 if [ -d ~/STM32CubeMX ]; then
