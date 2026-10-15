@@ -1,6 +1,23 @@
 nerdFontsVersion: "3"
 git:
   diffRenderers:
-    - colorArg: always
-      # pager: delta --dark --paging=never --hyperlinks --line-numbers
-      command: delta --paging=never --hyperlinks --line-numbers
+    - command: delta --{{colorScheme}} --paging=never --hyperlinks --line-numbers
+      name: delta 1-col
+    - command: delta --{{colorScheme}} --paging=never --color-only
+      name: delta color-only
+    - command: delta --{{colorScheme}} --paging=never --hyperlinks --line-numbers --side-by-side
+      name: delta 2-col
+    # - command: delta --{{colorScheme}} --paging=never --hyperlinks --line-numbers --diff-so-fancy
+    #   name: delta fancy
+    # - command: diff-so-fancy
+    #   name: diff-so-fancy
+    # - type: extDiff
+    #   command: difft --color=always --background={{colorScheme}} --context={{diffContext}}
+    # - type: rawGit
+    #   args: [--color-words]
+    #   name: color-words
+    # - type: rawGit
+    #   args: [-w]
+    #   name: whitespace
+    # - type: rawGit # git's default diff
+    #   name: default

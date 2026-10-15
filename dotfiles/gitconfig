@@ -23,10 +23,10 @@
     ;   $ delta --show-syntax-themes
     ; syntax-theme = gruvbox-dark, TwoDark, Coldark-Dark
     syntax-theme = Dracula
-    line-numbers = true
-    side-by-side = true
-    navigate = true
-    dark = true
+    ; line-numbers = true
+    ; side-by-side = true
+    ; navigate = true
+    ; dark = true
 [merge]
     conflictStyle = zdiff3
 [alias]
