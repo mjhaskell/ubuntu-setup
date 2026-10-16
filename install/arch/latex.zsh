@@ -14,6 +14,7 @@ sudo pacman -S --needed \
     texlive-mathscience \
     texlive-luatex \
     texlive-fontsextra \
+    texlive-plaingeneric \
     biber
 
 echo_green "LaTeX installed"
